@@ -6,5 +6,8 @@ module BestQuizBattleEver {
 
     // är de tomma package adda ej!
     opens ClientProgram;
+    opens ClientProgram.GUI;
+    opens ClientProgram.GUI.controller;
     opens view;
+    opens images;
 }

@@ -1,4 +1,4 @@
-package ClientProgram;
+package ClientProgram.GUI;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ public class main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/mainGameScreen.fxml"));
         stage.setTitle("LoginMain");
         stage.setScene(new Scene(root));
         stage.show();

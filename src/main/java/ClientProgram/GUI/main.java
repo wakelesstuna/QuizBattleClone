@@ -9,11 +9,11 @@ import javafx.stage.Stage;
 public class main extends Application {
 
     @Override
-    public void start(Stage stage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/mainGameScreen.fxml"));
-        stage.setTitle("LoginMain");
-        stage.setScene(new Scene(root));
-        stage.show();
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/login.fxml"));
+        primaryStage.setTitle("BestQuizBattleEver");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

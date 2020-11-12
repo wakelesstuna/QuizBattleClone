@@ -10,4 +10,5 @@ module BestQuizBattleEver {
     opens ClientProgram.GUI.controller;
     opens view;
     opens images;
+    opens images.advertising;
 }

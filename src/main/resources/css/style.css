@@ -1,0 +1,13 @@
+.pane{
+    -fx-background-color: #76DBFF;
+}
+.home-top-bar{
+    -fx-background-color: #62A4FF;
+    -fx-effect: dropshadow(three-pass-box, WHITE, 50, 0.0, 0, 1);
+}
+.home-bar{
+    -fx-background-color: #D1FDFF;
+}
+.start-button{
+    -fx-background-color: #4BFF1C;
+}

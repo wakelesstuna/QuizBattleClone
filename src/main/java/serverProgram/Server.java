@@ -17,9 +17,13 @@ public class Server {
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());){
 
             Object fromClient;
-            Object fromServer;
+            //Object fromServer;
+            String fromServer = "Hej från servern!";
+
+            out.writeObject(fromServer);
 
             while ((fromClient = (Integer)in.readObject()) != null) {
+                System.out.println(fromClient);
                 //out.writeObject((Integer)fromClient);
             }
 
@@ -29,4 +33,9 @@ public class Server {
             e.printStackTrace();
         }
     }
+
+    public static void main(String[] args) {
+        Server s = new Server();
+    }
+
 }

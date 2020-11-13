@@ -53,4 +53,8 @@ public class Client {
         }
     }
 
+    public static void main(String[] args) throws UnknownHostException {
+        Client c = new Client();
+    }
+
 }

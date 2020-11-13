@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="newGame" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientProgram.GUI.controller.NewGameController">
    <children>
       <BorderPane layoutX="62.0" layoutY="182.0" prefHeight="600.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -64,7 +63,7 @@
                <children>
                   <Pane prefHeight="98.0" prefWidth="400.0">
                      <children>
-                        <Button fx:id="randomPlayer" layoutX="31.0" layoutY="17.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="341.0" styleClass="start-button" stylesheets="@../css/style.css" text="Random player">
+                        <Button fx:id="randomPlayer" layoutX="31.0" layoutY="17.0" mnemonicParsing="false" onAction="#loadNewGame" prefHeight="64.0" prefWidth="341.0" styleClass="start-button" stylesheets="@../css/style.css" text="Random player">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>

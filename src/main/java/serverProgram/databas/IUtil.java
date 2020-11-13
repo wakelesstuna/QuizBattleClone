@@ -33,10 +33,10 @@ public class IUtil {
                 answerChoices.add(in.nextLine());
 
                 Question q = new Question(question, correctAnswer, answerChoices);
-                System.out.println("------Läsa in data--------");
+               /* System.out.println("------Läsa in data--------");
                 System.out.println(q.getQuestion());
                 System.out.println(q.getCollectAnswer());
-                System.out.println(q.getAnswerChoices());
+                System.out.println(q.getAnswerChoices());*/
                 questionList.add(q);
 
             }

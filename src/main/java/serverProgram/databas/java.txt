@@ -1,0 +1,10 @@
+Vem är grundare till Java?
+James Gosling
+Bjarne Stroustrup
+Guido van Rossum
+Joe Biden
+Hur många primitiva datatyper finns det i Java?
+8
+6
+10
+4

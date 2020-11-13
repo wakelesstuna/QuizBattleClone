@@ -3,22 +3,31 @@ package ClientProgram.GUI.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
-
 public class MainGameController {
+
+    ControllerUtil c = new ControllerUtil();
+    Class<?> currentClass = getClass();
 
     @FXML
     private AnchorPane mainGame;
 
     @FXML
+    private Label userNameLabel;
+
+    @FXML
     private Button startNewGameBtn;
 
-    public void loadNewGame(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getClassLoader().getResource("view/newGame.fxml"));
+    public void loadNewGame(ActionEvent event) {
+        AnchorPane pane = c.loadFMXLFiles(currentClass, "newGame");
+        mainGame.getChildren().setAll(pane);
+    }
+
+    public void logout(){
+        AnchorPane pane = c.loadFMXLFiles(currentClass, "login");
         mainGame.getChildren().setAll(pane);
     }
 

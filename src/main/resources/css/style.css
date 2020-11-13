@@ -11,3 +11,6 @@
 .start-button{
     -fx-background-color: #4BFF1C;
 }
+.logout-button{
+    -fx-background-color: #FF3F44;
+}

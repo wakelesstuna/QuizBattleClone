@@ -17,13 +17,10 @@ import java.util.Scanner;
 
 
 public class IUtil {
-    public static List<Question> readDataFromFile(String category) {
+    public static List<Question> readDataFromFile(Path filePath) {
         String question;
         String correctAnswer;
-        Path filePath;
         List<Question> questionList = new ArrayList<>();
-
-        filePath = Paths.get("src/main/java/serverProgram/databas/" + category + ".txt");
 
         try (Scanner in = new Scanner(filePath)) {
             while (in.hasNext()) {

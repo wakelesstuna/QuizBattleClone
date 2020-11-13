@@ -38,4 +38,11 @@ public class Question {
     public List<String> getAnswerChoices() {
         return answerChoices;
     }
+
+    public boolean checkAnswer(String userChoice) {
+        if(collectAnswer.equals(userChoice)) {
+            return true;
+        }
+        return false;
+    }
 }

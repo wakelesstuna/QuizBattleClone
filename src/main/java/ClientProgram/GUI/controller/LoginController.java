@@ -1,5 +1,7 @@
 package ClientProgram.GUI.controller;
 
+import ClientProgram.GUI.ControllerUtil;
+import ClientProgram.GUI.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -18,7 +20,9 @@ public class LoginController {
     private AnchorPane login;
 
     public void loadMainGame(ActionEvent event) {
-        AnchorPane pane = c.loadFMXLFiles(currentClass, "mainGame");
+        // för att sätt spelaren namn till en static variabel
+        Main.playerName = userName.getText();
+        AnchorPane pane = c.loadFMXLFiles(currentClass, "gameMenu");
         login.getChildren().setAll(pane);
     }
 

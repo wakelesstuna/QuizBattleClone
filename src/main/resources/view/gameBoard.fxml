@@ -94,12 +94,12 @@
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="youScore" alignment="CENTER" contentDisplay="CENTER" text="1" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <Label fx:id="youScore" alignment="CENTER" contentDisplay="CENTER" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="opponentScore" alignment="CENTER" contentDisplay="CENTER" text="1" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                              <Label fx:id="opponentScore" alignment="CENTER" contentDisplay="CENTER" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>

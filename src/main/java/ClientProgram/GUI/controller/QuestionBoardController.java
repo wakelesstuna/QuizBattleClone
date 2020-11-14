@@ -47,7 +47,6 @@ public class QuestionBoardController implements Initializable {
     private Button answer4;
 
 
-
     //för att skicka den knapp man har tryckt på till server
     public void answerButton(ActionEvent ae){
 
@@ -101,6 +100,7 @@ public class QuestionBoardController implements Initializable {
             GameBoardController.numberOfQuestions--;
         }
     }
+
 
     public void makeTestQuestion(){
         question = new Question("Vem grundade Java?", "James Gosling", testAnswerList);

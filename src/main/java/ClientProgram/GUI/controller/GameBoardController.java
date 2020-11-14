@@ -18,26 +18,25 @@ public class GameBoardController implements Initializable {
     Class<?> currentClass = getClass();
 
     public static String opponent = "opponent"; // hämta motståndarnamn från servern
-    public static int opponentPoints = 0;       // hämta motståndarscore från servern
+    public static int opponentPoints = 1;       // hämta motståndarscore från servern
 
     public static int numberOfRounds = 2; // sätt dessa med proptiesfil
     public static int numberOfQuestions = 2; // sätt dessa med proptiesfil
 
     public static int currentRound = 1;
-    public static int gameRoundScore = 2;
+    public static int gameRoundScore = 0;
     public static int gameTotalScore = 0;
 
     //public static Question currentQuestion; // här sätter vi frågan frpom servern
-
 
     @FXML
     private AnchorPane gameBoard;
 
     @FXML
-    public static Button playButton;
+    public Button playButton;
 
     @FXML
-    public static Button endGame;
+    public Button endGame;
 
     @FXML
     private Label rounds;
@@ -60,10 +59,10 @@ public class GameBoardController implements Initializable {
     // player1 scoreButtons
 
     @FXML
-    private Button p1R1Q1;
+    public static Button p1R1Q1;
 
     @FXML
-    private Button p1R1Q2;
+    public static Button p1R1Q2;
 
     @FXML
     private Button p1R1Q3;
@@ -118,13 +117,18 @@ public class GameBoardController implements Initializable {
 
     public void loadQuestion(){
         if (numberOfRounds == 0) {
+            currentRound--;
+            System.out.println(currentRound);
             AnchorPane pane = c.loadFMXLFiles(currentClass, "finalResults");
             gameBoard.getChildren().setAll(pane);
         }else{
             // här behöver vi kolla vem av dom 2 spelarna som ska välja kategori
             AnchorPane pane = c.loadFMXLFiles(currentClass, "categoryChoiceBoard");
             gameBoard.getChildren().setAll(pane);
-            currentRound++;
+            if (currentRound == 1){
+                currentRound++;
+            }
+            System.out.println(currentRound);
             numberOfRounds--;
         }
     }
@@ -141,5 +145,9 @@ public class GameBoardController implements Initializable {
         youScore.setText("" + gameRoundScore);
         opponentName.setText(opponent);
         opponentScore.setText("" + opponentPoints);
+        System.out.println(numberOfRounds);
+        if (numberOfRounds == 0){
+            playButton.setText("End Game");
+        }
     }
 }

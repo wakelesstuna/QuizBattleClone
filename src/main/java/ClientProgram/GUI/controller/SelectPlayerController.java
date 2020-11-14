@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 
 
-public class selectPlayerController {
+public class SelectPlayerController {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();

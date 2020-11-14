@@ -12,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class gameMenuController implements Initializable {
+public class GameMenuController implements Initializable {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();

@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class gameBoardController implements Initializable {
+public class GameBoardController implements Initializable {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();
@@ -23,6 +23,7 @@ public class gameBoardController implements Initializable {
     public static int numberOfRounds = 2; // sätt dessa med proptiesfil
     public static int numberOfQuestions = 2; // sätt dessa med proptiesfil
 
+    public static int currentRound = 1;
     public static int gameRoundScore = 2;
     public static int gameTotalScore = 0;
 

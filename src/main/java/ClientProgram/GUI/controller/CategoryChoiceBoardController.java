@@ -5,7 +5,7 @@ import ClientProgram.GUI.Main;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 
-public class categoryChoiceBoardController {
+public class CategoryChoiceBoardController {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();

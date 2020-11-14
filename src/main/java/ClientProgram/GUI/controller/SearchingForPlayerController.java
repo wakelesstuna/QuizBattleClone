@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class searchingForPlayerController implements Initializable {
+public class SearchingForPlayerController implements Initializable {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();

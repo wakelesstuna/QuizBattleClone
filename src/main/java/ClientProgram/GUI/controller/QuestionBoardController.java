@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class questionBoardController implements Initializable {
+public class QuestionBoardController implements Initializable {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();
@@ -76,15 +76,15 @@ public class questionBoardController implements Initializable {
 
     public void nextQuestion(){
         // om de finns en fråga till skicka den från servern
-        if (gameBoardController.numberOfQuestions == 1) {
+        if (GameBoardController.numberOfQuestions == 1) {
             // ladda en FinalScoreBoard med slutresultat
             AnchorPane pane = c.loadFMXLFiles(currentClass, "gameBoard");
             questionBoard.getChildren().setAll(pane);
-            gameBoardController.numberOfQuestions = 2; // sätt detta med properties
+            GameBoardController.numberOfQuestions = 2; // sätt detta med properties
         } else {
             AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
             questionBoard.getChildren().setAll(pane);
-            gameBoardController.numberOfQuestions--;
+            GameBoardController.numberOfQuestions--;
         }
     }
 

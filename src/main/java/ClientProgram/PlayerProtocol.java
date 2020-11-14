@@ -13,5 +13,16 @@ public class PlayerProtocol {
 
             GameBoardController.currentQuestion = question;
         }
+        else if(objFromServer instanceof Scores){
+            Scores score = (Scores) objFromServer;
+
+            Class Scores{
+            player 1 totalscore;
+            player 2 totalscore;
+            }
+
+
+
+        }
     }*/
 }

@@ -13,6 +13,8 @@ public class FinalResultsController {
     private AnchorPane finalScore;
 
     public void loadGameMenu(){
+        GameBoardController.currentRound = 1;
+        GameBoardController.numberOfRounds = 2; // reset the round count with
         AnchorPane pane = c.loadFMXLFiles(currentClass, "gameMenu");
         finalScore.getChildren().setAll(pane);
     }

@@ -2,6 +2,7 @@ package ClientProgram.GUI.controller;
 
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
+import Model.Question;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +23,7 @@ public class QuestionBoardController implements Initializable {
 
     List<Button> answerButtonsList = new ArrayList<>();
     List<String> testAnswerList = new ArrayList<>();
+    Question question;
 
     @FXML
     private AnchorPane questionBoard;
@@ -54,19 +56,30 @@ public class QuestionBoardController implements Initializable {
         }
 
         Button pressedbtn = (Button) ae.getSource();
-        pressedbtn.setStyle("-fx-background-color: greenyellow");
+
+        if (pressedbtn.getText().equals(question.getCollectAnswer())){
+            pressedbtn.setStyle("-fx-background-color: greenyellow");
+
+            // addar 1 poäng till din score
+            GameBoardController.gameRoundScore = GameBoardController.gameRoundScore + 1;
+            GameBoardController.gameTotalScore = GameBoardController.gameTotalScore + 1;
+        }else {
+            pressedbtn.setStyle("-fx-background-color: firebrick");
+        }
         /*
         if (pressedbtn.getText().equals(question.getCorrectAnser)){
             pressedbtn.setStyle("-fx-background-color: greenyellow");
 
             // addar 1 poäng till din score
-            gameBoardController.gameRoundScore = gameBoardController.gameRoundScore + 1;
+            GameBoardController.gameRoundScore = GameBoardController.gameRoundScore + 1;
+            GameBoardController.gameTotalScore = GameBoardController.gameTotalScore + 1;
             // skicka dina poäng till server
             new Request(SEND_SCORE, gameBoardController.gameRoundScore);
         }else {
             pressedbtn.setStyle("-fx-background-color: firebrick");
         }
         */
+
 
         String answer = pressedbtn.getText();
 
@@ -84,30 +97,37 @@ public class QuestionBoardController implements Initializable {
         } else {
             AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
             questionBoard.getChildren().setAll(pane);
+            // här måste vi fråga servern om en ny fråga
             GameBoardController.numberOfQuestions--;
         }
     }
 
+    public void makeTestQuestion(){
+        question = new Question("Vem grundade Java?", "James Gosling", testAnswerList);
+    }
+
     public void testAnswerList(){
-        String answer = "Här kommer";
+        String answer = "James Gosling";
         testAnswerList.add(answer);
-        answer = "Frågorna";
+        answer = "Oscar Forss";
         testAnswerList.add(answer);
-        answer = "Från servern";
+        answer = "Mahmud";
         testAnswerList.add(answer);
-        answer = "Java ÄGER";
+        answer = "Sigrun";
         testAnswerList.add(answer);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         categoryLabel.setText(categoryLabel.getText() + Main.categoryName);
+        testAnswerList();
+        makeTestQuestion();
 
         // här skickas frågan från servern
         // man plockar ut frågan och sätter den till questionfield
         // sen sätter man svaren till knapparna
 
-        questionField.setText("Här kommer frågorna laddas från servern");
+        questionField.setText(question.getQuestion());
 
         answerButtonsList.add(answer1);
         answerButtonsList.add(answer2);

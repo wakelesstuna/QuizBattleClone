@@ -75,6 +75,9 @@
                      <effect>
                         <DropShadow color="#0b68d6" />
                      </effect>
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
                   </TextField>
                   <GridPane prefHeight="185.0" prefWidth="400.0">
                     <columnConstraints>

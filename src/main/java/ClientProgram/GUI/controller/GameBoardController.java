@@ -27,6 +27,7 @@ public class GameBoardController implements Initializable {
     public static int gameRoundScore = 2;
     public static int gameTotalScore = 0;
 
+    //public static Question currentQuestion; // här sätter vi frågan frpom servern
 
 
     @FXML
@@ -37,6 +38,9 @@ public class GameBoardController implements Initializable {
 
     @FXML
     public static Button endGame;
+
+    @FXML
+    private Label rounds;
 
     @FXML
     private Label youScore;
@@ -120,6 +124,7 @@ public class GameBoardController implements Initializable {
             // här behöver vi kolla vem av dom 2 spelarna som ska välja kategori
             AnchorPane pane = c.loadFMXLFiles(currentClass, "categoryChoiceBoard");
             gameBoard.getChildren().setAll(pane);
+            currentRound++;
             numberOfRounds--;
         }
     }
@@ -131,6 +136,7 @@ public class GameBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        rounds.setText("Round " + currentRound);
         youName.setText(Main.playerName);
         youScore.setText("" + gameRoundScore);
         opponentName.setText(opponent);

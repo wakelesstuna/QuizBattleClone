@@ -1,18 +1,11 @@
 package serverProgram.databas;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Toshiko Kuno
- * Date: 2020-11-13
- * Time: 10:12
- * Project: IntelliJ IDEA
- * Copyright: MIT
- */
 
-
-public class Question {
+public class Question implements Serializable {
     private String question;
     private String collectAnswer;
     private List<String> answerChoices;

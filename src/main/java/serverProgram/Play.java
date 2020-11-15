@@ -1,38 +1,43 @@
 package serverProgram;
 
+import serverProgram.databas.Category;
+import serverProgram.databas.Database;
 import serverProgram.databas.Question;
-import serverProgram.databas.databas;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 
-/**
- * Created by Toshiko Kuno
- * Date: 2020-11-13
- * Time: 16:18
- * Project: IntelliJ IDEA
- * Copyright: MIT
- */
-
+import java.util.*;
 
 public class Play {
-    private List<Question> questionList;
+    private List<Question> questions = new ArrayList<>();
     private int correctAnswerCount;
 
     public Play() {
+        Database db = new Database();
+
+        List<Category> categories = db.getCategories();
+        List<String> categoriesList = new ArrayList<>();
+
+        //Lägg alla kategorier i categoriesList
+        for(Category category : categories) {
+            categoriesList.add(category.getCategoryName());
+        }
+
+        //Shuffle categorier
+        Collections.shuffle(categoriesList);
+
+        //Hämta ut 3 slumpa kategorier
         System.out.println("Välj ett kategori");
-        System.out.println("1. java");
-        System.out.println("2. geografi");
-        System.out.println("3. litteratur");
-        System.out.println("4. musik");
-        System.out.println("5. sport");
+        for (int i = 0; i < 3; i++) {
+            System.out.println(categoriesList.get(i));
+        }
+
 
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
             try {
-                int userChoice = in.nextInt();
-                String userChoiceCategory = getCategory(userChoice);
-                startGame(userChoiceCategory);
+                String userChoice = in.nextLine();
+                //Hämta ut frågor från valda kategori
+                questions = db.getQuestions(userChoice);
+                showNextQuestion();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -41,46 +46,15 @@ public class Play {
 
     }
 
-    public String getCategory(int userChoice) {
-        String userChoiceCategory;
-        switch (userChoice) {
-            case 1:
-                userChoiceCategory = "java";
-                break;
-            case 2:
-                userChoiceCategory = "geografi";
-                break;
-            case 3:
-                userChoiceCategory = "litteratur";
-                break;
-            case 4:
-                userChoiceCategory = "musik";
-                break;
-            case 5:
-                userChoiceCategory = "sport";
-                break;
-            default:
-                userChoiceCategory = null;
-                break;
-        }
-        return userChoiceCategory;
-    }
-
-    public void startGame(String category) {
-        databas db = new databas();
-        questionList = db.getQuestionsList(category);
-        showNextQuestion();
-    }
-
 
     public void showNextQuestion() {
 
-        if (questionList.size() != 0) {
+        if (questions.size() != 0) {
 
             //Hämta en slumpa fråga från kategoriet
             Random random = new Random();
-            int randomNum = random.nextInt(questionList.size());
-            Question quiz = questionList.get(randomNum);
+            int randomNum = random.nextInt(questions.size());
+            Question quiz = questions.get(randomNum);
 
             //Shuffle choices
             quiz.shuffleAnswerChoices();
@@ -98,7 +72,7 @@ public class Play {
                     System.out.println("FEEL!!");
                 }
                 //Ta bort frågan från lista
-                questionList.remove(randomNum);
+                questions.remove(randomNum);
                 //Visa en ny fråga
                 showNextQuestion();
             }

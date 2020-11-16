@@ -7,7 +7,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+
 
 public class Database {
     private String questionPath = "src/main/java/serverProgram/databas/questions";
@@ -55,8 +58,14 @@ public class Database {
         return tempQuestion;
     }
 
-    public static List<Category> getCategories() {
-        return categories;
+    //Hämta ut slumpa kategorier namn
+    public static List<String> getCategories(int numberOfCategories) {
+        Collections.shuffle(categories);
+        List<String> tempCat = new ArrayList<>();
+        for (int i = 0; i < numberOfCategories; i++) {
+            tempCat.add(categories.get(i).getCategoryName());
+        }
+        return tempCat;
     }
 
 }

@@ -1,6 +1,5 @@
 package serverProgram;
 
-import serverProgram.databas.Category;
 import serverProgram.databas.Database;
 import serverProgram.databas.Question;
 
@@ -13,23 +12,12 @@ public class Play {
     public Play() {
         Database db = new Database();
 
-        List<Category> categories = db.getCategories();
-        List<String> categoriesList = new ArrayList<>();
+        List<String> categories = db.getCategories(3);
 
-        //Lägg alla kategorier i categoriesList
-        for(Category category : categories) {
-            categoriesList.add(category.getCategoryName());
+        //SKriver ut 3 slumpakategorier namn
+        for(String category: categories) {
+            System.out.println(category);
         }
-
-        //Shuffle categorier
-        Collections.shuffle(categoriesList);
-
-        //Hämta ut 3 slumpa kategorier
-        System.out.println("Välj ett kategori");
-        for (int i = 0; i < 3; i++) {
-            System.out.println(categoriesList.get(i));
-        }
-
 
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {

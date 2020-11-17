@@ -1,5 +1,6 @@
 package ClientProgram.GUI;
 
+import Model.Question;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -7,10 +8,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class Main extends Application {
 
     public static String playerName = "playerName";
     public static String categoryName = "";
+    public static int currentRound = 1;
+    public static int currentQuestion = 1;
+    public static List<Question> questionsList;
 
 
     @Override

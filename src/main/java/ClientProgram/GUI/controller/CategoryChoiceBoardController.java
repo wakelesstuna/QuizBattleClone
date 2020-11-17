@@ -3,15 +3,24 @@ package ClientProgram.GUI.controller;
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
-public class CategoryChoiceBoardController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CategoryChoiceBoardController implements Initializable {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();
 
     @FXML
     private AnchorPane categoryChoiceBoard;
+
+
+    @FXML
+    private Button java;
 
 
     public void geography(){
@@ -47,5 +56,15 @@ public class CategoryChoiceBoardController {
         Main.categoryName = " Sports";
         AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
         categoryChoiceBoard.getChildren().setAll(pane);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (Main.categoryName.equals(" Java")){
+            java.setVisible(false);
+        }else if (Main.categoryName.equals(" Java")){
+
+        }
+
     }
 }

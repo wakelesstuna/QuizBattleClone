@@ -114,6 +114,8 @@ public class GameBoardController implements Initializable {
     @FXML
     private Button p2R3Q3;
 
+    // TODO: 2020-11-17 ta bort knappar byt ut till siffror beroende på hur många rundor de blir
+
 
     public void loadQuestion(){
         if (numberOfRounds == 0) {

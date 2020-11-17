@@ -23,6 +23,7 @@ public class QuestionBoardController implements Initializable {
 
     List<Button> answerButtonsList = new ArrayList<>();
     List<String> testAnswerList = new ArrayList<>();
+    List<String> testAnswerList2 = new ArrayList<>();
     Question question;
 
     @FXML
@@ -62,8 +63,11 @@ public class QuestionBoardController implements Initializable {
             // addar 1 poäng till din score
             GameBoardController.gameRoundScore = GameBoardController.gameRoundScore + 1;
             GameBoardController.gameTotalScore = GameBoardController.gameTotalScore + 1;
+
+            // skicka till servern att man är redo for nästa runda
         }else {
             pressedbtn.setStyle("-fx-background-color: firebrick");
+            // skicka till serven att man är redo för nästa runda
         }
         /*
         if (pressedbtn.getText().equals(question.getCorrectAnser)){
@@ -94,16 +98,24 @@ public class QuestionBoardController implements Initializable {
             questionBoard.getChildren().setAll(pane);
             GameBoardController.numberOfQuestions = 2; // sätt detta med properties
         } else {
+            Main.currentQuestion++;
             AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
             questionBoard.getChildren().setAll(pane);
             // här måste vi fråga servern om en ny fråga
             GameBoardController.numberOfQuestions--;
+
         }
     }
 
 
-    public void makeTestQuestion(){
-        question = new Question("Vem grundade Java?", "James Gosling", testAnswerList);
+    public List<Question> makeTestQuestion(){
+        Question question1 = new Question("Vem grundade Java?", "James Gosling", testAnswerList);
+        Question question2 = new Question("Vad hette Java från början?", "Oak", testAnswerList2 );
+        List<Question> tempList = new ArrayList<>();
+        tempList.add(question1);
+        tempList.add(question2);
+        return tempList;
+
     }
 
     public void testAnswerList(){
@@ -115,6 +127,26 @@ public class QuestionBoardController implements Initializable {
         testAnswerList.add(answer);
         answer = "Sigrun";
         testAnswerList.add(answer);
+        answer = "Oak";
+        testAnswerList2.add(answer);
+        answer = "Latte";
+        testAnswerList2.add(answer);
+        answer = "Microsoft";
+        testAnswerList2.add(answer);
+        answer = "JavaScript";
+        testAnswerList2.add(answer);
+
+    }
+
+    public Question checkRund(List<Question> list){
+
+        if (Main.currentRound == 1 && Main.currentQuestion == 1)
+            return list.get(0);
+        else if (Main.currentRound == 1 && Main.currentQuestion == 2)
+            return list.get(1);
+        else
+            return null;
+
     }
 
     @Override
@@ -123,9 +155,17 @@ public class QuestionBoardController implements Initializable {
         testAnswerList();
         makeTestQuestion();
 
+
         // här skickas frågan från servern
         // man plockar ut frågan och sätter den till questionfield
         // sen sätter man svaren till knapparna
+
+       // question = checkRund(makeTestQuestion());
+        System.out.println("cueent Q " + Main.currentQuestion);
+        if (Main.currentQuestion == 1)
+            question = makeTestQuestion().get(0);
+        else
+            question = makeTestQuestion().get(1);
 
         questionField.setText(question.getQuestion());
 
@@ -134,10 +174,10 @@ public class QuestionBoardController implements Initializable {
         answerButtonsList.add(answer3);
         answerButtonsList.add(answer4);
 
-        testAnswerList();
+
 
         for (int i = 0; i < answerButtonsList.size(); i++) {
-            answerButtonsList.get(i).setText(testAnswerList.get(i));
+            answerButtonsList.get(i).setText(question.getAnswerChoices().get(i));
         }
 
         // TODO: 2020-11-13 Detta funkar super bra :D

@@ -18,18 +18,18 @@ public class Database {
 
     public Database() {
         try (DirectoryStream<Path> files = Files.newDirectoryStream(questionPath)) {
-            //Läser in alla kategori filer i questions mappen
+            //Läser in alla kategori filer som ligger i questions mappen
             for (Path file : files) {
                 String categoryName = removeFileExtention(file);
-                Category category = new Category(categoryName);
-
-                //Lägga alla kategorier i en lista
-                categories.add(category);
 
                 //Läser in frågor
                 List<Question> questions = DatabaseHandler.readDataFromFile(file);
-                //Lägga Question objekt i category class
-                category.setQuestions(questions);
+
+                //Skapa Category objekt
+                Category category = new Category(categoryName, questions);
+
+                //Lägga kategori objekt i en lista
+                categories.add(category);
             }
         } catch (IOException e) {
             System.out.println("Det gick inte att läsa in");

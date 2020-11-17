@@ -6,11 +6,8 @@ public class Category {
     private String categoryName;
     private List<Question> questions;
 
-    Category(String cateogryName){
+    Category(String cateogryName, List<Question> questions){
         this.categoryName = cateogryName;
-    }
-
-    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 

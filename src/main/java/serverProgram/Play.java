@@ -1,9 +1,7 @@
 package serverProgram;
 
-import serverProgram.databas.Category;
 import serverProgram.databas.Database;
 import serverProgram.databas.Question;
-
 import java.util.*;
 
 public class Play {
@@ -11,32 +9,22 @@ public class Play {
     private int correctAnswerCount;
 
     public Play() {
+        //Starta databas
         Database db = new Database();
 
-        List<Category> categories = db.getCategories();
-        List<String> categoriesList = new ArrayList<>();
+        List<String> categories = db.getCategories(3);
 
-        //Lägg alla kategorier i categoriesList
-        for(Category category : categories) {
-            categoriesList.add(category.getCategoryName());
+        //SKriver ut 3 slumpakategorier namn
+        for (String category : categories) {
+            System.out.println(category);
         }
-
-        //Shuffle categorier
-        Collections.shuffle(categoriesList);
-
-        //Hämta ut 3 slumpa kategorier
-        System.out.println("Välj ett kategori");
-        for (int i = 0; i < 3; i++) {
-            System.out.println(categoriesList.get(i));
-        }
-
 
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
             try {
                 String userChoice = in.nextLine();
                 //Hämta ut frågor från valda kategori
-                questions = db.getQuestions(userChoice);
+                questions = db.getQuestions(db.getCategoryIndex(userChoice), 2);
                 showNextQuestion();
 
             } catch (Exception e) {
@@ -51,10 +39,7 @@ public class Play {
 
         if (questions.size() != 0) {
 
-            //Hämta en slumpa fråga från kategoriet
-            Random random = new Random();
-            int randomNum = random.nextInt(questions.size());
-            Question quiz = questions.get(randomNum);
+            Question quiz = questions.get(0);
 
             //Shuffle choices
             quiz.shuffleAnswerChoices();
@@ -70,9 +55,10 @@ public class Play {
                     correctAnswerCount++;
                 } else {
                     System.out.println("FEEL!!");
+                    System.out.println("Rättsvar är: " + quiz.getCollectAnswer());
                 }
                 //Ta bort frågan från lista
-                questions.remove(randomNum);
+                questions.remove(0);
                 //Visa en ny fråga
                 showNextQuestion();
             }

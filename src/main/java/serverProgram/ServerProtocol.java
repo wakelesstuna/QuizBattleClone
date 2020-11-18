@@ -1,5 +1,7 @@
 package serverProgram;
 
+import javafx.scene.effect.ImageInput;
+
 import java.io.FileInputStream;
 import java.util.Properties;
 
@@ -27,5 +29,21 @@ public class ServerProtocol {
             this.questionsPerRound = 2;
             e.printStackTrace();
         }
+    }
+
+    public int getRoundsPerGame() {
+        return roundsPerGame;
+    }
+
+    public int getQuestionsPerRound() {
+        return questionsPerRound;
+    }
+
+    public static void main(String[] args) {
+        // test the reading from propfile
+        ServerProtocol s = new ServerProtocol();
+        System.out.println(s.getRoundsPerGame());
+        System.out.println(s.getQuestionsPerRound());
+
     }
 }

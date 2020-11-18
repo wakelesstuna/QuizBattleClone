@@ -1,4 +1,4 @@
-package ClientProgram.GUI.controller;
+package ClientProgram.GUI;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;

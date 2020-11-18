@@ -1,41 +1,37 @@
 package serverProgram;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import assets.IPort;
+
 import java.net.ServerSocket;
-import java.net.Socket;
 
-public class Server {
+public class Server implements IPort {
 
-    private int port = 12345;
+    private final int playersPerGame = 2;
+    ServerSocket serverSocket;
 
-    public Server(){
-        try(ServerSocket serverSocket = new ServerSocket(port);
-            Socket socket = serverSocket.accept();
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());){
+    public Server() {
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            this.serverSocket = serverSocket;
+            System.out.println("BestQuizEverServer is Running on Port " + PORT);
+            Game game = new Game();
+            ServerProtocol serverProtocol = new ServerProtocol();
 
-            Object fromClient;
-            //Object fromServer;
-            String fromServer = "Hej från servern!";
+            while (!serverSocket.isClosed()) {
+                for (int i = 1; i < playersPerGame + 1; i++) {
+                   new Player(serverSocket.accept(), serverProtocol, game, i);
+                   System.out.println("Player " + i);
 
-            out.writeObject(fromServer);
-
-            while ((fromClient = (Integer)in.readObject()) != null) {
-                System.out.println(fromClient);
-                //out.writeObject((Integer)fromClient);
+                }
             }
 
-        }catch(IOException e){
-            e.printStackTrace();
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch (Exception e) {
+            System.out.println("Player disconnected");
         }
     }
 
     public static void main(String[] args) {
-        Server s = new Server();
+        new Server();
     }
+
 
 }

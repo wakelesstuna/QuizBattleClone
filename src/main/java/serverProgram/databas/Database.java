@@ -53,25 +53,32 @@ public class Database {
     //Hämta ut index av vald kategori från categories lista
     public int getCategoryIndex(String categoryName) {
         for (int i = 0; i < categories.size(); i++) {
-            if(categories.get(i).getCategoryName().equalsIgnoreCase(categoryName))
+            if (categories.get(i).getCategoryName().equalsIgnoreCase(categoryName))
                 return i;
         }
         return 0;
     }
 
+    //Hämta ut Questionlistan
+    public List<Question> getQuestionlist(String categoryName){
+        List<Question> tempQuestionList = new ArrayList<>();
+        for(Category category: categories) {
+            if(category.getCategoryName().equalsIgnoreCase(categoryName))
+                category.getQuestions().forEach(question -> tempQuestionList.add(question));
+        }
+        return tempQuestionList;
+    }
+
     //Hämta ut frågor från vald kategori
-    public List<Question> getQuestions(String categoryName, int numberOfQuestions) {
+    public List<Question> getQuestions(String categoryName) {
         List<Question> tempQuestion = new ArrayList<>();
 
         //Hämta ut vald kategori objekt
         Category tempCat = categories.get(getCategoryIndex(categoryName));
 
-        //Hämta ut ett specifikt antal slumpa frågor
-        for (int i = 0; i < numberOfQuestions; i++) {
-            Random random = new Random();
-            int randomNum = random.nextInt(tempCat.getQuestions().size());
-            tempQuestion.add(tempCat.getQuestions().get(randomNum));
-            tempCat.getQuestions().remove(randomNum);
+        //Hämta ut frågor
+        for (int i = 0; i < tempCat.getQuestions().size(); i++) {
+            tempQuestion.add(tempCat.getQuestions().get(i));
         }
         return tempQuestion;
     }

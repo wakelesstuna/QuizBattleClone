@@ -1,5 +1,6 @@
 package serverProgram;
 
+import Model.InfoObj;
 import javafx.scene.effect.ImageInput;
 
 import java.io.FileInputStream;
@@ -11,6 +12,9 @@ public class ServerProtocol {
     private int questionsPerRound;
 
     public ServerProtocol(){
+
+    //---------------------------- To Set Game Rounds And Questions Per Round ---------------------------------\\
+
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream("src/main/java/serverProgram/config.properties"));
@@ -46,4 +50,15 @@ public class ServerProtocol {
         System.out.println(s.getQuestionsPerRound());
 
     }
+
+    //-------------------------------------- To Handle Object From Player ------------------------------------------\\
+
+    public synchronized void handleObject(Player player, InfoObj infoObj){
+
+
+
+    }
+
+
+
 }

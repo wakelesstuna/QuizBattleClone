@@ -72,7 +72,7 @@ public class CategoryChoiceBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (test == 1){
+      /*  if (test == 1){
             geography.setDisable(true);
             java.setDisable(true);
             literature.setDisable(true);
@@ -84,6 +84,6 @@ public class CategoryChoiceBoardController implements Initializable {
         }else if (Main.categoryName.equals(" Java")){
 
         }
-
+*/
     }
 }

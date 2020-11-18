@@ -2,7 +2,6 @@ package serverProgram;
 
 import Model.Category;
 import Model.Question;
-import javafx.print.PageLayout;
 
 import java.util.ArrayList;
 
@@ -77,5 +76,6 @@ public class Game {
     public void setQuestionList(ArrayList<Question> questionList) {
         this.questionList = questionList;
     }
+
 }
 

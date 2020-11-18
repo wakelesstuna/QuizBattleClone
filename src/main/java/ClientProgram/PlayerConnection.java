@@ -32,7 +32,7 @@ public class PlayerConnection implements Runnable, IPort {
     }
 
     private void receiveObjectFromServer() {
-        //ClientProtocol clientProtocol = new ClientProtocol();
+        PlayerProtocol playerProtocol = new PlayerProtocol();
         Thread thread = new Thread(() -> {
             try {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
@@ -40,7 +40,7 @@ public class PlayerConnection implements Runnable, IPort {
                 while ((objectFromServer = in.readObject()) != null){
                     System.out.println("Object received for sorting");
                     System.out.println(objectFromServer.toString());
-                    //clientProtocol.processObjectFromServer(objectFromServer);
+                    //playerProtocol.processObjectFromServer(objectFromServer);
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 
 public class Server implements IPort {
 
-    private int playersPerGame = 2;
+    private final int playersPerGame = 2;
     ServerSocket serverSocket;
 
     public Server() {
@@ -18,8 +18,9 @@ public class Server implements IPort {
 
             while (!serverSocket.isClosed()) {
                 for (int i = 1; i < playersPerGame + 1; i++) {
-                    new Player(serverSocket.accept(), serverProtocol, game, i);
-                    System.out.println("Player " + i);
+                   new Player(serverSocket.accept(), serverProtocol, game, i);
+                   System.out.println("Player " + i);
+
                 }
             }
 

@@ -6,5 +6,5 @@ public enum STATE {
     SET_CATEGORY,
     SEND_QUESTION,
     HANDLE_ANSWER,
-    GAME_OVER;
+    GAME_OVER
 }

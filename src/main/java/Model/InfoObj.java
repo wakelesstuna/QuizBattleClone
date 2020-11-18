@@ -3,13 +3,12 @@ package Model;
 import serverProgram.STATE;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Locale;
 
 public class InfoObj implements Serializable {
 
     private STATE state;
     private String name;
+    private String answer;
     private Category category;
     private int roundsPerGame;
     private Question question;
@@ -42,12 +41,23 @@ public class InfoObj implements Serializable {
         this.question = question;
     }
 
+    // fuling här för att kunna skicka en sträng med spelaren svar tills servern
+    public InfoObj (STATE state, Question question, String answer){
+        this.state = state;
+        this.question = question;
+        this.answer = answer;
+    }
+
     public STATE getState() {
         return state;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getAnswer() {
+        return answer;
     }
 
     public Category getCategory() {

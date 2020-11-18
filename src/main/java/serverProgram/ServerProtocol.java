@@ -13,8 +13,8 @@ public class ServerProtocol {
     private int roundsPerGame;
     private int questionsPerRound;
 
-    private int currentRound;
-    private int currentQuestion;
+    private int currentRound = 0;
+    private int currentQuestion = 0;
 
     private ArrayList<Player> playersList;
 
@@ -36,12 +36,12 @@ public class ServerProtocol {
                 this.questionsPerRound = 2;
             }
 
-            playersList = new ArrayList<>();
         } catch (Exception e) {
             this.roundsPerGame = 2;
             this.questionsPerRound = 2;
             e.printStackTrace();
         }
+        playersList = new ArrayList<>();
     }
 
     public int getRoundsPerGame() {
@@ -73,6 +73,7 @@ public class ServerProtocol {
             case ASK_CATEGORY -> askCategory(player);
             case SET_CATEGORY -> setCategory(player,infoObj);
             case SEND_QUESTION -> sendQuestion(player);
+            case HANDLE_ANSWER -> checkAnswer(player, infoObj);
             case GAME_OVER -> System.out.println("");
         }
     }
@@ -84,22 +85,42 @@ public class ServerProtocol {
     public void askCategory(Player player){
         if (player == player.getGame().getCurrentPlayer()){
             player.sendObj(new InfoObj(STATE.ASK_CATEGORY, new Category("SetCategory")));
-
+            player.getGame().getNotCurrentPlayer().sendObj(new InfoObj(STATE.ASK_CATEGORY, new Category("WaitCategory")));
         }else{
             player.getGame().getCurrentPlayer().sendObj(new InfoObj(STATE.ASK_CATEGORY, new Category("SetCategory")));
+            player.sendObj(new InfoObj(STATE.ASK_CATEGORY, new Category("WaitCategory")));
         }
 
     }
 
     public void setCategory(Player player, InfoObj infoObj) {
         player.getGame().setCurrentCategory(infoObj.getCategory());
+        // nollställ fråge räknaren så man inte hamnar utanför index i questionlist
+        currentQuestion = 0;
     }
 
     public void sendQuestion(Player player) {
         Question question = player.getGame().getQuestionList().get(currentQuestion);
+        currentQuestion++;
         for (Player p : playersList) {
             p.sendObj(question);
         }
+    }
+
+    private void checkAnswer(Player player, InfoObj infoObj) {
+        player.setHasAnswer(true);
+        if (infoObj.getAnswer().equalsIgnoreCase(infoObj.getQuestion().getCollectAnswer())){
+            player.setPlayerRoundScore(player.getPlayerRoundScore() + 1);
+            player.setPlayerTotalScore(player.getPlayerTotalScore() + 1);
+        }
+
+        while (true){
+            if (player.getGame().getCurrentPlayer().isHasAnswer()
+                    && player.getGame().getNotCurrentPlayer().isHasAnswer()){
+                break;
+            }
+        }
+
 
     }
 

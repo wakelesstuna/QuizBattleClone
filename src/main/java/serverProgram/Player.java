@@ -16,6 +16,9 @@ public class Player extends Thread{
     private ServerProtocol serverProtocol;
     private Game game;
     private String playerName;
+    private int playerRoundScore;
+    private int playerTotalScore;
+    private boolean hasAnswer = false;
     private boolean readyToPlay = false;
 
     public Player(Socket socket, ServerProtocol serverProtocol, Game game, int i){
@@ -112,6 +115,30 @@ public class Player extends Thread{
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+    }
+
+    public int getPlayerRoundScore() {
+        return playerRoundScore;
+    }
+
+    public void setPlayerRoundScore(int playerRoundScore) {
+        this.playerRoundScore = playerRoundScore;
+    }
+
+    public int getPlayerTotalScore() {
+        return playerTotalScore;
+    }
+
+    public void setPlayerTotalScore(int playerTotalScore) {
+        this.playerTotalScore = playerTotalScore;
+    }
+
+    public boolean isHasAnswer() {
+        return hasAnswer;
+    }
+
+    public void setHasAnswer(boolean hasAnswer) {
+        this.hasAnswer = hasAnswer;
     }
 
     public boolean isReadyToPlay() {

@@ -1,4 +1,4 @@
 # Project exclude paths
 /target/
-BestQuizBattleEver.iml
-.idea
+/BestQuizBattleEver.iml/
+/.idea/

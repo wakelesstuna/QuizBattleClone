@@ -4,12 +4,15 @@ import Model.InfoObj;
 import javafx.scene.effect.ImageInput;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class ServerProtocol {
 
     private int roundsPerGame;
     private int questionsPerRound;
+
+    private ArrayList<Player> playersList;
 
     public ServerProtocol(){
 
@@ -28,6 +31,8 @@ public class ServerProtocol {
                 this.roundsPerGame = 2;
                 this.questionsPerRound = 2;
             }
+
+            playersList = new ArrayList<>();
         }catch (Exception e){
             this.roundsPerGame = 2;
             this.questionsPerRound = 2;
@@ -43,6 +48,10 @@ public class ServerProtocol {
         return questionsPerRound;
     }
 
+    public ArrayList<Player> getPlayersList() {
+        return playersList;
+    }
+
     public static void main(String[] args) {
         // test the reading from propfile
         ServerProtocol s = new ServerProtocol();
@@ -55,7 +64,9 @@ public class ServerProtocol {
 
     public synchronized void handleObject(Player player, InfoObj infoObj){
 
+    switch (infoObj.getState()){
 
+    }
 
     }
 

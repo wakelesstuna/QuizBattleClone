@@ -41,4 +41,24 @@ public class InfoObj implements Serializable {
         this.state = state;
         this.question = question;
     }
+
+    public STATE getState() {
+        return state;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public int getRoundsPerGame() {
+        return roundsPerGame;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
 }

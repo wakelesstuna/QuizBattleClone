@@ -45,10 +45,12 @@ public class Player extends Thread{
             this.objin = objin;
 
             Object obj;
-            while (!socket.isClosed()){
+            while (true){
                 try {
+                    System.out.println("kom hit före inread");
                     obj = objin.readObject();
                     serverProtocol.handleObject(this, (InfoObj) obj);
+                    this.sendObj(new InfoObj(STATE.GAME_OVER,"kom hit"));
                 }catch (EOFException e){
                     break;
                 }

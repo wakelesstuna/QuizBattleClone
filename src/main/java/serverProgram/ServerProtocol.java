@@ -66,7 +66,7 @@ public class ServerProtocol {
 
     //-------------------------------------- To Handle Object From Player ------------------------------------------\\
 
-    public synchronized void handleObject(Player player, InfoObj infoObj) {
+    public void handleObject(Player player, InfoObj infoObj) {
 
         switch (infoObj.getState()) {
             case SET_PLAYERNAME -> setPlayerName(player,infoObj);
@@ -74,7 +74,7 @@ public class ServerProtocol {
             case SET_CATEGORY -> setCategory(player,infoObj);
             case SEND_QUESTION -> sendQuestion(player);
             case HANDLE_ANSWER -> checkAnswer(player, infoObj);
-            case GAME_OVER -> System.out.println("");
+            case GAME_OVER -> player.sendObj(infoObj);
         }
     }
 

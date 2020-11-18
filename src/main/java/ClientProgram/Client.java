@@ -1,5 +1,9 @@
 package ClientProgram;
 
+import Model.InfoObj;
+import assets.IPort;
+import serverProgram.STATE;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -14,11 +18,11 @@ import java.net.UnknownHostException;
  * Project: BestQuizBattleEver
  * Copyright: MIT
  */
-public class Client {
+public class Client implements IPort {
 
     public Client() throws UnknownHostException {
         InetAddress iAdr = InetAddress.getLocalHost();
-        int port = 12345;
+        int port = PORT;
 
         try (Socket clientSocket = new Socket(iAdr, port);
              ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -27,26 +31,35 @@ public class Client {
         ){
             Object fromServer;
             String fromUser;
+            fromUser = userIn.readLine();
+            if(fromUser != null){
+                // skicka int för att användaren valt ett svar
+                // men kanske bättre att omvandla till int på servern,
+                // om användaren kan välja annat i andra situationer
+                out.writeObject(new InfoObj(STATE.GAME_OVER,fromUser));
+            }
 
             while((fromServer = in.readObject()) != null){
                 // kolla vad servern skickar för objekt
                 // göra olika saker beroende på det
-                if(fromServer instanceof String){
-                    System.out.println(fromServer);
+                System.out.println("tagit emot objekt");
+                if(fromServer instanceof InfoObj){
+                    switch (((InfoObj) fromServer).getState()){
+                        case GAME_OVER -> System.out.println(((InfoObj) fromServer).getName());
+                    }
+                    System.out.println("kom in i IF");
+                    System.out.println(((InfoObj) fromServer).getName());
+
                 } /*else if (fromServer instanceof Question){
                     System.out.println(fromServer.getQuestion());
                     System.out.println(fromServer.getShuffledAnswers());
                 } */
 
 
-                fromUser = userIn.readLine();
-                if(fromUser != null){
-                    // skicka int för att användaren valt ett svar
-                    // men kanske bättre att omvandla till int på servern,
-                    // om användaren kan välja annat i andra situationer
-                    out.writeObject(Integer.parseInt(fromUser));
-                }
+
             }
+
+
 
         } catch (Exception e){
             e.printStackTrace();

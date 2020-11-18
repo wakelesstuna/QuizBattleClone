@@ -26,7 +26,7 @@ public class Play {
             try {
                 String userChoiceCategory = in.nextLine();
                 //Hämta ut frågor från valda kategori
-                questions = db.getQuestions(userChoiceCategory, 2);
+                questions = db.getQuestions(userChoiceCategory);
                 showNextQuestion();
 
             } catch (Exception e) {

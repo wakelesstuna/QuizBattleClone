@@ -50,7 +50,7 @@
                                 <DropShadow />
                             </effect>
                      <children>
-                        <Pane>
+                        <Pane prefHeight="102.0" prefWidth="330.0">
                            <children>
                                       <Label layoutX="43.0" layoutY="25.0" prefHeight="53.0" prefWidth="338.0" text="BestQuizBattleEver">
                                           <font>

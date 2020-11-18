@@ -22,7 +22,7 @@
             <bottom>
                 <Pane prefHeight="97.0" prefWidth="400.0" styleClass="home-bar" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                     <children>
-                          <Button id="startNewGameButton" fx:id="startNewGameBtn" layoutX="37.0" layoutY="20.0" mnemonicParsing="false" onAction="#loadMainGame" prefHeight="39.0" prefWidth="327.0" styleClass="start-button" stylesheets="@../css/style.css" text="Login">
+                          <Button id="startNewGameButton" fx:id="loginButton" layoutX="37.0" layoutY="20.0" mnemonicParsing="false" onAction="#loadMainGame" prefHeight="39.0" prefWidth="327.0" styleClass="start-button" stylesheets="@../css/style.css" text="Login">
                               <font>
                                   <Font name="System Bold" size="18.0" />
                               </font>
@@ -50,7 +50,7 @@
                                 <DropShadow />
                             </effect>
                      <children>
-                        <Pane>
+                        <Pane prefHeight="102.0" prefWidth="330.0">
                            <children>
                                       <Label layoutX="43.0" layoutY="25.0" prefHeight="53.0" prefWidth="338.0" text="BestQuizBattleEver">
                                           <font>

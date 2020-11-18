@@ -15,6 +15,8 @@ public class Play {
         List<String> categories = db.getCategories(3);
 
         //SKriver ut 3 slumpakategorier namn
+        System.out.println("Välj en kategori");
+        System.out.println("--------------------------");
         for (String category : categories) {
             System.out.println(category);
         }
@@ -22,9 +24,9 @@ public class Play {
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
             try {
-                String userChoice = in.nextLine();
+                String userChoiceCategory = in.nextLine();
                 //Hämta ut frågor från valda kategori
-                questions = db.getQuestions(db.getCategoryIndex(userChoice), 2);
+                questions = db.getQuestions(userChoiceCategory, 2);
                 showNextQuestion();
 
             } catch (Exception e) {
@@ -43,7 +45,7 @@ public class Play {
 
             //Shuffle choices
             quiz.shuffleAnswerChoices();
-
+            System.out.println("--------------------------");
             System.out.println("Fråga: " + quiz.getQuestion());
             System.out.println("Svaralternativer: " + quiz.getAnswerChoices());
 

@@ -1,8 +1,13 @@
 package serverProgram;
 
+import Model.Category;
 import serverProgram.databas.Database;
-import serverProgram.databas.Question;
+import Model.Question;
 import java.util.*;
+
+/**
+ * Den här klassen är bara Test class för DB
+ */
 
 public class Play {
     private List<Question> questions = new ArrayList<>();
@@ -12,13 +17,12 @@ public class Play {
         //Starta databas
         Database db = new Database();
 
-        List<String> categories = db.getCategories(3);
+        List<Category> categories = db.getCategories();
 
-        //SKriver ut 3 slumpakategorier namn
         System.out.println("Välj en kategori");
         System.out.println("--------------------------");
-        for (String category : categories) {
-            System.out.println(category);
+        for (Category category : categories) {
+            System.out.println(category.getCategoryName());
         }
 
         Scanner in = new Scanner(System.in);
@@ -26,7 +30,7 @@ public class Play {
             try {
                 String userChoiceCategory = in.nextLine();
                 //Hämta ut frågor från valda kategori
-                questions = db.getQuestions(userChoiceCategory);
+                questions = db.getQuestionList(userChoiceCategory);
                 showNextQuestion();
 
             } catch (Exception e) {
@@ -43,8 +47,6 @@ public class Play {
 
             Question quiz = questions.get(0);
 
-            //Shuffle choices
-            quiz.shuffleAnswerChoices();
             System.out.println("--------------------------");
             System.out.println("Fråga: " + quiz.getQuestion());
             System.out.println("Svaralternativer: " + quiz.getAnswerChoices());

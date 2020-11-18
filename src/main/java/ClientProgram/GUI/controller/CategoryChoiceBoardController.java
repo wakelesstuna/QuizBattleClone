@@ -14,13 +14,25 @@ public class CategoryChoiceBoardController implements Initializable {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();
+    int test = 1;
 
     @FXML
     private AnchorPane categoryChoiceBoard;
 
+    @FXML
+    private Button geography;
 
     @FXML
     private Button java;
+
+    @FXML
+    private Button literature;
+
+    @FXML
+    private Button music;
+
+    @FXML
+    private Button sports;
 
 
     public void geography(){
@@ -60,6 +72,13 @@ public class CategoryChoiceBoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (test == 1){
+            geography.setDisable(true);
+            java.setDisable(true);
+            literature.setDisable(true);
+            music.setDisable(true);
+            sports.setDisable(true);
+        }
         if (Main.categoryName.equals(" Java")){
             java.setVisible(false);
         }else if (Main.categoryName.equals(" Java")){

@@ -4,14 +4,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.time.chrono.IsoChronology;
 
-public class ClientConnection implements Runnable{
+public class PlayerConnection implements Runnable{
 
     Socket socket;
     ObjectOutputStream out;
 
-    public ClientConnection (String hostName, int portNr){
+    public PlayerConnection(String hostName, int portNr){
         System.out.println("ClientConnection created");
         try {
             this.socket = new Socket(hostName, portNr);
@@ -58,6 +57,6 @@ public class ClientConnection implements Runnable{
     }
 
     public static void main(String[] args) {
-        new ClientConnection("127.0.0.1",45455);
+        new PlayerConnection("127.0.0.1",45455);
     }
 }

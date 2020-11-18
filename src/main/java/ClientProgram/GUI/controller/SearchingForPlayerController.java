@@ -14,6 +14,7 @@ public class SearchingForPlayerController implements Initializable {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();
+    int test = 1;
 
     @FXML
     private AnchorPane searchingForPlayers;
@@ -27,6 +28,9 @@ public class SearchingForPlayerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (test == 1){
+
+        }
         // start lyssnar metod från server så man kan gå vidare när den returnar true
     }
 }

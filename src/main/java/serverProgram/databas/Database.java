@@ -14,15 +14,16 @@ import java.util.Random;
 
 public class Database {
     private final Path questionPath = Paths.get("src/main/java/serverProgram/databas/questions");
-    private static List<Category> categories = new ArrayList<>();
+    private List<Category> categories = new ArrayList<>();
 
     public Database() {
+        //DirectoryStream classen representerar en samling av path som ligger i directory
         try (DirectoryStream<Path> files = Files.newDirectoryStream(questionPath)) {
-            //Läser in alla kategori filer som ligger i questions mappen
+            //Läser in alla kategori filer path som ligger i questions mappen
             for (Path file : files) {
                 String categoryName = removeFileExtention(file);
 
-                //Läser in frågor
+                //Läser in frågor från text filen
                 List<Question> questions = DatabaseHandler.readDataFromFile(file);
 
                 //Skapa Category objekt
@@ -44,13 +45,13 @@ public class Database {
      * @param file src/main/java/serverProgram/databas/questions/java.txt
      * @return java
      */
-    public static String removeFileExtention(Path file) {
+    public String removeFileExtention(Path file) {
         String name = file.getFileName().toString();
         return name.substring(0, name.lastIndexOf('.'));
     }
 
-    //Hämta ut index av vald kategori
-    public static int getCategoryIndex(String categoryName) {
+    //Hämta ut index av vald kategori från categories lista
+    public int getCategoryIndex(String categoryName) {
         for (int i = 0; i < categories.size(); i++) {
             if(categories.get(i).getCategoryName().equalsIgnoreCase(categoryName))
                 return i;
@@ -59,11 +60,11 @@ public class Database {
     }
 
     //Hämta ut frågor från vald kategori
-    public static List<Question> getQuestions(int categoryIndex, int numberOfQuestions) {
+    public List<Question> getQuestions(String categoryName, int numberOfQuestions) {
         List<Question> tempQuestion = new ArrayList<>();
 
         //Hämta ut vald kategori objekt
-        Category tempCat = categories.get(categoryIndex);
+        Category tempCat = categories.get(getCategoryIndex(categoryName));
 
         //Hämta ut ett specifikt antal slumpa frågor
         for (int i = 0; i < numberOfQuestions; i++) {
@@ -76,7 +77,7 @@ public class Database {
     }
 
     //Hämta ut slumpa kategorier namn
-    public static List<String> getCategories(int numberOfCategories) {
+    public List<String> getCategories(int numberOfCategories) {
         Collections.shuffle(categories);
         List<String> tempCat = new ArrayList<>();
         for (int i = 0; i < numberOfCategories; i++) {
@@ -84,5 +85,4 @@ public class Database {
         }
         return tempCat;
     }
-
 }

@@ -32,27 +32,34 @@ public class Player extends Thread{
             game.setPlayer2(this);
             game.setNotCurrentPlayer(this);
         }
+
+        try {
+            this.objout = new ObjectOutputStream(socket.getOutputStream());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         serverProtocol.getPlayersList().add(this);
         new Thread(this).start();
-
     }
 
     @Override
     public void run() {
-        try (ObjectOutputStream objout = new ObjectOutputStream(socket.getOutputStream());
+        try (
         ObjectInputStream objin = new ObjectInputStream(socket.getInputStream())){
-            this.objout = objout;
+            //this.objout = objout;
             this.objin = objin;
 
+            serverProtocol.mulitsederTest.addOutStream(objout);
             Object obj;
             while (true){
                 try {
                     System.out.println("kom hit före inread");
                     obj = objin.readObject();
+                    if (obj instanceof InfoObj)
+                    System.out.println(((InfoObj) obj).getName());
                     serverProtocol.handleObject(this, (InfoObj) obj);
-                    this.sendObj(new InfoObj(STATE.GAME_OVER,"kom hit"));
                 }catch (EOFException e){
-                    break;
+                    e.printStackTrace();
                 }
             }
         }catch (SocketException e){

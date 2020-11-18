@@ -1,6 +1,9 @@
 package ClientProgram.GUI;
 
+import ClientProgram.Client;
+import ClientProgram.PlayerConnection;
 import Model.Question;
+import assets.IFxmlPaths;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -8,10 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.net.UnknownHostException;
 import java.util.List;
 
-public class Main extends Application {
+public class Main extends Application implements IFxmlPaths {
 
+    public static PlayerConnection playerConnection;
     public static String playerName = "playerName";
     public static String categoryName = "";
     public static int currentRound = 1;
@@ -21,7 +26,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/loginMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(LOGIN_MENU));
         primaryStage.setTitle("BestQuizBattleEver");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

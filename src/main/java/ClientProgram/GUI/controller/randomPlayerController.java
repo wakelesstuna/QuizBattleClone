@@ -2,15 +2,20 @@ package ClientProgram.GUI.controller;
 
 
 
+import ClientProgram.Client;
 import ClientProgram.GUI.ControllerUtil;
+import ClientProgram.PlayerConnection;
+import assets.IFxmlPaths;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 
-public class SearchingForPlayerController implements Initializable {
+public class randomPlayerController implements Initializable, IFxmlPaths {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();
@@ -19,15 +24,20 @@ public class SearchingForPlayerController implements Initializable {
     @FXML
     private AnchorPane searchingForPlayers;
 
+    @FXML
+    public Button findPlayerButton;
+
 
     public void findPlayer() {
-        AnchorPane pane = c.loadFMXLFiles(currentClass, "gameBoard");
-        searchingForPlayers.getChildren().setAll(pane);
+        c.changeScene(GAME_BOARD, findPlayerButton);
+        //AnchorPane pane = c.loadFMXLFiles(currentClass, "gameBoard");
+        //searchingForPlayers.getChildren().setAll(pane);
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         if (test == 1){
 
         }

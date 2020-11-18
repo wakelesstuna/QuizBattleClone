@@ -2,6 +2,7 @@ package ClientProgram.GUI.controller;
 
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
+import assets.IFxmlPaths;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -10,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CategoryChoiceBoardController implements Initializable {
+public class CategoryChoiceBoardController implements Initializable, IFxmlPaths {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();
@@ -38,36 +39,34 @@ public class CategoryChoiceBoardController implements Initializable {
     public void geography(){
         // håmta fråga om georafi från server och visa på fråge texten
         Main.categoryName = " GeoGraphy";
-        AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
-        categoryChoiceBoard.getChildren().setAll(pane);
+        c.changeScene(QUESTION_BOARD, geography);
     }
 
     public void java(){
         // håmta fråga om java från server och visa på fråge texten
         Main.categoryName = " Java";
-        AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
-        categoryChoiceBoard.getChildren().setAll(pane);
+        c.changeScene(QUESTION_BOARD, java);
+
     }
 
     public void literature(){
         // håmta fråga om literatur från server och visa på fråge texten
         Main.categoryName = " Literature";
-        AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
-        categoryChoiceBoard.getChildren().setAll(pane);
+        c.changeScene(QUESTION_BOARD, literature);
     }
 
     public void music(){
         // håmta fråga om musik från server och visa på fråge texten
         Main.categoryName = " Music";
-        AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
-        categoryChoiceBoard.getChildren().setAll(pane);
+        c.changeScene(QUESTION_BOARD, music);
     }
 
     public void sports(){
         // håmta fråga om sport från server och visa på fråge texten
         Main.categoryName = " Sports";
-        AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
-        categoryChoiceBoard.getChildren().setAll(pane);
+        c.changeScene(QUESTION_BOARD, sports);
+        //AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
+        //categoryChoiceBoard.getChildren().setAll(pane);
     }
 
     @Override

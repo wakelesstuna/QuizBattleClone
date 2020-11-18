@@ -27,8 +27,8 @@ public class Client implements IPort {
         try (Socket clientSocket = new Socket(iAdr, port);
              ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
              ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
-             BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in));
-        ){
+             BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in))){
+
             Object fromServer;
             String fromUser;
             fromUser = userIn.readLine();
@@ -47,14 +47,20 @@ public class Client implements IPort {
                     switch (((InfoObj) fromServer).getState()){
                         case GAME_OVER -> System.out.println(((InfoObj) fromServer).getName());
                     }
-                    System.out.println("kom in i IF");
-                    System.out.println(((InfoObj) fromServer).getName());
 
                 } /*else if (fromServer instanceof Question){
                     System.out.println(fromServer.getQuestion());
                     System.out.println(fromServer.getShuffledAnswers());
                 } */
-
+                fromUser = null;
+                fromUser = userIn.readLine();
+                if(fromUser != null){
+                    System.out.println("kan skicka till servern");
+                    // skicka int för att användaren valt ett svar
+                    // men kanske bättre att omvandla till int på servern,
+                    // om användaren kan välja annat i andra situationer
+                    out.writeObject(new InfoObj(STATE.GAME_OVER,fromUser));
+                }
 
 
             }

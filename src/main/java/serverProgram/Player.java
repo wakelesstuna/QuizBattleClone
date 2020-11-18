@@ -3,10 +3,10 @@ package serverProgram;
 import Model.InfoObj;
 
 import java.io.EOFException;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class Player extends Thread{
 
@@ -16,12 +16,21 @@ public class Player extends Thread{
     private ServerProtocol serverProtocol;
     private Game game;
     private String playerName;
-    private boolean readuToPlay = false;
+    private boolean readyToPlay = false;
 
-    public Player(Socket socket, ServerProtocol serverProtocol){
+    public Player(Socket socket, ServerProtocol serverProtocol, Game game, int i){
         this.socket = socket;
         this.serverProtocol = serverProtocol;
+        this.game = game;
+        if (i == 1){
+            game.setPlayer1(this);
+            game.setCurrentPlayer(this);
+        }else {
+            game.setPlayer2(this);
+            game.setNotCurrentPlayer(this);
+        }
         serverProtocol.getPlayersList().add(this);
+        new Thread(this).start();
 
     }
 
@@ -41,6 +50,8 @@ public class Player extends Thread{
                     break;
                 }
             }
+        }catch (SocketException e){
+            System.out.println("Player disconnected");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -103,11 +114,11 @@ public class Player extends Thread{
         this.playerName = playerName;
     }
 
-    public boolean isReaduToPlay() {
-        return readuToPlay;
+    public boolean isReadyToPlay() {
+        return readyToPlay;
     }
 
-    public void setReaduToPlay(boolean readuToPlay) {
-        this.readuToPlay = readuToPlay;
+    public void setReadyToPlay(boolean readyToPlay) {
+        this.readyToPlay = readyToPlay;
     }
 }

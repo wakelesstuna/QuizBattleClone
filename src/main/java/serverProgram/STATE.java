@@ -1,9 +1,10 @@
 package serverProgram;
 
 public enum STATE {
-    SET_USERNAME,
-    CATEGORY,
+    SET_PLAYERNAME,
+    ASK_CATEGORY,
+    SET_CATEGORY,
     SEND_QUESTION,
-    SEND_ANSWER,
+    HANDLE_ANSWER,
     GAME_OVER;
 }

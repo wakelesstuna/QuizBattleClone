@@ -1,9 +1,11 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-public class Question {
+
+public class Question implements Serializable {
     private String question;
     private String collectAnswer;
     private List<String> answerChoices;
@@ -23,11 +25,15 @@ public class Question {
         return question;
     }
 
-    public void shuffleAnswerChoices() {
-        Collections.shuffle(answerChoices);
-    }
-
     public List<String> getAnswerChoices() {
         return answerChoices;
     }
+
+    public boolean checkAnswer(String userChoice) {
+        if(collectAnswer.equals(userChoice)) {
+            return true;
+        }
+        return false;
+    }
 }
+

@@ -51,6 +51,7 @@ public class PlayerConnection implements Runnable, IPort {
 
     public void sendObjectToServer(Object objectToServer){
         try {
+            System.out.println("Sending object to server...");
             out.writeObject(objectToServer);
             out.flush();
         } catch (IOException e) {

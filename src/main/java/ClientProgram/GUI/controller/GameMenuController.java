@@ -2,6 +2,7 @@ package ClientProgram.GUI.controller;
 
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
+import assets.IFxmlPaths;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameMenuController implements Initializable {
+public class GameMenuController implements Initializable, IFxmlPaths {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();
@@ -27,14 +28,16 @@ public class GameMenuController implements Initializable {
     private AnchorPane gameMenu;
 
     public void loadNewGame(){
-        AnchorPane pane = c.loadFMXLFiles(currentClass, "selectPlayer");
-        gameMenu.getChildren().setAll(pane);
+        c.changeScene(SELECT_PLAYER, userNameLabel);
+        //AnchorPane pane = c.loadFMXLFiles(currentClass, "selectPlayer");
+        //gameMenu.getChildren().setAll(pane);
 
     }
 
     public void logout(ActionEvent event) {
-        AnchorPane pane = c.loadFMXLFiles(currentClass, "loginMenu");
-        gameMenu.getChildren().setAll(pane);
+        c.changeScene(LOGIN_MENU, userNameLabel);
+        //AnchorPane pane = c.loadFMXLFiles(currentClass, "loginMenu");
+        //gameMenu.getChildren().setAll(pane);
 
     }
 

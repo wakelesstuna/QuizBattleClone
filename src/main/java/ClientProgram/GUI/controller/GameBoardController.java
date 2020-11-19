@@ -2,6 +2,7 @@ package ClientProgram.GUI.controller;
 
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
+import assets.IFxmlPaths;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,7 +13,7 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameBoardController implements Initializable {
+public class GameBoardController implements Initializable, IFxmlPaths {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();
@@ -121,12 +122,14 @@ public class GameBoardController implements Initializable {
         if (numberOfRounds == 0) {
             currentRound--;
             System.out.println(currentRound);
-            AnchorPane pane = c.loadFMXLFiles(currentClass, "finalResults");
-            gameBoard.getChildren().setAll(pane);
+            c.changeScene(FINAL_RESULTS, playButton);
+            //AnchorPane pane = c.loadFMXLFiles(currentClass, "finalResults");
+            //gameBoard.getChildren().setAll(pane);
         }else{
             // här behöver vi kolla vem av dom 2 spelarna som ska välja kategori
-            AnchorPane pane = c.loadFMXLFiles(currentClass, "categoryChoiceBoard");
-            gameBoard.getChildren().setAll(pane);
+            c.changeScene(CATEGORY_BOARD, playButton);
+            //AnchorPane pane = c.loadFMXLFiles(currentClass, "categoryChoiceBoard");
+            //gameBoard.getChildren().setAll(pane);
             if (currentRound == 1){
                 currentRound++;
             }
@@ -136,8 +139,9 @@ public class GameBoardController implements Initializable {
     }
 
     public void endGame(){
-        AnchorPane pane = c.loadFMXLFiles(currentClass, "gameMenu");
-        gameBoard.getChildren().setAll(pane);
+        c.changeScene(GAME_MENU, playButton);
+        //AnchorPane pane = c.loadFMXLFiles(currentClass, "gameMenu");
+        //gameBoard.getChildren().setAll(pane);
     }
 
     @Override

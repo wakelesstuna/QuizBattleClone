@@ -3,6 +3,7 @@ package ClientProgram.GUI.controller;
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
 import Model.Question;
+import assets.IFxmlPaths;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class QuestionBoardController implements Initializable {
+public class QuestionBoardController implements Initializable, IFxmlPaths {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();
@@ -94,13 +95,13 @@ public class QuestionBoardController implements Initializable {
         // om de finns en fråga till skicka den från servern
         if (GameBoardController.numberOfQuestions == 1) {
             // ladda en FinalScoreBoard med slutresultat
-            AnchorPane pane = c.loadFMXLFiles(currentClass, "gameBoard");
-            questionBoard.getChildren().setAll(pane);
+            c.changeScene(GAME_BOARD, questionField);
             GameBoardController.numberOfQuestions = 2; // sätt detta med properties
         } else {
             Main.currentQuestion++;
-            AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
-            questionBoard.getChildren().setAll(pane);
+            c.changeScene(QUESTION_BOARD, questionField);
+            //AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
+            //questionBoard.getChildren().setAll(pane);
             // här måste vi fråga servern om en ny fråga
             GameBoardController.numberOfQuestions--;
 

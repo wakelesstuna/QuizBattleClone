@@ -1,6 +1,7 @@
 package ClientProgram.GUI.controller;
 
 import ClientProgram.GUI.ControllerUtil;
+import assets.IFxmlPaths;
 import javafx.beans.WeakInvalidationListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FinalResultsController implements Initializable {
+public class FinalResultsController implements Initializable, IFxmlPaths {
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();
@@ -33,8 +34,10 @@ public class FinalResultsController implements Initializable {
     public void loadGameMenu(){
         GameBoardController.currentRound = 1;
         GameBoardController.numberOfRounds = 2; // reset the round count with
-        AnchorPane pane = c.loadFMXLFiles(currentClass, "gameMenu");
-        finalScore.getChildren().setAll(pane);
+
+        c.changeScene(GAME_MENU, whoWinLabel);
+        //AnchorPane pane = c.loadFMXLFiles(currentClass, "gameMenu");
+        //finalScore.getChildren().setAll(pane);
     }
 
     @Override

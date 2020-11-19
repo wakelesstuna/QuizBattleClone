@@ -63,7 +63,7 @@
                <children>
                   <Pane prefHeight="98.0" prefWidth="400.0">
                      <children>
-                        <Button fx:id="randomPlayer" layoutX="31.0" layoutY="17.0" mnemonicParsing="false" onAction="#loadSearchForPlayers" prefHeight="64.0" prefWidth="341.0" styleClass="start-button" stylesheets="@../css/style.css" text="Random player">
+                        <Button fx:id="randomPlayer" layoutX="31.0" layoutY="17.0" mnemonicParsing="false" onAction="#loadRandomPlayer" prefHeight="64.0" prefWidth="341.0" styleClass="start-button" stylesheets="@../css/style.css" text="Random player">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -84,7 +84,7 @@
                   </Pane>
                   <Pane prefHeight="64.0" prefWidth="400.0">
                      <children>
-                        <Button defaultButton="true" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" text="Facebook-friends">
+                        <Button fx:id="makeConnectToServer" defaultButton="true" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="50.0" prefWidth="300.0" text="Facebook-friends">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>

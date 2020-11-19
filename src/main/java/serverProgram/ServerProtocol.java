@@ -5,7 +5,11 @@ import Model.InfoObj;
 import Model.Question;
 
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class ServerProtocol {
@@ -17,6 +21,7 @@ public class ServerProtocol {
     private int currentQuestion = 0;
 
     private ArrayList<Player> playersList;
+    MulitsederTest mulitsederTest;
 
     //-------------------------------- To Set Game Rounds And Questions Per Round ---------------------------------\\
 
@@ -41,7 +46,9 @@ public class ServerProtocol {
             this.questionsPerRound = 2;
             e.printStackTrace();
         }
+        mulitsederTest = new MulitsederTest();
         playersList = new ArrayList<>();
+
     }
 
     public int getRoundsPerGame() {
@@ -66,17 +73,20 @@ public class ServerProtocol {
 
     //-------------------------------------- To Handle Object From Player ------------------------------------------\\
 
-    public void handleObject(Player player, InfoObj infoObj) {
+    public void handleObject(Player player, InfoObj infoObj) throws IOException {
 
         switch (infoObj.getState()) {
-            case SET_PLAYERNAME -> setPlayerName(player,infoObj);
+            case SET_PLAYERNAME -> System.out.println(infoObj.getName());//setPlayerName(player,infoObj);
             case ASK_CATEGORY -> askCategory(player);
             case SET_CATEGORY -> setCategory(player,infoObj);
             case SEND_QUESTION -> sendQuestion(player);
             case HANDLE_ANSWER -> checkAnswer(player, infoObj);
-            case GAME_OVER -> player.sendObj(infoObj);
+            case GAME_OVER -> player.sendObj(new InfoObj(STATE.GAME_OVER, infoObj.getName()));
+
+
+            }
         }
-    }
+
 
     public void setPlayerName(Player player, InfoObj infoObj) {
         player.setPlayerName(infoObj.getName());

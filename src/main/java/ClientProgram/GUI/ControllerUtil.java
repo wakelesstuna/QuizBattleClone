@@ -1,20 +1,21 @@
 package ClientProgram.GUI;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-
-import java.io.IOException;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class ControllerUtil {
 
-    public AnchorPane loadFMXLFiles(Class<?> tClass,String FMXLFileName){
+    public void changeScene(String fxml, Node node){
         try {
-            return FXMLLoader.load(tClass.getClassLoader().getResource("view/"
-                    + FMXLFileName + ".fxml"));
-        }catch (IOException e){
-            System.out.println("Couldn't load FMXLfile");
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));
+            Stage stage = (Stage) node.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }catch (Exception e){
             e.printStackTrace();
         }
-        return null;
     }
 }

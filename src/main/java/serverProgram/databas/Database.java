@@ -9,7 +9,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import Model.Question;
+import Model.Category;
 
 
 public class Database {
@@ -50,17 +51,8 @@ public class Database {
         return name.substring(0, name.lastIndexOf('.'));
     }
 
-    //Hämta ut index av vald kategori från categories lista
-    public int getCategoryIndex(String categoryName) {
-        for (int i = 0; i < categories.size(); i++) {
-            if (categories.get(i).getCategoryName().equalsIgnoreCase(categoryName))
-                return i;
-        }
-        return 0;
-    }
-
-    //Hämta ut Questionlistan
-    public List<Question> getQuestionlist(String categoryName){
+    //Hämta ut frågor från vald kategori
+    public List<Question> getQuestionList(String categoryName){
         List<Question> tempQuestionList = new ArrayList<>();
         for(Category category: categories) {
             if(category.getCategoryName().equalsIgnoreCase(categoryName))
@@ -69,27 +61,8 @@ public class Database {
         return tempQuestionList;
     }
 
-    //Hämta ut frågor från vald kategori
-    public List<Question> getQuestions(String categoryName) {
-        List<Question> tempQuestion = new ArrayList<>();
-
-        //Hämta ut vald kategori objekt
-        Category tempCat = categories.get(getCategoryIndex(categoryName));
-
-        //Hämta ut frågor
-        for (int i = 0; i < tempCat.getQuestions().size(); i++) {
-            tempQuestion.add(tempCat.getQuestions().get(i));
-        }
-        return tempQuestion;
-    }
-
     //Hämta ut slumpa kategorier namn
-    public List<String> getCategories(int numberOfCategories) {
-        Collections.shuffle(categories);
-        List<String> tempCat = new ArrayList<>();
-        for (int i = 0; i < numberOfCategories; i++) {
-            tempCat.add(categories.get(i).getCategoryName());
-        }
-        return tempCat;
+    public List<Category> getCategories() {
+        return categories;
     }
 }

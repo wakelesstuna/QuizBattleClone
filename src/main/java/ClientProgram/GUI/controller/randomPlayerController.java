@@ -38,9 +38,6 @@ public class randomPlayerController implements Initializable, IFxmlPaths {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        if (test == 1){
-
-        }
         // start lyssnar metod från server så man kan gå vidare när den returnar true
     }
 }

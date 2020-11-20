@@ -1,9 +1,7 @@
 package ClientProgram.GUI.controller;
 
-import ClientProgram.Client;
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
-import assets.IFxmlPaths;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,10 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable, IFxmlPaths {
+public class LoginController implements Initializable {
 
 
     ControllerUtil cu = new ControllerUtil();
@@ -37,7 +34,7 @@ public class LoginController implements Initializable, IFxmlPaths {
             userName.setPromptText("You need to enter a name");
         }else {
             Main.playerName = userName.getText();
-            cu.changeScene(GAME_MENU, loginButton);
+            cu.changeScene(FxmlPaths.GAME_MENU.toString(), loginButton);
 
         }
     }

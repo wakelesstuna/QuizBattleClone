@@ -40,7 +40,7 @@ public class PlayerConnection implements Runnable, IPort {
                 while ((objectFromServer = in.readObject()) != null){
                     System.out.println("Object received for sorting");
                     System.out.println(objectFromServer.toString());
-                    //playerProtocol.processObjectFromServer(objectFromServer);
+                    playerProtocol.checkObjectFromServer(objectFromServer);
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

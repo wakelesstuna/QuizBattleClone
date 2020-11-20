@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.net.UnknownHostException;
 import java.util.List;
 
 public class Main extends Application implements IFxmlPaths {
@@ -21,6 +20,8 @@ public class Main extends Application implements IFxmlPaths {
     public static String categoryName = "";
     public static int currentRound = 1;
     public static int currentQuestion = 1;
+    public static int choseQuestionTurn;
+    public static Question question;
     public static List<Question> questionsList;
 
 

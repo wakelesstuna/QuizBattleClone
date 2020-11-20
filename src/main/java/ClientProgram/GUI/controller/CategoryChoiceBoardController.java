@@ -2,11 +2,13 @@ package ClientProgram.GUI.controller;
 
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
+import Model.InfoObj;
 import assets.IFxmlPaths;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import serverProgram.STATE;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +17,7 @@ public class CategoryChoiceBoardController implements Initializable, IFxmlPaths 
 
     ControllerUtil c = new ControllerUtil();
     Class<?> currentClass = getClass();
-    int test = 1;
+    int test = 0;
 
     @FXML
     private AnchorPane categoryChoiceBoard;
@@ -45,6 +47,7 @@ public class CategoryChoiceBoardController implements Initializable, IFxmlPaths 
     public void java(){
         // håmta fråga om java från server och visa på fråge texten
         Main.categoryName = " Java";
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION, "send Question"));
         c.changeScene(QUESTION_BOARD, java);
 
     }
@@ -71,7 +74,7 @@ public class CategoryChoiceBoardController implements Initializable, IFxmlPaths 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-      /*  if (test == 1){
+        if (test == 1){
             geography.setDisable(true);
             java.setDisable(true);
             literature.setDisable(true);
@@ -83,6 +86,6 @@ public class CategoryChoiceBoardController implements Initializable, IFxmlPaths 
         }else if (Main.categoryName.equals(" Java")){
 
         }
-*/
+
     }
 }

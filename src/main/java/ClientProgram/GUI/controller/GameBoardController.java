@@ -2,6 +2,7 @@ package ClientProgram.GUI.controller;
 
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
+import Model.InfoObj;
 import assets.IFxmlPaths;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import serverProgram.STATE;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -119,6 +121,7 @@ public class GameBoardController implements Initializable, IFxmlPaths {
 
 
     public void loadQuestion(){
+
         if (numberOfRounds == 0) {
             currentRound--;
             System.out.println(currentRound);
@@ -126,6 +129,7 @@ public class GameBoardController implements Initializable, IFxmlPaths {
             //AnchorPane pane = c.loadFMXLFiles(currentClass, "finalResults");
             //gameBoard.getChildren().setAll(pane);
         }else{
+            Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
             // här behöver vi kolla vem av dom 2 spelarna som ska välja kategori
             c.changeScene(CATEGORY_BOARD, playButton);
             //AnchorPane pane = c.loadFMXLFiles(currentClass, "categoryChoiceBoard");

@@ -2,6 +2,7 @@ package ClientProgram.GUI.controller;
 
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
+import Model.InfoObj;
 import Model.Question;
 import assets.IFxmlPaths;
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import serverProgram.STATE;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -153,20 +155,19 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         categoryLabel.setText(categoryLabel.getText() + Main.categoryName);
-        testAnswerList();
-        makeTestQuestion();
-
-
+        //testAnswerList();
+        //makeTestQuestion();
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
         // här skickas frågan från servern
         // man plockar ut frågan och sätter den till questionfield
         // sen sätter man svaren till knapparna
-
+        question = Main.question;
        // question = checkRund(makeTestQuestion());
-        System.out.println("cueent Q " + Main.currentQuestion);
+        /*System.out.println("cueent Q " + Main.currentQuestion);
         if (Main.currentQuestion == 1)
             question = makeTestQuestion().get(0);
         else
-            question = makeTestQuestion().get(1);
+            question = makeTestQuestion().get(1);*/
 
         questionField.setText(question.getQuestion());
 

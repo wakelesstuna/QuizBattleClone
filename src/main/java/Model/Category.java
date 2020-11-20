@@ -1,9 +1,10 @@
 package Model;
 
-import Model.Question;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Category {
+public class Category implements Serializable {
     private String categoryName;
     private List<Question> questions;
 

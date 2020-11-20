@@ -99,6 +99,7 @@ public class ServerProtocol {
 
         switch (infoObj.getState()) {
             case SET_PLAYERNAME -> System.out.println(infoObj.getName());//setPlayerName(player,infoObj);
+            case READY_TO_PLAY -> readyToPlay(player);
             case ASK_CATEGORY -> askCategory(player);
             case SET_CATEGORY -> setCategory(player,infoObj);
             case SEND_QUESTION -> sendQuestion(player);//player.sendObj(new InfoObj(STATE.SEND_QUESTION, questionTest));
@@ -111,6 +112,13 @@ public class ServerProtocol {
 
     public void setPlayerName(Player player, InfoObj infoObj) {
         player.setPlayerName(infoObj.getName());
+    }
+
+    public void readyToPlay(Player player){
+        player.setReadyToPlay(true);
+
+        // for loop som loopar igenom alla spelar i spelet och kollar
+        // om dom är ready to play annars så ligger den och väntar på de
     }
 
     public void askCategory(Player player){

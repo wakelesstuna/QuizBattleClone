@@ -49,7 +49,6 @@ public class Player extends Thread{
             //this.objout = objout;
             this.objin = objin;
 
-            serverProtocol.mulitsederTest.addOutStream(objout);
             Object obj;
             while (true){
                 try {

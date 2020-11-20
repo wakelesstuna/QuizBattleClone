@@ -31,7 +31,6 @@ public class GameMenuController implements Initializable, IFxmlPaths {
         c.changeScene(SELECT_PLAYER, userNameLabel);
         //AnchorPane pane = c.loadFMXLFiles(currentClass, "selectPlayer");
         //gameMenu.getChildren().setAll(pane);
-
     }
 
     public void logout(ActionEvent event) {

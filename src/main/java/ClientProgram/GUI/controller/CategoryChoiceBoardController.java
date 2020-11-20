@@ -74,7 +74,7 @@ public class CategoryChoiceBoardController implements Initializable, IFxmlPaths 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (test == 1){
+        if (Main.choseQuestionTurn == 1){
             geography.setDisable(true);
             java.setDisable(true);
             literature.setDisable(true);

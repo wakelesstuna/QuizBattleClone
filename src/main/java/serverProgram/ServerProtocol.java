@@ -39,7 +39,6 @@ public class ServerProtocol {
                 this.roundsPerGame = 2;
                 this.questionsPerRound = 2;
             }
-
         } catch (Exception e) {
             this.roundsPerGame = 2;
             this.questionsPerRound = 2;
@@ -72,69 +71,55 @@ public class ServerProtocol {
 
     //-------------------------------------- To Handle Object From Player ------------------------------------------\\
 
-    Question question;
     public void handleObject(ServerListner serverListner, InfoObj infoObj) {
 
-        player = serverListner.player;
+        player = serverListner.getPlayer();
 
-
-        // testQuestion
-        List<String> answers = new ArrayList<>();
-        String a1 = "The Beatles";
-        String a2 = "Michael Jackson";
-        String a3 = "Madonna";
-        String a4 = "Queen";
-        answers.add(a1);
-        answers.add(a2);
-        answers.add(a3);
-        answers.add(a4);
-
-        question = new Question("Vem har sålt mest skivor i världen?", "The Beatles", answers);
-        questionList.add(question);
-        question = new Question("Vem grundade java?", "The Beatles", answers);
-        questionList.add(question);
-
-
-
+        // different states of the game
         switch (infoObj.getState()) {
-            case SET_PLAYERNAME -> setPlayerName(player, serverListner,infoObj);
-            case READY_TO_PLAY -> System.out.println(infoObj.getName()); //readyToPlay(player);
+            case SET_PLAYERNAME -> setPlayerName(player, infoObj);
+            case READY_TO_PLAY -> readyToPlay(player, serverListner); //readyToPlay(player);
             case ASK_CATEGORY -> System.out.println(infoObj.getName()); //askCategory(player);
             case SET_CATEGORY -> System.out.println(infoObj.getName()); //setCategory(player,infoObj);
             case SEND_QUESTION -> System.out.println(infoObj.getName()); //sendQuestion(player);//player.sendObj(new InfoObj(STATE.SEND_QUESTION, questionTest));
             case HANDLE_ANSWER -> System.out.println(infoObj.getName()); //checkAnswer(player, infoObj);
             case GAME_OVER -> System.out.println(infoObj.getName());
-
-            }
         }
-
-
-    public void setPlayerName(Player player, ServerListner serverListner, InfoObj infoObj) {
-        player.setName(infoObj.getName());
-        System.out.println(player.getName() + " setting PlayerName");
-        for (ServerListner sl : playersList){
-                sl.sendObj(new InfoObj(STATE.READY_TO_PLAY, player.getName()));
-        }
-
     }
 
-    /*public void readyToPlay(Player player){
+
+    public void setPlayerName(Player player, InfoObj infoObj) {
+        player.setPlayerName(infoObj.getName());
+        System.out.println(player.getPlayerName() + " setting PlayerName");
+    }
+
+    public void readyToPlay(Player player, ServerListner serverListner) {
         System.out.println(player.getPlayerName() + " in readyToplay");
         player.setReadyToPlay(true);
+        System.out.println(player.isReadyToPlay());
+
 
         // väntar på att alla player ska vara redo for att få frågor
-        for (Player p : playersList){
-            if (p.isReadyToPlay()){
-                System.out.println(p.getPlayerName());
-                return;
+        while (true) {
+            // när all spelar anslutit så breakar loopen och man fortsätter med att skicka category choise to players
+            if (serverListner.getGame().getPlayer1().isReadyToPlay() && serverListner.getGame().getPlayer2().isReadyToPlay()) {
+                System.out.println("both ready to play");
+                break;
+
             }
         }
 
+        sendAskForCategoryToCurrentPlayer();
 
-        // for loop som loopar igenom alla spelar i spelet och kollar
-        // om dom är ready to play annars så ligger den och väntar på de
+        serverListner.getGame().switchCurrentPlayers();
+
+        sendAskForCategoryToCurrentPlayer();
+
+
+
+
     }
-
+/*
     public void askCategory(Player player){
         if (player == player.getGame().getCurrentPlayer()){
             player.sendObj(new InfoObj(STATE.ASK_CATEGORY, new Category("SetCategory")));
@@ -189,5 +174,16 @@ public class ServerProtocol {
 
     }*/
 
+
+    public void sendAskForCategoryToCurrentPlayer(){
+
+        for (ServerListner s : playersList){
+            if (s.getGame().getCurrentPlayer() == s.getGame().getPlayer1()){
+                s.sendObj(new InfoObj(STATE.ASK_CATEGORY, s.getGame().getPlayer1().getPlayerName()));
+            }else if (s.getGame().getCurrentPlayer() == s.getGame().getPlayer2()){
+                s.sendObj(new InfoObj(STATE.ASK_CATEGORY, s.getGame().getPlayer2().getPlayerName()));
+            }
+        }
+    }
 
 }

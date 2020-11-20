@@ -15,10 +15,19 @@ import java.util.ResourceBundle;
 public class SearchingForPlayerController implements Initializable {
 
     ControllerUtil c = new ControllerUtil();
-    SearchingForPlayerController searchingForPlayerController = SearchingForPlayerController.this;
+
 
     @FXML
     public Button findPlayerButton;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (Main.choseQuestionTurn == 1){
+
+        }
+
+
+    }
 
     public void testSendObj(){
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.READY_TO_PLAY, "ready to play"));
@@ -40,13 +49,5 @@ public class SearchingForPlayerController implements Initializable {
         c.changeScene(FxmlPaths.GAME_BOARD.toString(), findPlayerButton);
     }
 
-    public SearchingForPlayerController getSearchingForPlayerController() {
-        return searchingForPlayerController;
-    }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        // start lyssnar metod från server så man kan gå vidare när den returnar true
-    }
 }

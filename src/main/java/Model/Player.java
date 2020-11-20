@@ -1,19 +1,21 @@
 package Model;
 
+import java.io.ObjectOutputStream;
+
 public class Player {
 
-    private String name;
+    private String playerName;
     private int playerRoundScore;
     private int playerTotalScore;
     private boolean isReadyToPlay;
     private boolean hasAnswered;
 
-    public String getName() {
-        return name;
+    public String getPlayerName() {
+        return playerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPlayerName(String name) {
+        this.playerName = name;
     }
 
     public int getPlayerRoundScore() {
@@ -47,4 +49,6 @@ public class Player {
     public void setHasAnswered(boolean hasAnswered) {
         this.hasAnswered = hasAnswered;
     }
+
+
 }

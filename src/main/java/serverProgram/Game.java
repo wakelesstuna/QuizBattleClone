@@ -10,8 +10,8 @@ public class Game {
 
     private Player currentPlayer;
     private Player notCurrentPlayer;
-    private Player player1;
-    private Player player2;
+    private Player player1 = new Player();
+    private Player player2 = new Player();
     private Category currentCategory;
     private ArrayList<Question> questionList;
 

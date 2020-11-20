@@ -25,6 +25,7 @@ public class PlayerProtocol {
 
             switch (((InfoObj) objFromServer).getState()){
                 case READY_TO_PLAY -> System.out.println(((InfoObj) objFromServer).getName());
+                case ASK_CATEGORY -> askForcategory((InfoObj) objFromServer);
             }
         }else if (objFromServer instanceof Question){
             System.out.println("Question here");
@@ -32,5 +33,18 @@ public class PlayerProtocol {
         }else if(objFromServer instanceof List){
 
         }
+    }
+
+    private void askForcategory(InfoObj infoObj) {
+        System.out.println("inne i askForCategory");
+        if (infoObj.getName().equals(Main.playerName)){
+            System.out.println("Din tur att välja category");
+            Main.choseQuestionTurn = 0;
+        }else {
+            System.out.println("andra spelaren väljer category");
+            Main.choseQuestionTurn = 1;
+        }
+
+
     }
 }

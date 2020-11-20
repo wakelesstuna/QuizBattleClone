@@ -24,14 +24,7 @@ public class Server implements IPort {
                    ServerListner serverListner = new ServerListner(serverSocket.accept(), serverProtocol, game, i);
                    System.out.println("Player " + i);
                    serverListner.start();
-
-
                 }
-
-                /*System.out.println(serverProtocol.getPlayersList().size());
-                for (Player p : serverProtocol.getPlayersList()) {
-                    System.out.println(p.getObjout());
-                }*/
             }
 
         }catch (Exception e) {

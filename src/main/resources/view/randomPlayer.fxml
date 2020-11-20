@@ -2,91 +2,130 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="searchingForPlayers" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientProgram.GUI.controller.randomPlayerController">
-    <children>
-        <BorderPane prefHeight="600.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <bottom>
-                <Pane prefHeight="97.0" prefWidth="400.0" styleClass="home-bar" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
-                    <effect>
-                        <DropShadow />
-                    </effect>
+<AnchorPane fx:id="newGame" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientProgram.GUI.controller.randomPlayerController">
+   <children>
+      <BorderPane layoutX="62.0" layoutY="182.0" prefHeight="600.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <VBox prefHeight="140.0" prefWidth="400.0" styleClass="home-top-bar" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="findPlayerButton" layoutX="164.0" layoutY="36.0" mnemonicParsing="false" onAction="#findPlayer" text="find player" />
-               </children>
-                </Pane>
-            </bottom>
-            <top>
-                <Pane prefHeight="102.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <GridPane prefHeight="102.0" prefWidth="400.0" styleClass="home-top-bar" stylesheets="@../css/style.css">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="53.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="307.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-                                <Label prefHeight="35.0" prefWidth="252.0" text="BestQuizBattleEver" GridPane.columnIndex="1">
-                                    <font>
-                                        <Font name="System Bold" size="24.0" />
-                                    </font>
-                                    <effect>
-                                        <Lighting diffuseConstant="0.87" specularConstant="1.03" surfaceScale="4.29">
-                                            <bumpInput>
-                                                <Shadow />
-                                            </bumpInput>
-                                            <light>
-                                                <Light.Distant color="#ff4e4e" />
-                                            </light>
-                                        </Lighting>
-                                    </effect>
-                                </Label>
-                            </children>
-                            <effect>
-                                <DropShadow />
-                            </effect>
-                        </GridPane>
-                    </children>
-                    <effect>
-                        <DropShadow color="#00000068" />
-                    </effect>
-                </Pane>
-            </top>
-            <center>
-                <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Label prefHeight="103.0" prefWidth="400.0" />
-                        <Pane prefHeight="293.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/style.css">
+                  <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="86.0" layoutY="85.0" text="Searching for player">
+                        <Label layoutX="87.0" layoutY="27.0" prefHeight="28.0" prefWidth="227.0" text="BestQuizBattleEver">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
+                           <effect>
+                              <Lighting diffuseConstant="0.87" specularConstant="1.03" surfaceScale="4.29">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant color="#ff4e4e" />
+                                 </light>
+                              </Lighting>
+                           </effect>
                         </Label>
-                        <ProgressIndicator layoutX="171.0" layoutY="138.0" prefHeight="40.0" prefWidth="63.0" />
                      </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="400.0">
+                     <children>
+                        <TextField fx:id="serachForPlayer" layoutX="41.0" layoutY="10.0" prefHeight="37.0" prefWidth="318.0" promptText="Serach for player">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                     <effect>
+                        <DropShadow blurType="GAUSSIAN" color="#0000009f" />
+                     </effect>
+                  </Pane>
+               </children>
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" spread="0.79" />
+               </effect>
+            </VBox>
+         </top>
+         <center>
+            <VBox prefHeight="485.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane prefHeight="98.0" prefWidth="400.0">
+                     <children>
+                        <Button fx:id="randomPlayer" layoutX="31.0" layoutY="17.0" mnemonicParsing="false" onAction="#loadRandomPlayer" prefHeight="64.0" prefWidth="341.0" styleClass="start-button" stylesheets="@../css/style.css" text="Random player">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <effect>
+                              <DropShadow color="#000000cb" />
+                           </effect>
+                        </Button>
+                        <Pane layoutX="72.0" layoutY="19.0" prefHeight="60.0" prefWidth="56.0">
+                           <children>
+                              <ImageView fitHeight="59.0" fitWidth="56.0" layoutX="-28.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/dice-icon-vector-13367968.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
                         </Pane>
-                    </children>
-                </VBox>
-            </center>
-        </BorderPane>
-    </children>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="64.0" prefWidth="400.0">
+                     <children>
+                        <Button fx:id="makeConnectToServer" defaultButton="true" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="50.0" prefWidth="300.0" text="Facebook-friends">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <effect>
+                              <DropShadow color="#000000a4" />
+                           </effect>
+                        </Button>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="78.0" prefWidth="400.0">
+                     <children>
+                        <Button defaultButton="true" layoutX="56.0" layoutY="17.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="288.0" text="Invite friends">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <effect>
+                              <DropShadow color="#000000ac" />
+                           </effect>
+                        </Button>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+         </center>
+         <bottom>
+            <Pane prefHeight="81.0" prefWidth="400.0" styleClass="home-bar" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="homeButton" layoutX="113.0" layoutY="21.0" mnemonicParsing="false" onAction="#loadMainGame" prefHeight="25.0" prefWidth="154.0" text="Home">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="GAUSSIAN" color="#0000006c" radius="8.5175" width="15.07" />
+                     </effect>
+                  </Button>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Pane>
+         </bottom>
+      </BorderPane>
+   </children>
 </AnchorPane>

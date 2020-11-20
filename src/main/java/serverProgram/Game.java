@@ -1,6 +1,7 @@
 package serverProgram;
 
 import Model.Category;
+import Model.Player;
 import Model.Question;
 
 import java.util.ArrayList;

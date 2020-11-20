@@ -15,8 +15,7 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
 
 
-    ControllerUtil cu = new ControllerUtil();
-
+    ControllerUtil c = new ControllerUtil();
 
     @FXML
     private TextField userName;
@@ -34,7 +33,7 @@ public class LoginController implements Initializable {
             userName.setPromptText("You need to enter a name");
         }else {
             Main.playerName = userName.getText();
-            cu.changeScene(FxmlPaths.GAME_MENU.toString(), loginButton);
+            c.changeScene(FxmlPaths.GAME_MENU.toString(), loginButton);
 
         }
     }

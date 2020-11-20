@@ -1,6 +1,7 @@
 package ClientProgram;
 
 import ClientProgram.GUI.Main;
+import ClientProgram.GUI.controller.SearchingForPlayerController;
 import Model.InfoObj;
 import Model.Question;
 
@@ -20,8 +21,11 @@ public class PlayerProtocol {
     public void checkObjectFromServer(Object objFromServer){
 
         if (objFromServer instanceof InfoObj){
-            System.out.println("Question here");
-            Main.question = ((InfoObj) objFromServer).getQuestion();
+
+
+            switch (((InfoObj) objFromServer).getState()){
+                case READY_TO_PLAY -> System.out.println(((InfoObj) objFromServer).getName());
+            }
         }else if (objFromServer instanceof Question){
             System.out.println("Question here");
             Main.question = (((Question) objFromServer));

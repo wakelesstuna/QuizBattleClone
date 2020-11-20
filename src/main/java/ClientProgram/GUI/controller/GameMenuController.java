@@ -15,8 +15,8 @@ import java.util.ResourceBundle;
 
 public class GameMenuController implements Initializable, IFxmlPaths {
 
+    // används för att kunna byta scene
     ControllerUtil c = new ControllerUtil();
-    Class<?> currentClass = getClass();
 
     @FXML
     private Button gologin;
@@ -27,19 +27,17 @@ public class GameMenuController implements Initializable, IFxmlPaths {
     @FXML
     private AnchorPane gameMenu;
 
-    public void loadNewGame(){
-        c.changeScene(SELECT_PLAYER, userNameLabel);
-        //AnchorPane pane = c.loadFMXLFiles(currentClass, "selectPlayer");
-        //gameMenu.getChildren().setAll(pane);
+    // loading the selectPlayerScreen
+    public void loadSelectPlayer(){
+        c.changeScene(FxmlPaths.RANDOM_PLAYER.toString(), userNameLabel);
     }
 
+    // to logout to loginScreen
     public void logout(ActionEvent event) {
         c.changeScene(LOGIN_MENU, userNameLabel);
-        //AnchorPane pane = c.loadFMXLFiles(currentClass, "loginMenu");
-        //gameMenu.getChildren().setAll(pane);
-
     }
 
+    // to set username to the input of the username
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userNameLabel.setText(Main.playerName);

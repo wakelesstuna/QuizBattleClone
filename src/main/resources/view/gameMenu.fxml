@@ -182,7 +182,7 @@
                   <Label prefHeight="103.0" prefWidth="400.0" />
                   <Pane prefHeight="293.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/style.css">
                      <children>
-                        <Button id="startNewGameButton" fx:id="startNewGameBtn" layoutX="40.0" layoutY="30.0" mnemonicParsing="false" onAction="#loadNewGame" prefHeight="39.0" prefWidth="327.0" styleClass="start-button" stylesheets="@../css/style.css" text="Start a new game">
+                        <Button id="startNewGameButton" fx:id="startNewGameBtn" layoutX="40.0" layoutY="30.0" mnemonicParsing="false" onAction="#loadSelectPlayer" prefHeight="39.0" prefWidth="327.0" styleClass="start-button" stylesheets="@../css/style.css" text="Start a new game">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>

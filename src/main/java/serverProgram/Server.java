@@ -21,8 +21,10 @@ public class Server implements IPort {
                 game = new Game();
                 serverProtocol = new ServerProtocol();
                 for (int i = 1; i < 3; i++) {
-                   new Player(serverSocket.accept(), serverProtocol, game, i);
+                   ServerListner serverListner = new ServerListner(serverSocket.accept(), serverProtocol, game, i);
                    System.out.println("Player " + i);
+                   serverListner.start();
+
 
                 }
 

@@ -1,14 +1,9 @@
 package serverProgram;
 
-import Model.Category;
-import Model.InfoObj;
-import Model.Question;
+import Model.*;
 import serverProgram.databas.Database;
 
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -21,7 +16,8 @@ public class ServerProtocol {
     private int currentRound = 0;
     private int currentQuestion;
 
-    private ArrayList<Player> playersList;
+    private Player player;
+    private ArrayList<ServerListner> playersList;
     Database database;
     List<Question> questionList = new ArrayList<>();
 
@@ -62,7 +58,7 @@ public class ServerProtocol {
         return questionsPerRound;
     }
 
-    public ArrayList<Player> getPlayersList() {
+    public ArrayList<ServerListner> getPlayersList() {
         return playersList;
     }
 
@@ -77,7 +73,10 @@ public class ServerProtocol {
     //-------------------------------------- To Handle Object From Player ------------------------------------------\\
 
     Question question;
-    public void handleObject(Player player, InfoObj infoObj) throws IOException {
+    public void handleObject(ServerListner serverListner, InfoObj infoObj) {
+
+        player = serverListner.player;
+
 
         // testQuestion
         List<String> answers = new ArrayList<>();
@@ -98,24 +97,39 @@ public class ServerProtocol {
 
 
         switch (infoObj.getState()) {
-            case SET_PLAYERNAME -> System.out.println(infoObj.getName());//setPlayerName(player,infoObj);
-            case READY_TO_PLAY -> readyToPlay(player);
-            case ASK_CATEGORY -> askCategory(player);
-            case SET_CATEGORY -> setCategory(player,infoObj);
-            case SEND_QUESTION -> sendQuestion(player);//player.sendObj(new InfoObj(STATE.SEND_QUESTION, questionTest));
-            case HANDLE_ANSWER -> checkAnswer(player, infoObj);
-            case GAME_OVER -> player.sendObj(new InfoObj(STATE.GAME_OVER, infoObj.getName()));
+            case SET_PLAYERNAME -> setPlayerName(player, serverListner,infoObj);
+            case READY_TO_PLAY -> System.out.println(infoObj.getName()); //readyToPlay(player);
+            case ASK_CATEGORY -> System.out.println(infoObj.getName()); //askCategory(player);
+            case SET_CATEGORY -> System.out.println(infoObj.getName()); //setCategory(player,infoObj);
+            case SEND_QUESTION -> System.out.println(infoObj.getName()); //sendQuestion(player);//player.sendObj(new InfoObj(STATE.SEND_QUESTION, questionTest));
+            case HANDLE_ANSWER -> System.out.println(infoObj.getName()); //checkAnswer(player, infoObj);
+            case GAME_OVER -> System.out.println(infoObj.getName());
 
             }
         }
 
 
-    public void setPlayerName(Player player, InfoObj infoObj) {
-        player.setPlayerName(infoObj.getName());
+    public void setPlayerName(Player player, ServerListner serverListner, InfoObj infoObj) {
+        player.setName(infoObj.getName());
+        System.out.println(player.getName() + " setting PlayerName");
+        for (ServerListner sl : playersList){
+                sl.sendObj(new InfoObj(STATE.READY_TO_PLAY, player.getName()));
+        }
+
     }
 
-    public void readyToPlay(Player player){
+    /*public void readyToPlay(Player player){
+        System.out.println(player.getPlayerName() + " in readyToplay");
         player.setReadyToPlay(true);
+
+        // väntar på att alla player ska vara redo for att få frågor
+        for (Player p : playersList){
+            if (p.isReadyToPlay()){
+                System.out.println(p.getPlayerName());
+                return;
+            }
+        }
+
 
         // for loop som loopar igenom alla spelar i spelet och kollar
         // om dom är ready to play annars så ligger den och väntar på de
@@ -173,7 +187,7 @@ public class ServerProtocol {
         }
 
 
-    }
+    }*/
 
 
 }

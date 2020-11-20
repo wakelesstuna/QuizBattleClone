@@ -1,43 +1,36 @@
 package ClientProgram.GUI.controller;
 
-
-
-import ClientProgram.Client;
 import ClientProgram.GUI.ControllerUtil;
+import ClientProgram.GUI.Main;
 import ClientProgram.PlayerConnection;
+import Model.InfoObj;
 import assets.IFxmlPaths;
+import assets.IPort;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
+import serverProgram.STATE;
 
-import java.net.URL;
-import java.net.UnknownHostException;
-import java.util.ResourceBundle;
-
-public class randomPlayerController implements Initializable, IFxmlPaths {
+public class randomPlayerController implements IPort{
 
     ControllerUtil c = new ControllerUtil();
-    Class<?> currentClass = getClass();
-    int test = 1;
 
     @FXML
-    private AnchorPane searchingForPlayers;
+    private Button makeConnectToServer;
 
-    @FXML
-    public Button findPlayerButton;
+    public void connectToServer(){
 
-
-    public void findPlayer() {
-        c.changeScene(GAME_BOARD, findPlayerButton);
-        //AnchorPane pane = c.loadFMXLFiles(currentClass, "gameBoard");
-        //searchingForPlayers.getChildren().setAll(pane);
     }
 
+    // to go back to mainGameScreen
+    public void loadMainGame() {
+        c.changeScene(FxmlPaths.LOGIN_MENU.toString(), makeConnectToServer);
+    }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        // start lyssnar metod från server så man kan gå vidare när den returnar true
+    //
+    public void loadRandomPlayer() {
+        Main.playerConnection = new PlayerConnection("127.0.0.1", 45455);
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_PLAYERNAME, Main.playerName));
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.READY_TO_PLAY));
+        c.changeScene(FxmlPaths.SEARCHING_FOR_PLAYER.toString(), makeConnectToServer);
     }
 }

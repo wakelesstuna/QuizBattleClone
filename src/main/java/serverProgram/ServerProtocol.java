@@ -4,7 +4,6 @@ import Model.*;
 import serverProgram.databas.Database;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -123,12 +122,10 @@ public class ServerProtocol {
 
         for (ServerListner l: playersList){
             // to send the opponents name to the player
-            String playerOpponent = l.getPlayer().getOpponent().getPlayerName();
-            l.sendObj(new InfoObj(STATE.CHANGE_SCENE, "gameBoard", playerOpponent));
+            Player opponent = l.getPlayer().getOpponent();
+            l.sendObj(new InfoObj(STATE.CHANGE_SCENE, "gameBoard", opponent));
         }
 
-        //sendAskForCategoryToCurrentPlayer();
-        //serverListner.getGame().switchCurrentPlayers();
     }
 
     public void sendToAllPlayers(ServerListner serverListner, Object obj){
@@ -173,6 +170,7 @@ public class ServerProtocol {
 
     public void sendQuestion(ServerListner serverListner) {
         System.out.println("Sending question to player");
+        questionList = database.getQuestionList("java");
         Question question = null;
         if (currentRound < roundsPerGame) {
             switch (currentQuestion) {

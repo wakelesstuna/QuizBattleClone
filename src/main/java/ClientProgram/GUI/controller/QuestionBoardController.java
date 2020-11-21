@@ -23,10 +23,10 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
 
     ControllerUtil c = new ControllerUtil();
 
-    List<Button> answerButtonsList = new ArrayList<>();
+    private List<Button> answerButtonsList = new ArrayList<>();
+    private Question question;
     List<String> testAnswerList = new ArrayList<>();
     List<String> testAnswerList2 = new ArrayList<>();
-    Question question;
 
     @FXML
     private AnchorPane questionBoard;
@@ -154,36 +154,25 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        categoryLabel.setText(categoryLabel.getText() + Main.categoryName);
-        //testAnswerList();
-        //makeTestQuestion();
-        //Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
-        // här skickas frågan från servern
-        // man plockar ut frågan och sätter den till questionfield
-        // sen sätter man svaren till knapparna
-        question = Main.question;
-       // question = checkRund(makeTestQuestion());
-        /*System.out.println("cueent Q " + Main.currentQuestion);
-        if (Main.currentQuestion == 1)
-            question = makeTestQuestion().get(0);
-        else
-            question = makeTestQuestion().get(1);*/
-
-        /*System.out.println(question);
-        questionField.appendText(question.getQuestion());
-
         answerButtonsList.add(answer1);
         answerButtonsList.add(answer2);
         answerButtonsList.add(answer3);
         answerButtonsList.add(answer4);
+    }
 
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 
+    public Label getCategoryLabel() {
+        return categoryLabel;
+    }
 
-        for (int i = 0; i < answerButtonsList.size(); i++) {
-            answerButtonsList.get(i).setText(question.getAnswerChoices().get(i));
-        }*/
+    public TextField getQuestionField() {
+        return questionField;
+    }
 
-        // TODO: 2020-11-13 Detta funkar super bra :D
-
+    public List<Button> getAnswerButtonsList() {
+        return answerButtonsList;
     }
 }

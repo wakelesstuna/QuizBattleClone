@@ -9,6 +9,7 @@ public class InfoObj implements Serializable {
     private STATE state;
     private String name;
     private String SceneToChangeTo;
+    private Player player;
     private String answer;
     private Category category;
     private int roundsPerGame;
@@ -24,10 +25,10 @@ public class InfoObj implements Serializable {
         this.name = name;
     }
 
-    public InfoObj(STATE state, String SceneToChangeTo, String name) {
+    public InfoObj(STATE state, String SceneToChangeTo, Player player) {
         this.state = state;
         this.SceneToChangeTo = SceneToChangeTo;
-        this.name = name;
+        this.player = player;
     }
 
 
@@ -70,6 +71,10 @@ public class InfoObj implements Serializable {
 
     public String getSceneToChangeTo() {
         return SceneToChangeTo;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public Category getCategory() {

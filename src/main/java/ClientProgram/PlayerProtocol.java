@@ -7,6 +7,8 @@ import Model.InfoObj;
 import Model.Question;
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.PointLight;
+import javafx.scene.control.Button;
 
 import java.util.List;
 
@@ -37,7 +39,23 @@ public class PlayerProtocol {
 
         }else if (objFromServer instanceof Question){
             System.out.println("Question here");
-            Main.question = (((Question) objFromServer));
+            Platform.runLater(() -> {
+
+                ControllerUtil.getQuestionBoardController().setQuestion(((Question) objFromServer));
+                ControllerUtil.getQuestionBoardController().getCategoryLabel().setText("JAVA");
+                ControllerUtil.getQuestionBoardController().getQuestionField().setText(((Question) objFromServer).getQuestion());
+
+                // TODO: 2020-11-21 fixa så frågorna skrivs ut på rätt sätt
+
+                for (int i = 0; i < ControllerUtil.getQuestionBoardController().getAnswerButtonsList().size(); i++) {
+                    ControllerUtil.getQuestionBoardController().getAnswerButtonsList()
+                            .get(i).setText(((Question) objFromServer).getAnswerChoices().get(i));
+
+                }
+
+                ControllerUtil.changeScenes(ControllerUtil.getQuestionBoardScene());
+            });
+
         }else if(objFromServer instanceof List){
 
         }
@@ -46,7 +64,7 @@ public class PlayerProtocol {
     private void loginMenu(InfoObj objFromServer) {
         if (objFromServer.getSceneToChangeTo().equals("gameBoard")) {
             Platform.runLater(() -> {
-                ControllerUtil.getGameBoardController().getOpponentName().setText(objFromServer.getName());
+                ControllerUtil.getGameBoardController().getOpponentName().setText(objFromServer.getPlayer().getPlayerName());
                 ControllerUtil.changeScenes(ControllerUtil.getGameBoardScene());
             });
         } else {

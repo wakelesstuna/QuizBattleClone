@@ -6,6 +6,8 @@ import java.util.List;
 
 
 public class Question implements Serializable {
+
+    // TODO: 2020-11-21 Varje fråga måste ha en String med kategorinnamn
     private String question;
     private String collectAnswer;
     private List<String> answerChoices;

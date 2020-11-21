@@ -121,15 +121,17 @@ public class GameBoardController implements Initializable, IFxmlPaths {
 
 
     public void loadQuestion(){
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
+        c.changeScene(FxmlPaths.QUESTION_BOARD.toString(), playButton);
 
-        if (numberOfRounds == 0) {
+       /* if (numberOfRounds == 0) {
             currentRound--;
             System.out.println(currentRound);
             c.changeScene(FINAL_RESULTS, playButton);
             //AnchorPane pane = c.loadFMXLFiles(currentClass, "finalResults");
             //gameBoard.getChildren().setAll(pane);
         }else{
-            Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
+            //Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
             // här behöver vi kolla vem av dom 2 spelarna som ska välja kategori
             c.changeScene(CATEGORY_BOARD, playButton);
             //AnchorPane pane = c.loadFMXLFiles(currentClass, "categoryChoiceBoard");
@@ -139,7 +141,7 @@ public class GameBoardController implements Initializable, IFxmlPaths {
             }
             System.out.println(currentRound);
             numberOfRounds--;
-        }
+        }*/
     }
 
     public void endGame(){

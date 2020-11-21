@@ -33,6 +33,7 @@ public class LoginController implements Initializable {
             userName.setPromptText("You need to enter a name");
         }else {
             Main.playerName = userName.getText();
+            userName.setText("");
             c.changeScene(FxmlPaths.GAME_MENU.toString(), loginButton);
 
         }

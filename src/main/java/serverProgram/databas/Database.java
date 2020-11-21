@@ -65,4 +65,16 @@ public class Database {
     public List<Category> getCategories() {
         return categories;
     }
+
+    public static void main(String[] args) {
+        Database data = new Database();
+        List<Question> questions = data.getQuestionList("java");
+        for (Question q : questions){
+            System.out.println(q.getQuestion());
+        }
+
+    }
+
+
 }
+

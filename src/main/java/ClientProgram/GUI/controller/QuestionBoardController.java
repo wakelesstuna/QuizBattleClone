@@ -101,6 +101,7 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
             GameBoardController.numberOfQuestions = 2; // sätt detta med properties
         } else {
             Main.currentQuestion++;
+            Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
             c.changeScene(QUESTION_BOARD, questionField);
             //AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
             //questionBoard.getChildren().setAll(pane);
@@ -157,7 +158,7 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
         categoryLabel.setText(categoryLabel.getText() + Main.categoryName);
         //testAnswerList();
         //makeTestQuestion();
-        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
+        //Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
         // här skickas frågan från servern
         // man plockar ut frågan och sätter den till questionfield
         // sen sätter man svaren till knapparna
@@ -169,7 +170,8 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
         else
             question = makeTestQuestion().get(1);*/
 
-        questionField.setText(question.getQuestion());
+        System.out.println(question);
+        questionField.appendText(question.getQuestion());
 
         answerButtonsList.add(answer1);
         answerButtonsList.add(answer2);

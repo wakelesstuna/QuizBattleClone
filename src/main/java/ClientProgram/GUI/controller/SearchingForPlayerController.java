@@ -5,29 +5,17 @@ import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
 import Model.InfoObj;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import serverProgram.STATE;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class SearchingForPlayerController implements Initializable {
+public class SearchingForPlayerController {
 
     ControllerUtil c = new ControllerUtil();
 
 
     @FXML
     public Button findPlayerButton;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (Main.choseQuestionTurn == 1){
-
-        }
-
-
-    }
 
     public void testSendObj(){
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.READY_TO_PLAY, "ready to play"));
@@ -36,8 +24,6 @@ public class SearchingForPlayerController implements Initializable {
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.ASK_CATEGORY, "ASK_CATEGORY"));
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_CATEGORY, "SET_CATEGORY"));
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.HANDLE_ANSWER, "HANDLE_ANSWER"));
-
-
     }
 
     // anropas när servern har skickat svar om att den hittat en spelare

@@ -1,9 +1,12 @@
 package ClientProgram;
 
+import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
-import ClientProgram.GUI.controller.SearchingForPlayerController;
+import ClientProgram.GUI.controller.FxmlPaths;
 import Model.InfoObj;
 import Model.Question;
+import javafx.application.Platform;
+import javafx.scene.Node;
 
 import java.util.List;
 
@@ -18,21 +21,32 @@ public class PlayerProtocol {
      * med hjälp av implementet initialize
      */
 
+    ControllerUtil c = new ControllerUtil();
+
+
     public void checkObjectFromServer(Object objFromServer){
 
         if (objFromServer instanceof InfoObj){
 
-
             switch (((InfoObj) objFromServer).getState()){
+                case CHANGE_SCENE -> loginMenu();
                 case READY_TO_PLAY -> System.out.println(((InfoObj) objFromServer).getName());
                 case ASK_CATEGORY -> askForcategory((InfoObj) objFromServer);
+                case SEND_QUESTION -> Main.question = (Question) objFromServer;
             }
+
         }else if (objFromServer instanceof Question){
             System.out.println("Question here");
             Main.question = (((Question) objFromServer));
         }else if(objFromServer instanceof List){
 
         }
+    }
+
+    private void loginMenu() {
+        Platform.runLater(()-> {
+            ControllerUtil.changeScenes(ControllerUtil.getLoginMenuScene());
+        });
     }
 
     private void askForcategory(InfoObj infoObj) {

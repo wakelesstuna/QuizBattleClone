@@ -4,18 +4,20 @@ import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
 import ClientProgram.PlayerConnection;
 import Model.InfoObj;
-import assets.IFxmlPaths;
 import assets.IPort;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import serverProgram.STATE;
 
-public class randomPlayerController implements IPort{
+public class RandomPlayerController implements IPort{
 
     ControllerUtil c = new ControllerUtil();
 
     @FXML
     private Button makeConnectToServer;
+
+    @FXML
+    public Button randomPlayer;
 
     public void connectToServer(){
 
@@ -31,6 +33,7 @@ public class randomPlayerController implements IPort{
         Main.playerConnection = new PlayerConnection("127.0.0.1", 45455);
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_PLAYERNAME, Main.playerName));
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.READY_TO_PLAY));
-        c.changeScene(FxmlPaths.SEARCHING_FOR_PLAYER.toString(), makeConnectToServer);
+
+        //c.changeScene(FxmlPaths.SEARCHING_FOR_PLAYER.toString(), makeConnectToServer);
     }
 }

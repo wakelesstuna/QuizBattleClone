@@ -7,9 +7,11 @@ import assets.IFxmlPaths;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class Main extends Application implements IFxmlPaths {
     public static List<Question> questionsList;
 
 
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(LOGIN_MENU));
@@ -32,11 +35,14 @@ public class Main extends Application implements IFxmlPaths {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
+
         // Detta stänger hela programmet om man tycker på X i någon av rutorna
         primaryStage.setOnCloseRequest(e -> {
             Platform.exit();
             System.exit(0);
         });
+
+        ControllerUtil.setCurrentStage(primaryStage);
     }
 
     public static void main(String[] args) {

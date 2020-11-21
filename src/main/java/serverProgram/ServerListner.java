@@ -63,6 +63,7 @@ public class ServerListner extends Thread{
         try {
             System.out.println("sending obj to cleint " + this.player.getPlayerName());
             objout.writeObject(obj);
+            objout.flush();
         }catch (Exception e){
             System.out.println("Coulden't send object");
             e.printStackTrace();

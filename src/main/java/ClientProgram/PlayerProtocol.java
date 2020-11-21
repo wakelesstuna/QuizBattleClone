@@ -9,6 +9,8 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.PointLight;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
+import javafx.scene.paint.Color;
 
 import java.util.List;
 
@@ -23,9 +25,6 @@ public class PlayerProtocol {
      * med hjälp av implementet initialize
      */
 
-    ControllerUtil c = new ControllerUtil();
-
-
     public void checkObjectFromServer(Object objFromServer){
 
         if (objFromServer instanceof InfoObj){
@@ -35,11 +34,13 @@ public class PlayerProtocol {
                 case READY_TO_PLAY -> System.out.println(((InfoObj) objFromServer).getName());
                 case ASK_CATEGORY -> askForcategory((InfoObj) objFromServer);
                 case SEND_QUESTION -> Main.question = (Question) objFromServer;
+                case GAME_OVER -> finalScore();
             }
 
         }else if (objFromServer instanceof Question){
             System.out.println("Question here");
             Platform.runLater(() -> {
+                ControllerUtil.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
 
                 ControllerUtil.getQuestionBoardController().setQuestion(((Question) objFromServer));
                 ControllerUtil.getQuestionBoardController().getCategoryLabel().setText("JAVA");
@@ -50,7 +51,6 @@ public class PlayerProtocol {
                 for (int i = 0; i < ControllerUtil.getQuestionBoardController().getAnswerButtonsList().size(); i++) {
                     ControllerUtil.getQuestionBoardController().getAnswerButtonsList()
                             .get(i).setText(((Question) objFromServer).getAnswerChoices().get(i));
-
                 }
 
                 ControllerUtil.changeScenes(ControllerUtil.getQuestionBoardScene());
@@ -72,6 +72,12 @@ public class PlayerProtocol {
                 ControllerUtil.changeScenes(ControllerUtil.getLoginMenuScene());
             });
         }
+    }
+
+    public void finalScore(){
+        Platform.runLater(()-> {
+            ControllerUtil.changeScenes(ControllerUtil.getLoginMenuScene());
+        });
     }
 
 

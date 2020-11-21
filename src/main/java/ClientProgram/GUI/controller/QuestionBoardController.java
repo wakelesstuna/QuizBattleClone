@@ -28,6 +28,12 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
     List<String> testAnswerList = new ArrayList<>();
     List<String> testAnswerList2 = new ArrayList<>();
 
+    private int roundsPerGame = 2;
+    private int questionsPerRound = 2;
+
+    private int currentRound = 0;
+    private int currentQuestion = 0;
+
     @FXML
     private AnchorPane questionBoard;
 
@@ -63,9 +69,14 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
             pressed.setStyle("-fx-background-color: greenyellow");
             Main.playerConnection.sendObjectToServer(new InfoObj(STATE.HANDLE_ANSWER, pressed.getText()));
 
+
         }else {
             pressed.setStyle("-fx-background-color: firebrick");
             Main.playerConnection.sendObjectToServer(new InfoObj(STATE.HANDLE_ANSWER, pressed.getText()));
+        }
+
+        if (currentRound < roundsPerGame){
+            Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
         }
 
     }
@@ -106,6 +117,11 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
         answerButtonsList.add(answer2);
         answerButtonsList.add(answer3);
         answerButtonsList.add(answer4);
+
+        for (Button b : answerButtonsList) {
+            b.setDisable(false);
+
+        }
     }
 
     public void setQuestion(Question question) {
@@ -122,5 +138,21 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
 
     public List<Button> getAnswerButtonsList() {
         return answerButtonsList;
+    }
+
+    public int getRoundsPerGame() {
+        return roundsPerGame;
+    }
+
+    public void setRoundsPerGame(int roundsPerGame) {
+        this.roundsPerGame = roundsPerGame;
+    }
+
+    public int getQuestionsPerRound() {
+        return questionsPerRound;
+    }
+
+    public void setQuestionsPerRound(int questionsPerRound) {
+        this.questionsPerRound = questionsPerRound;
     }
 }

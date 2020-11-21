@@ -44,8 +44,9 @@ public class ServerListner extends Thread{
             Object obj;
             while (true){
                 try {
-                    System.out.println("Object recevied from " + this.player.getPlayerName());
+
                     obj = objin.readObject();
+                    System.out.println("Object recevied from " + this.player.getPlayerName() + obj);
                     if (obj instanceof InfoObj)
                         serverProtocol.handleObject(this, (InfoObj) obj);
                 }catch (EOFException e){

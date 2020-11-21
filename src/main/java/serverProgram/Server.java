@@ -25,6 +25,7 @@ public class Server implements IPort {
                    System.out.println("Player " + i);
                    serverListner.start();
                 }
+                System.out.println("Game created\nWith " + serverProtocol.getRoundsPerGame() + " Rounds\nAnd " + serverProtocol.getQuestionsPerRound() + " questions");
             }
 
         }catch (Exception e) {

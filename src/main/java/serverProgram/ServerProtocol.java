@@ -18,7 +18,7 @@ public class ServerProtocol {
     private Question question = null;
     private String currentCategory;
 
-    private Player player;
+
     private ArrayList<ServerListner> playersList;
     Database database;
     List<Category> categoryList = new ArrayList<>();
@@ -78,7 +78,7 @@ public class ServerProtocol {
 
     public void handleObject(ServerListner serverListner, InfoObj infoObj) {
 
-        player = serverListner.getPlayer();
+        Player player = serverListner.getPlayer();
 
         // different states of the game
         switch (infoObj.getState()) {
@@ -87,7 +87,7 @@ public class ServerProtocol {
             case ASK_CATEGORY -> System.out.println(infoObj.getName()); //askCategory(player);
             case SET_CATEGORY -> setCategory(serverListner, infoObj);
             case SEND_QUESTION -> sendQuestion(serverListner);
-            case HANDLE_ANSWER -> checkAnswer(serverListner, infoObj);
+            case HANDLE_ANSWER -> checkAnswer(player ,serverListner, infoObj);
             case GAME_OVER -> System.out.println(infoObj.getName());
         }
     }
@@ -100,8 +100,8 @@ public class ServerProtocol {
 
     public void readyToPlay(Player player, ServerListner serverListner) {
         System.out.println(player.getPlayerName() + " in readyToPlay");
-        player.setReadyToPlay(true);
-        System.out.println(player.isReadyToPlay());
+        serverListner.getPlayer().setReadyToPlay(true);
+        System.out.println(player.isReadyToPlay() + player.getPlayerName());
 
         // waits for 2 player to connect to game and be ready to play
         while (true) {
@@ -181,8 +181,10 @@ public class ServerProtocol {
                 // case 4 -> question = questionList.get(4);
             }
             currentQuestion++;
+            currentRound++;
 
             for (ServerListner l: playersList){
+                System.out.println("skickar fråga");
                 l.sendObj(question);
             }
         }else {
@@ -192,24 +194,25 @@ public class ServerProtocol {
 
     }
 
-    private void checkAnswer(ServerListner serverListner, InfoObj infoObj) {
+    private void checkAnswer(Player player, ServerListner serverListner, InfoObj infoObj) {
         System.out.println(question.getCollectAnswer());
         System.out.println(infoObj.getName());
         player.setHasAnswered(true);
-        if (infoObj.getName().equalsIgnoreCase(question.getCollectAnswer())){
-            player.setPlayerRoundScore(player.getPlayerRoundScore() + 1);
-            player.setPlayerTotalScore(player.getPlayerTotalScore() + 1);
-            System.out.println(player.getPlayerName() + " scored a point");
-        }
+        System.out.println(player.isHasAnswered());
 
-        System.out.println("väntar på andra spelaren");
-
-        while (true) {
+        /*while (true) {
             // when all players answered the question the loop breaks
+            System.out.println("väntar på att båda ska svara");
             if (serverListner.getGame().getPlayer1().isHasAnswered() && serverListner.getGame().getPlayer2().isHasAnswered()) {
                 System.out.println("both player answered the question");
                 break;
             }
+        }*/
+
+        if (infoObj.getName().equalsIgnoreCase(question.getCollectAnswer())){
+            player.setPlayerRoundScore(player.getPlayerRoundScore() + 1);
+            player.setPlayerTotalScore(player.getPlayerTotalScore() + 1);
+            System.out.println(player.getPlayerName() + " scored a point");
         }
 
         try {
@@ -218,8 +221,7 @@ public class ServerProtocol {
             e.printStackTrace();
         }
 
-
-
+        sendQuestion(serverListner);
 
     }
 

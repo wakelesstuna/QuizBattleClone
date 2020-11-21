@@ -83,7 +83,7 @@ public class ServerProtocol {
         // different states of the game
         switch (infoObj.getState()) {
             case SET_PLAYERNAME -> setPlayerName(player, infoObj);
-            case READY_TO_PLAY -> serverListner.sendObj(new InfoObj(STATE.CHANGE_SCENE));//readyToPlay(player, serverListner); //readyToPlay(player);
+            case READY_TO_PLAY -> readyToPlay(player, serverListner); //readyToPlay(player);
             case ASK_CATEGORY -> System.out.println(infoObj.getName()); //askCategory(player);
             case SET_CATEGORY -> setCategory(serverListner, infoObj);
             case SEND_QUESTION -> sendQuestion(serverListner);
@@ -103,24 +103,29 @@ public class ServerProtocol {
         player.setReadyToPlay(true);
         System.out.println(player.isReadyToPlay());
 
-
-        // väntar på att alla player ska vara redo for att få frågor
+        // waits for 2 player to connect to game and be ready to play
         while (true) {
-            // när all spelar anslutit så breakar loopen och man fortsätter med att skicka category choise to players
+            // when both players are ready to play send category choise to player
             if (serverListner.getGame().getPlayer1().isReadyToPlay() && serverListner.getGame().getPlayer2().isReadyToPlay()) {
+                // to set opponent to players
+                serverListner.getGame().getPlayer1().setOpponent(serverListner.getGame().getPlayer2());
+                serverListner.getGame().getPlayer2().setOpponent(serverListner.getGame().getPlayer1());
                 System.out.println("both ready to play");
                 break;
             }
         }
 
-       /* Question question = database.getQuestionList("java").get(0);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         for (ServerListner l: playersList){
-            l.sendObj(question);
-        }*/
-
-
-
+            // to send the opponents name to the player
+            String playerOpponent = l.getPlayer().getOpponent().getPlayerName();
+            l.sendObj(new InfoObj(STATE.CHANGE_SCENE, "gameBoard", playerOpponent));
+        }
 
         //sendAskForCategoryToCurrentPlayer();
         //serverListner.getGame().switchCurrentPlayers();

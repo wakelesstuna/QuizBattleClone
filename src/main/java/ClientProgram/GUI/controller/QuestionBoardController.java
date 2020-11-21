@@ -22,7 +22,6 @@ import java.util.ResourceBundle;
 public class QuestionBoardController implements Initializable, IFxmlPaths {
 
     ControllerUtil c = new ControllerUtil();
-    Class<?> currentClass = getClass();
 
     List<Button> answerButtonsList = new ArrayList<>();
     List<String> testAnswerList = new ArrayList<>();
@@ -102,7 +101,7 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
         } else {
             Main.currentQuestion++;
             Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
-            c.changeScene(QUESTION_BOARD, questionField);
+            //c.changeScene(QUESTION_BOARD, questionField);
             //AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
             //questionBoard.getChildren().setAll(pane);
             // här måste vi fråga servern om en ny fråga
@@ -170,7 +169,7 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
         else
             question = makeTestQuestion().get(1);*/
 
-        System.out.println(question);
+        /*System.out.println(question);
         questionField.appendText(question.getQuestion());
 
         answerButtonsList.add(answer1);
@@ -182,7 +181,7 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
 
         for (int i = 0; i < answerButtonsList.size(); i++) {
             answerButtonsList.get(i).setText(question.getAnswerChoices().get(i));
-        }
+        }*/
 
         // TODO: 2020-11-13 Detta funkar super bra :D
 

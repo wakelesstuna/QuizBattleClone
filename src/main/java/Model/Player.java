@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 public class Player {
 
     private String playerName;
+    private Player opponent;
     private int playerRoundScore;
     private int playerTotalScore;
     private boolean isReadyToPlay;
@@ -16,6 +17,14 @@ public class Player {
 
     public void setPlayerName(String name) {
         this.playerName = name;
+    }
+
+    public Player getOpponent() {
+        return opponent;
+    }
+
+    public void setOpponent(Player opponent) {
+        this.opponent = opponent;
     }
 
     public int getPlayerRoundScore() {

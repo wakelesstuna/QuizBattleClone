@@ -162,4 +162,13 @@ public class GameBoardController implements Initializable, IFxmlPaths {
             playButton.setText("End Game");
         }
     }
+
+    public Label getYouName() {
+        return youName;
+    }
+
+    public Label getOpponentName() {
+        return opponentName;
+    }
+
 }

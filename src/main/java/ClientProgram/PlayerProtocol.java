@@ -29,7 +29,7 @@ public class PlayerProtocol {
         if (objFromServer instanceof InfoObj){
 
             switch (((InfoObj) objFromServer).getState()){
-                case CHANGE_SCENE -> loginMenu();
+                case CHANGE_SCENE -> loginMenu((InfoObj)objFromServer);
                 case READY_TO_PLAY -> System.out.println(((InfoObj) objFromServer).getName());
                 case ASK_CATEGORY -> askForcategory((InfoObj) objFromServer);
                 case SEND_QUESTION -> Main.question = (Question) objFromServer;
@@ -43,11 +43,19 @@ public class PlayerProtocol {
         }
     }
 
-    private void loginMenu() {
-        Platform.runLater(()-> {
-            ControllerUtil.changeScenes(ControllerUtil.getLoginMenuScene());
-        });
+    private void loginMenu(InfoObj objFromServer) {
+        if (objFromServer.getSceneToChangeTo().equals("gameBoard")) {
+            Platform.runLater(() -> {
+                ControllerUtil.getGameBoardController().getOpponentName().setText(objFromServer.getName());
+                ControllerUtil.changeScenes(ControllerUtil.getGameBoardScene());
+            });
+        } else {
+            Platform.runLater(() -> {
+                ControllerUtil.changeScenes(ControllerUtil.getLoginMenuScene());
+            });
+        }
     }
+
 
     private void askForcategory(InfoObj infoObj) {
         System.out.println("inne i askForCategory");

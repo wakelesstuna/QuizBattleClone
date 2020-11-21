@@ -73,7 +73,7 @@ public class GameBoardController {
 
     public void loadQuestion(){
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
-
+        playButton.setDisable(true);
     }
 
     public void endGame(){

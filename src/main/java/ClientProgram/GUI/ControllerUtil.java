@@ -43,7 +43,8 @@ public class ControllerUtil {
 
     private static FXMLLoader loginMenuloader = new FXMLLoader(ControllerUtil.class.getClassLoader().getResource("view/loginMenu.fxml"));
     private static Parent loginMenuparent;
-    static { try { loginMenuparent = loginMenuloader.load(); } catch (IOException e) { e.printStackTrace(); }}
+    static { try { loginMenuparent = loginMenuloader.load();
+        System.out.println("Loaded Login Menu");} catch (IOException e) { e.printStackTrace(); }}
     private static Scene loginMenuScene = new Scene(loginMenuparent);
     private static LoginController loginController = loginMenuloader.getController();
 
@@ -59,7 +60,8 @@ public class ControllerUtil {
 
     private static FXMLLoader gameMenuloader = new FXMLLoader(ControllerUtil.class.getClassLoader().getResource("view/gameMenu.fxml"));
     private static Parent gameMenuparent;
-    static { try { gameMenuparent = gameMenuloader.load(); } catch (IOException e) { e.printStackTrace(); }}
+    static { try { gameMenuparent = gameMenuloader.load();
+        System.out.println("Loaded Game Menu"); } catch (IOException e) { e.printStackTrace(); }}
     private static Scene gameMenuScene = new Scene(gameMenuparent);
     private static GameMenuController gameMenuController = gameMenuloader.getController();
 
@@ -75,7 +77,8 @@ public class ControllerUtil {
 
     private static FXMLLoader randomPlayerloader = new FXMLLoader(ControllerUtil.class.getClassLoader().getResource("view/randomPlayer.fxml"));
     private static Parent randomPlayerparent;
-    static { try { randomPlayerparent = randomPlayerloader.load(); } catch (IOException e) { e.printStackTrace(); }}
+    static { try { randomPlayerparent = randomPlayerloader.load();
+        System.out.println("Loaded Random Player Menu");} catch (IOException e) { e.printStackTrace(); }}
     private static Scene randomPlayerScene = new Scene(randomPlayerparent);
     private static RandomPlayerController randomPlayerController = randomPlayerloader.getController();
 
@@ -91,7 +94,8 @@ public class ControllerUtil {
 
     private static FXMLLoader searchingForPlayerloader = new FXMLLoader(ControllerUtil.class.getClassLoader().getResource("view/SearchingForPlayer.fxml"));
     private static Parent searchingForPlayerParent;
-    static { try { searchingForPlayerParent = searchingForPlayerloader.load(); } catch (IOException e) { e.printStackTrace(); }}
+    static { try { searchingForPlayerParent = searchingForPlayerloader.load();
+        System.out.println("Loaded Seraching For Player Scene");} catch (IOException e) { e.printStackTrace(); }}
     private static Scene searchingForPlayerScene = new Scene(searchingForPlayerParent);
     private static SearchingForPlayerController searchingForPlayerController = searchingForPlayerloader.getController();
 
@@ -107,7 +111,8 @@ public class ControllerUtil {
 
     private static FXMLLoader gameBoardloader = new FXMLLoader(ControllerUtil.class.getClassLoader().getResource("view/gameBoard.fxml"));
     private static Parent gameBoardParent;
-    static { try { gameBoardParent = gameBoardloader.load(); } catch (IOException e) { e.printStackTrace(); }}
+    static { try { gameBoardParent = gameBoardloader.load();
+        System.out.println("Loaded Game Bord Scene");} catch (IOException e) { e.printStackTrace(); }}
     private static Scene gameBoardScene = new Scene(gameBoardParent);
     private static GameBoardController gameBoardController = gameBoardloader.getController();
 
@@ -123,7 +128,8 @@ public class ControllerUtil {
 
     private static FXMLLoader categoryChoiceBoardloader = new FXMLLoader(ControllerUtil.class.getClassLoader().getResource("view/categoryChoiceBoard.fxml"));
     private static Parent categoryChoiceBoardParent;
-    static { try { categoryChoiceBoardParent = categoryChoiceBoardloader.load(); } catch (IOException e) { e.printStackTrace(); }}
+    static { try { categoryChoiceBoardParent = categoryChoiceBoardloader.load();
+        System.out.println("Loaded CateGory Board Scene");} catch (IOException e) { e.printStackTrace(); }}
     private static Scene categoryChoiceBoardScene = new Scene(categoryChoiceBoardParent);
     private static CategoryChoiceBoardController categoryChoiceBoardController = categoryChoiceBoardloader.getController();
 
@@ -139,7 +145,8 @@ public class ControllerUtil {
 
     private static FXMLLoader questionBoardloader = new FXMLLoader(ControllerUtil.class.getClassLoader().getResource("view/questionBoard.fxml"));
     private static Parent questionBoardParent;
-    static { try { questionBoardParent = questionBoardloader.load(); } catch (IOException e) { e.printStackTrace(); }}
+    static { try { questionBoardParent = questionBoardloader.load();
+        System.out.println("Loaded Question Board Scene");} catch (IOException e) { e.printStackTrace(); }}
     private static Scene questionBoardScene = new Scene(questionBoardParent);
     private static QuestionBoardController questionBoardController = questionBoardloader.getController();
 
@@ -155,7 +162,7 @@ public class ControllerUtil {
 
     private static FXMLLoader finalResultsloader = new FXMLLoader(ControllerUtil.class.getClassLoader().getResource("view/finalResults.fxml"));
     private static Parent finalResultsParent;
-    static { try { finalResultsParent = questionBoardloader.load(); } catch (IOException e) { e.printStackTrace(); }}
+    static { try { finalResultsParent = questionBoardloader.load();  System.out.println("Loaded Final Results Scene");} catch (IOException e) { e.printStackTrace(); }}
     private static Scene finalResultsScene = new Scene(finalResultsParent);
     private static FinalResultsController finalResultsController = finalResultsloader.getController();
 

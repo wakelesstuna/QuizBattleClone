@@ -15,6 +15,7 @@ public class ServerProtocol {
 
     private int currentRound = 0;
     private int currentQuestion;
+    private Question question = null;
     private String currentCategory;
 
     private Player player;
@@ -86,7 +87,7 @@ public class ServerProtocol {
             case ASK_CATEGORY -> System.out.println(infoObj.getName()); //askCategory(player);
             case SET_CATEGORY -> setCategory(serverListner, infoObj);
             case SEND_QUESTION -> sendQuestion(serverListner);
-            case HANDLE_ANSWER -> System.out.println(infoObj.getName()); //checkAnswer(player, infoObj);
+            case HANDLE_ANSWER -> checkAnswer(serverListner, infoObj);
             case GAME_OVER -> System.out.println(infoObj.getName());
         }
     }
@@ -171,7 +172,6 @@ public class ServerProtocol {
     public void sendQuestion(ServerListner serverListner) {
         System.out.println("Sending question to player");
         questionList = database.getQuestionList("java");
-        Question question = null;
         if (currentRound < roundsPerGame) {
             switch (currentQuestion) {
                 case 0 -> question = questionList.get(0);
@@ -180,7 +180,6 @@ public class ServerProtocol {
                 // case 3 -> question = questionList.get(3);
                 // case 4 -> question = questionList.get(4);
             }
-            currentRound++;
             currentQuestion++;
 
             for (ServerListner l: playersList){
@@ -194,19 +193,32 @@ public class ServerProtocol {
     }
 
     private void checkAnswer(ServerListner serverListner, InfoObj infoObj) {
+        System.out.println(question.getCollectAnswer());
+        System.out.println(infoObj.getName());
         player.setHasAnswered(true);
-        if (infoObj.getAnswer().equalsIgnoreCase(infoObj.getQuestion().getCollectAnswer())){
+        if (infoObj.getName().equalsIgnoreCase(question.getCollectAnswer())){
             player.setPlayerRoundScore(player.getPlayerRoundScore() + 1);
             player.setPlayerTotalScore(player.getPlayerTotalScore() + 1);
+            System.out.println(player.getPlayerName() + " scored a point");
         }
 
+        System.out.println("väntar på andra spelaren");
+
         while (true) {
-            // när all spelar anslutit så breakar loopen och man fortsätter med att skicka category choise to players
+            // when all players answered the question the loop breaks
             if (serverListner.getGame().getPlayer1().isHasAnswered() && serverListner.getGame().getPlayer2().isHasAnswered()) {
                 System.out.println("both player answered the question");
                 break;
             }
         }
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
 
 
     }

@@ -1,6 +1,7 @@
 package ClientProgram.GUI;
 
 import ClientProgram.Client;
+import ClientProgram.GUI.controller.FxmlPaths;
 import ClientProgram.PlayerConnection;
 import Model.Question;
 import assets.IFxmlPaths;
@@ -15,7 +16,7 @@ import javafx.stage.Window;
 
 import java.util.List;
 
-public class Main extends Application implements IFxmlPaths {
+public class Main extends Application{
 
     public static PlayerConnection playerConnection;
     public static String playerName = "playerName";
@@ -27,10 +28,10 @@ public class Main extends Application implements IFxmlPaths {
     public static List<Question> questionsList;
 
 
-
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(LOGIN_MENU));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(FxmlPaths.LOGIN_MENU.toString()));
+        System.out.println("Starting Client App");
         primaryStage.setTitle("BestQuizBattleEver");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

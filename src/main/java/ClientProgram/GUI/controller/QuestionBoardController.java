@@ -57,39 +57,17 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
             b.setDisable(true);
         }
 
-        Button pressedbtn = (Button) ae.getSource();
+        Button pressed = (Button) ae.getSource();
 
-        if (pressedbtn.getText().equals(question.getCollectAnswer())){
-            pressedbtn.setStyle("-fx-background-color: greenyellow");
+        if (pressed.getText().equals(question.getCollectAnswer())){
+            pressed.setStyle("-fx-background-color: greenyellow");
+            Main.playerConnection.sendObjectToServer(new InfoObj(STATE.HANDLE_ANSWER, pressed.getText()));
 
-            // addar 1 poäng till din score
-            GameBoardController.gameRoundScore = GameBoardController.gameRoundScore + 1;
-            GameBoardController.gameTotalScore = GameBoardController.gameTotalScore + 1;
-
-            // skicka till servern att man är redo for nästa runda
         }else {
-            pressedbtn.setStyle("-fx-background-color: firebrick");
-            // skicka till serven att man är redo för nästa runda
+            pressed.setStyle("-fx-background-color: firebrick");
+            Main.playerConnection.sendObjectToServer(new InfoObj(STATE.HANDLE_ANSWER, pressed.getText()));
         }
-        /*
-        if (pressedbtn.getText().equals(question.getCorrectAnser)){
-            pressedbtn.setStyle("-fx-background-color: greenyellow");
 
-            // addar 1 poäng till din score
-            GameBoardController.gameRoundScore = GameBoardController.gameRoundScore + 1;
-            GameBoardController.gameTotalScore = GameBoardController.gameTotalScore + 1;
-            // skicka dina poäng till server
-            new Request(SEND_SCORE, gameBoardController.gameRoundScore);
-        }else {
-            pressedbtn.setStyle("-fx-background-color: firebrick");
-        }
-        */
-
-
-        String answer = pressedbtn.getText();
-
-        // Skicka svar till servern för att kolla om de är rätt
-        //new Request(SEND_ANSWER, answer)
     }
 
     public void nextQuestion(){
@@ -110,36 +88,6 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
         }
     }
 
-
-    public List<Question> makeTestQuestion(){
-        Question question1 = new Question("Vem grundade Java?", "James Gosling", testAnswerList);
-        Question question2 = new Question("Vad hette Java från början?", "Oak", testAnswerList2 );
-        List<Question> tempList = new ArrayList<>();
-        tempList.add(question1);
-        tempList.add(question2);
-        return tempList;
-
-    }
-
-    public void testAnswerList(){
-        String answer = "James Gosling";
-        testAnswerList.add(answer);
-        answer = "Oscar Forss";
-        testAnswerList.add(answer);
-        answer = "Mahmud";
-        testAnswerList.add(answer);
-        answer = "Sigrun";
-        testAnswerList.add(answer);
-        answer = "Oak";
-        testAnswerList2.add(answer);
-        answer = "Latte";
-        testAnswerList2.add(answer);
-        answer = "Microsoft";
-        testAnswerList2.add(answer);
-        answer = "JavaScript";
-        testAnswerList2.add(answer);
-
-    }
 
     public Question checkRund(List<Question> list){
 

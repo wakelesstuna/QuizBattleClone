@@ -21,7 +21,7 @@ public class GameBoardController {
     public static int numberOfQuestions = 2; // sätt dessa med proptiesfil
 
     public static int currentRound = 1;
-    public static int gameRoundScore = 0;
+    public int gameRoundScore = 0;
     public static int gameTotalScore = 0;
 
     //public static Question currentQuestion; // här sätter vi frågan frpom servern
@@ -72,8 +72,8 @@ public class GameBoardController {
     private Label opponentRound5Score;
 
     public void loadQuestion(){
-        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
-        playButton.setDisable(true);
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTIONLIST, "java"));
+        //ControllerUtil.changeScenes(ControllerUtil.getQuestionBoardScene());
     }
 
     public void endGame(){
@@ -86,6 +86,30 @@ public class GameBoardController {
 
     public Label getOpponentName() {
         return opponentName;
+    }
+
+    public static String getOpponent() {
+        return opponent;
+    }
+
+    public static void setOpponent(String opponent) {
+        GameBoardController.opponent = opponent;
+    }
+
+    public int getGameRoundScore() {
+        return gameRoundScore;
+    }
+
+    public void setGameRoundScore(int gameRoundScore) {
+        this.gameRoundScore = gameRoundScore;
+    }
+
+    public static int getGameTotalScore() {
+        return gameTotalScore;
+    }
+
+    public static void setGameTotalScore(int gameTotalScore) {
+        GameBoardController.gameTotalScore = gameTotalScore;
     }
 
     public Label getYouRound1Score() {

@@ -21,7 +21,6 @@ public class RandomPlayerController{
 
     // Creates a connection to the server, sends userName to server, sends that this player is ready to play a game
     public void loadRandomPlayer() {
-        Main.playerConnection = new PlayerConnection(IpConfig.IPADDRESS.toString(), Integer.parseInt(IpConfig.PORT.toString()));
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_PLAYERNAME, ControllerUtil.getGameMenuController().getUserNameLabel().getText()));
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.READY_TO_PLAY));
         ControllerUtil.changeScenes(ControllerUtil.getSearchingForPlayerScene());

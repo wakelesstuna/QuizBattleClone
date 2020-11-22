@@ -1,5 +1,6 @@
 package ClientProgram.GUI.controller;
 
+import ClientProgram.Client;
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
 import Model.InfoObj;
@@ -21,12 +22,9 @@ import java.util.ResourceBundle;
 
 public class QuestionBoardController implements Initializable, IFxmlPaths {
 
-    ControllerUtil c = new ControllerUtil();
-
     private List<Button> answerButtonsList = new ArrayList<>();
+    private List<Question> questionList = new ArrayList<>();
     private Question question;
-    List<String> testAnswerList = new ArrayList<>();
-    List<String> testAnswerList2 = new ArrayList<>();
 
     private int roundsPerGame = 2;
     private int questionsPerRound = 2;
@@ -67,49 +65,37 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
 
         if (pressed.getText().equals(question.getCollectAnswer())){
             pressed.setStyle("-fx-background-color: greenyellow");
-            Main.playerConnection.sendObjectToServer(new InfoObj(STATE.HANDLE_ANSWER, pressed.getText()));
-
+            ControllerUtil.getGameBoardController().setGameRoundScore(ControllerUtil.getGameBoardController().gameRoundScore + 1);
 
         }else {
             pressed.setStyle("-fx-background-color: firebrick");
-            Main.playerConnection.sendObjectToServer(new InfoObj(STATE.HANDLE_ANSWER, pressed.getText()));
+
         }
 
-        if (currentRound < roundsPerGame){
-            Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
-        }
 
     }
 
     public void nextQuestion(){
-        // om de finns en fråga till skicka den från servern
-        if (GameBoardController.numberOfQuestions == 1) {
-            // ladda en FinalScoreBoard med slutresultat
-            c.changeScene(GAME_BOARD, questionField);
-            GameBoardController.numberOfQuestions = 2; // sätt detta med properties
-        } else {
-            Main.currentQuestion++;
-            Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION));
-            //c.changeScene(QUESTION_BOARD, questionField);
-            //AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
-            //questionBoard.getChildren().setAll(pane);
-            // här måste vi fråga servern om en ny fråga
-            GameBoardController.numberOfQuestions--;
+        if (currentRound < roundsPerGame){
+            currentQuestion++;
+            question = questionList.get(currentQuestion);
+            questionField.setText(question.getQuestion());
 
+            for (int i = 0; i < answerButtonsList.size(); i++) {
+                answerButtonsList.get(i).setDisable(false);
+                answerButtonsList.get(i).setStyle("-fx-background-color: #D1FDFF");
+                answerButtonsList.get(i).setText(questionList.get(currentQuestion).getAnswerChoices().get(i));
+                currentRound++;
+            }
+            ControllerUtil.changeScenes(ControllerUtil.getQuestionBoardScene());
+        }else{
+            Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTIONLIST, "geografi"));
+            ControllerUtil.getGameBoardController().getYouRound1Score().setText(String.valueOf(ControllerUtil.getGameBoardController().gameRoundScore));
+            ControllerUtil.changeScenes(ControllerUtil.getGameBoardScene());
         }
-    }
-
-
-    public Question checkRund(List<Question> list){
-
-        if (Main.currentRound == 1 && Main.currentQuestion == 1)
-            return list.get(0);
-        else if (Main.currentRound == 1 && Main.currentQuestion == 2)
-            return list.get(1);
-        else
-            return null;
 
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -120,7 +106,6 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
 
         for (Button b : answerButtonsList) {
             b.setDisable(false);
-
         }
     }
 
@@ -138,6 +123,14 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
 
     public List<Button> getAnswerButtonsList() {
         return answerButtonsList;
+    }
+
+    public List<Question> getQuestionList() {
+        return questionList;
+    }
+
+    public void setQuestionList(List<Question> questionList) {
+        this.questionList = questionList;
     }
 
     public int getRoundsPerGame() {

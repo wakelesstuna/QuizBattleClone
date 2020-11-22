@@ -16,7 +16,6 @@ public class Server implements IPort {
             this.serverProtocol = new ServerProtocol();
             System.out.println("BestQuizEverServer is Running on Port " + PORT + "....");
 
-
             while (!serverSocket.isClosed()) {
                 game = new Game();
                 serverProtocol = new ServerProtocol();
@@ -25,7 +24,6 @@ public class Server implements IPort {
                    System.out.println("Player " + i);
                    serverListner.start();
                 }
-                System.out.println("Game created\nWith " + serverProtocol.getRoundsPerGame() + " Rounds\nAnd " + serverProtocol.getQuestionsPerRound() + " questions");
             }
 
         }catch (Exception e) {

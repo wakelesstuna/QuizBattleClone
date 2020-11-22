@@ -40,6 +40,7 @@ public class PlayerProtocol {
         }else if (objFromServer instanceof Question){
             System.out.println("Question here");
             Platform.runLater(() -> {
+                ControllerUtil.getGameBoardController().playButton.setDisable(false);
                 ControllerUtil.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
 
                 ControllerUtil.getQuestionBoardController().setQuestion(((Question) objFromServer));
@@ -57,11 +58,41 @@ public class PlayerProtocol {
             });
 
         }else if(objFromServer instanceof List){
+            Platform.runLater(()->{
+
+                ControllerUtil.getGameBoardController().playButton.setDisable(false);
+                ControllerUtil.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
+
+                System.out.println("QuestionList here");
+                System.out.println(((List<Question>)objFromServer).get(0).getQuestion());
+
+                // sets the list of questions for the round
+                ControllerUtil.getQuestionBoardController().setQuestionList((List<Question>) objFromServer);
+
+                // sets the first question
+                ControllerUtil.getQuestionBoardController().setQuestion(((List<Question>) objFromServer).get(0));
+
+                // sets the categoryLabel
+                ControllerUtil.getQuestionBoardController().getCategoryLabel().setText("JAVA");
+
+                // sets the text of the first question
+                ControllerUtil.getQuestionBoardController().getQuestionField().setText(((List<Question>) objFromServer).get(0).getQuestion());
+
+                // sets the answers to buttons for the first question
+                for (int i = 0; i < ControllerUtil.getQuestionBoardController().getAnswerButtonsList().size(); i++) {
+                    ControllerUtil.getQuestionBoardController().getAnswerButtonsList()
+                            .get(i).setText(((List<Question>) objFromServer).get(0).getAnswerChoices().get(i)); }
+
+                // loads the QuestionScene after all variables and GUI are set
+                ControllerUtil.changeScenes(ControllerUtil.getQuestionBoardScene());
+            });
+
 
         }
     }
 
     private void loginMenu(InfoObj objFromServer) {
+        System.out.println("dags att byta scene");
         if (objFromServer.getSceneToChangeTo().equals("gameBoard")) {
             Platform.runLater(() -> {
                 ControllerUtil.getGameBoardController().getOpponentName().setText(objFromServer.getPlayer().getPlayerName());

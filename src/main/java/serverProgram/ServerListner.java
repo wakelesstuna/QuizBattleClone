@@ -42,17 +42,22 @@ public class ServerListner extends Thread{
     public void run() {
         try (ObjectInputStream objin = new ObjectInputStream(socket.getInputStream())){
             Object obj;
-            while (true){
+           // while (true){
                 try {
 
-                    obj = objin.readObject();
-                    System.out.println("Object recevied from " + this.player.getPlayerName() + obj);
-                    if (obj instanceof InfoObj)
+                    while ((obj = objin.readObject()) != null) {
+
+
+                        System.out.println("Object recevied from " + this.player.getPlayerName() + obj);
+
                         serverProtocol.handleObject(this, (InfoObj) obj);
+
+                    }
+
                 }catch (EOFException e){
                     e.printStackTrace();
                 }
-            }
+           // }
         }catch (SocketException e){
             System.out.println("Player disconnected");
         }catch (Exception e){

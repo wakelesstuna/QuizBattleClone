@@ -27,10 +27,6 @@ public class PlayerConnection implements Runnable, IPort {
     @Override
     public void run() {
         System.out.println("Running...");
-        receiveObjectFromServer();
-    }
-
-    private void receiveObjectFromServer() {
         PlayerProtocol playerProtocol = new PlayerProtocol();
         Thread thread = new Thread(() -> {
             try {
@@ -46,6 +42,7 @@ public class PlayerConnection implements Runnable, IPort {
         });
         thread.start();
     }
+
 
     public void sendObjectToServer(Object objectToServer){
         try {

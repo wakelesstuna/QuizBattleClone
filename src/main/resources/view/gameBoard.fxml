@@ -286,7 +286,12 @@
                               <Rectangle fx:id="round4Label" arcHeight="5.0" arcWidth="5.0" height="12.0" stroke="BLACK" strokeType="INSIDE" width="28.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                            </children>
                         </GridPane>
-                        <Label fx:id="rounds" layoutX="143.0" layoutY="-6.0" text="Round ">
+                        <Label fx:id="rounds" layoutX="134.0" layoutY="-6.0" text="Round ">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="whichRoundNumberLabel" layoutX="229.0" layoutY="-6.0" text="0">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>

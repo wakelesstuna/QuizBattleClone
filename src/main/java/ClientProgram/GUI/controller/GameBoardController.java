@@ -33,7 +33,9 @@ public class GameBoardController {
     public Button endGame;
 
     @FXML
-    private Label rounds;
+    private Label whichRoundNumberLabel;
+
+    private int whichRoundNumber = 1;
 
     @FXML
     private Label youName;
@@ -72,8 +74,14 @@ public class GameBoardController {
     private Label opponentRound5Score;
 
     public void loadQuestion(){
-        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTIONLIST, "java"));
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION, "java"));
+        addRoundToGame();
+        playButton.setDisable(true);
         //ControllerUtil.changeScenes(ControllerUtil.getQuestionBoardScene());
+    }
+
+    private void addRoundToGame(){
+        this.whichRoundNumber += 1;
     }
 
     public void endGame(){
@@ -86,6 +94,22 @@ public class GameBoardController {
 
     public Label getOpponentName() {
         return opponentName;
+    }
+
+    public Label getWithRoundNumberLabel() {
+        return whichRoundNumberLabel;
+    }
+
+    public void setWithRoundNumberLabel(Label withRoundNumberLabel) {
+        this.whichRoundNumberLabel = withRoundNumberLabel;
+    }
+
+    public int getWhichRoundNumber() {
+        return whichRoundNumber;
+    }
+
+    public void setWhichRoundNumber(int whichRoundNumber) {
+        this.whichRoundNumber = whichRoundNumber;
     }
 
     public static String getOpponent() {

@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class InfoObj implements Serializable {
 
     private STATE state;
-    private String name;
+    private String msg;
     private String SceneToChangeTo;
     private Player player;
     private String answer;
@@ -20,9 +20,9 @@ public class InfoObj implements Serializable {
     }
 
     // används när vi vill skicka playername till servern
-    public InfoObj(STATE state, String name) {
+    public InfoObj(STATE state, String msg) {
         this.state = state;
-        this.name = name;
+        this.msg = msg;
     }
 
     public InfoObj(STATE state, String SceneToChangeTo, Player player) {
@@ -61,8 +61,8 @@ public class InfoObj implements Serializable {
         return state;
     }
 
-    public String getName() {
-        return name;
+    public String getMsg() {
+        return msg;
     }
 
     public String getAnswer() {

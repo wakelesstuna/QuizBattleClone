@@ -2,15 +2,9 @@ package ClientProgram;
 
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
-import ClientProgram.GUI.controller.FxmlPaths;
 import Model.InfoObj;
 import Model.Question;
 import javafx.application.Platform;
-import javafx.scene.Node;
-import javafx.scene.PointLight;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.paint.Color;
 
 import java.util.List;
 
@@ -31,7 +25,7 @@ public class PlayerProtocol {
 
             switch (((InfoObj) objFromServer).getState()){
                 case CHANGE_SCENE -> loginMenu((InfoObj)objFromServer);
-                case READY_TO_PLAY -> System.out.println(((InfoObj) objFromServer).getName());
+                case READY_TO_PLAY -> System.out.println(((InfoObj) objFromServer).getMsg());
                 case ASK_CATEGORY -> askForcategory((InfoObj) objFromServer);
                 case SEND_QUESTION -> Main.question = (Question) objFromServer;
                 case GAME_OVER -> finalScore();
@@ -93,28 +87,28 @@ public class PlayerProtocol {
 
     private void loginMenu(InfoObj objFromServer) {
         System.out.println("dags att byta scene");
-        if (objFromServer.getSceneToChangeTo().equals("gameBoard")) {
+        System.out.println(objFromServer.getPlayer().getPlayerRoundScore());
+        System.out.println(objFromServer.getPlayer().getPlayerName());
+
             Platform.runLater(() -> {
+                ControllerUtil.getGameBoardController().getWithRoundNumberLabel().setText("" + ControllerUtil.getGameBoardController().getWhichRoundNumber());
                 ControllerUtil.getGameBoardController().getOpponentName().setText(objFromServer.getPlayer().getPlayerName());
+                ControllerUtil.getGameBoardController().getOpponentRound1Score().setText(String.valueOf(objFromServer.getPlayer().getOpponent().getPlayerRoundScore()));
                 ControllerUtil.changeScenes(ControllerUtil.getGameBoardScene());
             });
-        } else {
-            Platform.runLater(() -> {
-                ControllerUtil.changeScenes(ControllerUtil.getLoginMenuScene());
-            });
-        }
+
     }
 
     public void finalScore(){
         Platform.runLater(()-> {
-            ControllerUtil.changeScenes(ControllerUtil.getLoginMenuScene());
+            ControllerUtil.changeScenes(ControllerUtil.getGameMenuScene());
         });
     }
 
 
     private void askForcategory(InfoObj infoObj) {
         System.out.println("inne i askForCategory");
-        if (infoObj.getName().equals(Main.playerName)){
+        if (infoObj.getMsg().equals(Main.playerName)){
             System.out.println("Din tur att välja category");
             Main.choseQuestionTurn = 0;
         }else {

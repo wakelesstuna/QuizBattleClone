@@ -27,6 +27,10 @@ public class Player implements Serializable {
         this.opponent = opponent;
     }
 
+    public void addRoundPoint(){
+        this.playerRoundScore = playerRoundScore + 1;
+    }
+
     public int getPlayerRoundScore() {
         return playerRoundScore;
     }

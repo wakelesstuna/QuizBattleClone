@@ -72,6 +72,7 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
 
         }
 
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.HANDLE_ANSWER, pressed.getText()));
 
     }
 

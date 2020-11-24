@@ -1,7 +1,7 @@
 package serverProgram;
 
 import model.*;
-import serverProgram.databas.Database;
+import serverProgram.questionDAO.Database;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class ServerProtocol {
         return playersList;
     }
 
-    // test the reading from propfile
+    // test the reading from config.properties
     public static void main(String[] args) {
         ServerProtocol s = new ServerProtocol();
         System.out.println(s.getRoundsPerGame());
@@ -74,11 +74,6 @@ public class ServerProtocol {
 
     //-------------------------------------- To Handle Object From Player ------------------------------------------\\
 
-    public void handleObject(ServerListener serverListener, Object obj) {
-
-        System.out.println("kommer hit");
-
-    }
 
     public void handleObject(ServerListener serverListener, InfoObj infoObj) {
         System.out.println("tar hand om object");
@@ -93,60 +88,8 @@ public class ServerProtocol {
             case SEND_QUESTION -> sendQuestion(serverListener);
             case HANDLE_ANSWER -> checkAnswer(player, serverListener, infoObj);
             case GAME_OVER -> System.out.println(infoObj.getMsg());
-            case SEND_QUESTIONLIST -> sendQuestionList(serverListener, infoObj);
         }
     }
-
-    // TODO: 2020-11-22 Servern får ej emot meddelandet från spelare 1 när man trycker på play knappen 
-
-    private void sendQuestionList(ServerListener serverListener, InfoObj obj) {
-
-        serverListener.getPlayer().setReadyToPlay(true);
-        System.out.println(serverListener.getPlayer().getPlayerName() + " " + serverListener.getPlayer().isReadyToPlay());
-        System.out.println(playersList.size());
-        System.out.println("väntar på nästa spelare");
-
-        if (serverListener.getGame().getPlayer1().isReadyToPlay() && serverListener.getGame().getPlayer2().isReadyToPlay()) {
-            if (obj.getMsg().equals("java")) {
-                playersList.forEach(l -> l.sendObj(database.getQuestionList(obj.getMsg())));
-                //serverListner.sendObj(database.getQuestionList("java"));
-                currentRound++;
-            } else if (obj.getMsg().equals("geografi")) {
-                playersList.forEach(l -> l.sendObj(database.getQuestionList(obj.getMsg())));
-                //serverListner.sendObj(database.getQuestionList("geografi"));
-                currentRound++;
-            } else if (currentRound == 2) {
-                serverListener.sendObj(database.getQuestionList("litteratur"));
-                currentRound++;
-            } else if (currentRound == 3) {
-                serverListener.sendObj(database.getQuestionList("musik"));
-                currentRound++;
-            } else if (currentRound == 4) {
-                serverListener.sendObj(database.getQuestionList("sport"));
-                currentRound++;
-            }
-
-            //sendToAllPlayers(database.getQuestionList("java"));
-            serverListener.sendObj(database.getQuestionList("java"));
-            System.out.println("båda redo");
-        } else {
-            System.out.println("väntar på att bådda spelare ska vara redo");
-        }
-
-    }
-
-
-    public void setReadyToPlayFalseForBothPlayers(ServerListener serverListener) {
-        serverListener.getGame().getPlayer1().setReadyToPlay(false);
-        serverListener.getGame().getPlayer2().setReadyToPlay(false);
-    }
-
-    public void sendToAllPlayers(ServerListener serverListener, Object obj) {
-        for (ServerListener l : playersList) {
-            l.sendObj(obj);
-        }
-    }
-
 
     public void setPlayerName(Player player, InfoObj infoObj) {
         player.setPlayerName(infoObj.getMsg());
@@ -211,7 +154,6 @@ public class ServerProtocol {
         game = serverListener.getGame();
         serverListener.getPlayer().setReadyToPlay(true);
 
-
         if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
             questionList = database.getCategories().get(currentCategory).getQuestions();
             System.out.println(currentRound);
@@ -226,15 +168,14 @@ public class ServerProtocol {
                         // case 4 -> question = questionList.get(4);
                     }
                     currentQuestion++;
-
                     setReadyToPlayFalseForBothPlayers(serverListener);
-                    sendToAllPlayers(serverListener, question);
+                    sendToAllPlayers(question);
                 }
             } else {
                 // här skickar vi till clienterna att denna ska byta scene till finalscore
                 // vi skickar med båda spelarna så dom kan sätta värde på de grafiska variablerna
                 // i finalscore
-                sendToAllPlayers(serverListener, new InfoObj(STATE.GAME_OVER));
+                sendToAllPlayers(new InfoObj(STATE.GAME_OVER));
             }
 
 
@@ -246,11 +187,9 @@ public class ServerProtocol {
 
     private void checkAnswer(Player player, ServerListener serverListener, InfoObj infoObj) {
         game = serverListener.getGame();
-        System.out.println(question.getCollectAnswer());
-        System.out.println(infoObj.getMsg());
         player.setReadyToPlay(true);
 
-        if (infoObj.getMsg().equalsIgnoreCase(question.getCollectAnswer())) {
+        if (infoObj.getMsg().equalsIgnoreCase(question.getCorrectAnswer())) {
             player.addRoundPoint();
             System.out.println("inne och sätter score " + player.getPlayerName());
             player.addTotalPoint();
@@ -279,20 +218,27 @@ public class ServerProtocol {
                         Player opponent = l.getPlayer().getOpponent();
                         System.out.println(l.getPlayer().getPlayerName() + " " + l.getPlayer().getPlayerRoundScore() + "total: " + l.getPlayer().getPlayerTotalScore());
                         System.out.println(l.getPlayer().getOpponent() + " " + l.getPlayer().getOpponent().getPlayerRoundScore());
-                        l.sendObj(new InfoObj(STATE.CHANGE_SCENE, "gameBoard", l.getPlayer().getOpponent()));
+                        l.sendObj(new InfoObj(STATE.CHANGE_SCENE, "gameBoard", opponent));
                         l.getPlayer().setPlayerRoundScore(0);
                     }
-                }else {
-                    sendToAllPlayers(serverListener, new InfoObj(STATE.GAME_OVER));
+                } else {
+                    sendToAllPlayers(new InfoObj(STATE.GAME_OVER));
                 }
-
-                }
-
-            } else{
-                System.out.println("Väntar på att den andra spelaren ska svara");
             }
-
-
+        } else {
+            System.out.println("Väntar på att den andra spelaren ska svara");
         }
-
     }
+
+    public void sendToAllPlayers(Object obj) {
+        for (ServerListener l : playersList) {
+            l.sendObj(obj);
+        }
+    }
+
+    public void setReadyToPlayFalseForBothPlayers(ServerListener serverListener) {
+        serverListener.getGame().getPlayer1().setReadyToPlay(false);
+        serverListener.getGame().getPlayer2().setReadyToPlay(false);
+    }
+
+}

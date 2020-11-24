@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="questionBoard" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clientProgram.GUI.controller.QuestionBoardController">
+<AnchorPane fx:id="questionBoard" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clientProgram.GUI.controllers.QuestionBoardController">
     <children>
         <BorderPane prefHeight="600.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <bottom>
@@ -24,7 +24,7 @@
                         <DropShadow color="#00000098" />
                     </effect>
                <children>
-                  <ProgressIndicator fx:id="waitingInicator" layoutX="40.0" layoutY="31.0" prefHeight="36.0" prefWidth="34.0" visible="false" />
+                  <ProgressIndicator fx:id="waitingIndicator" layoutX="40.0" layoutY="31.0" prefHeight="36.0" prefWidth="34.0" visible="false" />
                   <Label fx:id="waitingLabel" layoutX="88.0" layoutY="39.0" prefHeight="20.0" prefWidth="247.0" text="wating for other player to answer..." visible="false">
                      <font>
                         <Font name="System Bold" size="14.0" />

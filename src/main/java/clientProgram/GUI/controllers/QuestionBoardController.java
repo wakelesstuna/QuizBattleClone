@@ -1,8 +1,7 @@
-package clientProgram.GUI.controller;
+package clientProgram.GUI.controllers;
 
-
-import clientProgram.GUI.ControllerUtil;
-import clientProgram.GUI.Main;
+import clientProgram.GUI.FxmlUtil;
+import clientProgram.Main;
 import model.InfoObj;
 import model.Question;
 import model.IFxmlPaths;
@@ -13,8 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import serverProgram.STATE;
+import model.STATE;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,18 +21,8 @@ import java.util.ResourceBundle;
 
 public class QuestionBoardController implements Initializable, IFxmlPaths {
 
-    private List<Button> answerButtonsList = new ArrayList<>();
-    private List<Question> questionList = new ArrayList<>();
+    private final List<Button> answerButtonsList = new ArrayList<>();
     private Question question;
-
-    private int roundsPerGame = 2;
-    private int questionsPerRound = 2;
-
-    private int currentRound = 0;
-    private int currentQuestion = 0;
-
-    @FXML
-    private AnchorPane questionBoard;
 
     @FXML
     private Label categoryLabel;
@@ -55,13 +43,12 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
     private Button answer4;
 
     @FXML
-    private ProgressIndicator waitingInicator;
+    private ProgressIndicator waitingIndicator;
 
     @FXML
     private Label waitingLabel;
 
     private int rounds = 0;
-
 
     //för att skicka den knapp man har tryckt på till server
     public void answerButton(ActionEvent ae){
@@ -72,15 +59,15 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
 
         Button pressed = (Button) ae.getSource();
 
-        if (pressed.getText().equals(question.getCollectAnswer())){
+        if (pressed.getText().equals(question.getCorrectAnswer())){
             pressed.setStyle("-fx-background-color: greenyellow");
-            ControllerUtil.getGameBoardController().getYourTotalScore().setText(String.valueOf(Integer.parseInt(ControllerUtil.getGameBoardController().getYourTotalScore().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYourTotalScore().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYourTotalScore().getText()) + 1));
             setRoundScore();
         }else {
             pressed.setStyle("-fx-background-color: firebrick");
 
         }
-        waitingInicator.setVisible(true);
+        waitingIndicator.setVisible(true);
         waitingLabel.setVisible(true);
 
 
@@ -90,15 +77,15 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
 
     public void setRoundScore(){
         if (rounds == 1){
-            ControllerUtil.getGameBoardController().getYouRound1Score().setText(String.valueOf(Integer.parseInt(ControllerUtil.getGameBoardController().getYouRound1Score().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYouRound1Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound1Score().getText()) + 1));
         }else if (rounds == 2){
-            ControllerUtil.getGameBoardController().getYouRound2Score().setText(String.valueOf(Integer.parseInt(ControllerUtil.getGameBoardController().getYouRound2Score().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYouRound2Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound2Score().getText()) + 1));
         }else if (rounds == 3){
-            ControllerUtil.getGameBoardController().getYouRound3Score().setText(String.valueOf(Integer.parseInt(ControllerUtil.getGameBoardController().getYouRound3Score().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYouRound3Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound3Score().getText()) + 1));
         }else if (rounds == 4){
-            ControllerUtil.getGameBoardController().getYouRound4Score().setText(String.valueOf(Integer.parseInt(ControllerUtil.getGameBoardController().getYouRound4Score().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYouRound4Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound4Score().getText()) + 1));
         }else{
-            ControllerUtil.getGameBoardController().getYouRound5Score().setText(String.valueOf(Integer.parseInt(ControllerUtil.getGameBoardController().getYouRound5Score().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYouRound5Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound5Score().getText()) + 1));
         }
 
     }
@@ -123,8 +110,8 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
         return question;
     }
 
-    public ProgressIndicator getWaitingInicator() {
-        return waitingInicator;
+    public ProgressIndicator getWaitingIndicator() {
+        return waitingIndicator;
     }
 
     public Label getWaitingLabel() {
@@ -147,27 +134,4 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
         return answerButtonsList;
     }
 
-    public List<Question> getQuestionList() {
-        return questionList;
-    }
-
-    public void setQuestionList(List<Question> questionList) {
-        this.questionList = questionList;
-    }
-
-    public int getRoundsPerGame() {
-        return roundsPerGame;
-    }
-
-    public void setRoundsPerGame(int roundsPerGame) {
-        this.roundsPerGame = roundsPerGame;
-    }
-
-    public int getQuestionsPerRound() {
-        return questionsPerRound;
-    }
-
-    public void setQuestionsPerRound(int questionsPerRound) {
-        this.questionsPerRound = questionsPerRound;
-    }
 }

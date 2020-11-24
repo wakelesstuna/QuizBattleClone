@@ -1,4 +1,4 @@
-package serverProgram;
+package model;
 
 public enum STATE {
     SET_PLAYERNAME,
@@ -7,7 +7,6 @@ public enum STATE {
     SET_CATEGORY,
     SEND_QUESTION,
     HANDLE_ANSWER,
-    SEND_QUESTIONLIST,
     CHANGE_SCENE,
     GAME_OVER
 }

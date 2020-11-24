@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class StartPackage implements Serializable {
 
     // Send game settings to Client
-    private int gameRounds;
-    private int questionPerRounds;
+    private final int gameRounds;
+    private final int questionPerRounds;
 
     public StartPackage(int gameRounds, int questionPerRounds) {
         this.gameRounds = gameRounds;

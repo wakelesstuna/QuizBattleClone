@@ -1,4 +1,4 @@
-package serverProgram.databas;
+package serverProgram.questionDAO;
 
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import model.Category;
 
 
 public class Database {
-    private final Path questionPath = Paths.get("src/main/java/serverProgram/databas/questions");
+    private final Path questionPath = Paths.get("src/main/java/serverProgram/questionDAO/questions");
     private List<Category> categories = new ArrayList<>();
 
     public Database() {

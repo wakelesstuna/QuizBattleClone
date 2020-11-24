@@ -12,15 +12,6 @@ public class Game {
     private Player notCurrentPlayer;
     private Player player1 = new Player();
     private Player player2 = new Player();
-    private Category currentCategory;
-    private ArrayList<Question> questionList;
-
-    public void checkObjStatus(Player player, Object objFromPlayer) {
-    }
-
-    public void addPlayerToList(Player player) {
-
-    }
 
     public Player getCurrentPlayer() {
         return currentPlayer;
@@ -38,7 +29,6 @@ public class Game {
         this.notCurrentPlayer = notCurrentPlayer;
     }
 
-    // för att ändra tur när man ska välja category
     public void switchCurrentPlayers(){
         Player temp = currentPlayer;
         currentPlayer = notCurrentPlayer;
@@ -59,23 +49,6 @@ public class Game {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
-    }
-
-    public Category getCurrentCategory() {
-        return currentCategory;
-    }
-
-    public void setCurrentCategory(Category currentCategory) {
-        this.currentCategory = currentCategory;
-        //questionList = databas.getCurrentCategoryQuestionList(currentCategory);
-    }
-
-    public ArrayList<Question> getQuestionList() {
-        return questionList;
-    }
-
-    public void setQuestionList(ArrayList<Question> questionList) {
-        this.questionList = questionList;
     }
 
 }

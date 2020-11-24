@@ -47,10 +47,6 @@ public class Player implements Serializable {
         return playerTotalScore;
     }
 
-    public void setPlayerTotalScore(int playerTotalScore) {
-        this.playerTotalScore = playerTotalScore;
-    }
-
     public boolean isReadyToPlay() {
         return isReadyToPlay;
     }

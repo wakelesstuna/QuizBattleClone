@@ -1,8 +1,7 @@
-package clientProgram.GUI;
+package clientProgram;
 
-
-import clientProgram.GUI.controller.FxmlPaths;
-import clientProgram.PlayerConnection;
+import clientProgram.GUI.FxmlUtil;
+import model.IFxmlPaths;
 import model.Question;
 
 import javafx.application.Application;
@@ -13,7 +12,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application{
+import java.util.Objects;
+
+public class Main extends Application implements IFxmlPaths {
 
     public static PlayerConnection playerConnection;
     public static String playerName = "playerName";
@@ -23,21 +24,19 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(FxmlPaths.LOGIN_MENU.toString()));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource(LOGIN_MENU)));
         System.out.println("Starting Client App");
         primaryStage.setTitle("BestQuizBattleEver");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
-
-        // Detta stänger hela programmet om man tycker på X i någon av rutorna
         primaryStage.setOnCloseRequest(e -> {
             Platform.exit();
             System.exit(0);
         });
 
-        ControllerUtil.setCurrentStage(primaryStage);
+        FxmlUtil.setCurrentStage(primaryStage);
     }
 
     public static void main(String[] args) {

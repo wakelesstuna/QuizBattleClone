@@ -1,6 +1,6 @@
-package clientProgram.GUI.controller;
+package clientProgram.GUI.controllers;
 
-import clientProgram.GUI.ControllerUtil;
+import clientProgram.GUI.FxmlUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,8 +12,6 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    // LoginMenu
-
     @FXML
     private TextField userName;
 
@@ -22,7 +20,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userName.setPromptText("Playername");
+        userName.setPromptText("Player name");
     }
 
     @FXML
@@ -32,9 +30,9 @@ public class LoginController implements Initializable {
             userName.setPromptText("You need to enter a name");
         }else {
             // Need to set all variables before loading the scene
-            ControllerUtil.getGameBoardController().getYouName().setText(userName.getText());
-            ControllerUtil.getGameMenuController().getUserNameLabel().setText(userName.getText());
-            ControllerUtil.changeScenes(ControllerUtil.getGameMenuScene());
+            FxmlUtil.getGameBoardController().getYouName().setText(userName.getText());
+            FxmlUtil.getGameMenuController().getUserNameLabel().setText(userName.getText());
+            FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
 
         }
     }

@@ -7,21 +7,22 @@ import java.util.List;
 
 public class Question implements Serializable {
 
-    private String question;
-    private String collectAnswer;
-    private List<String> answerChoices;
-    private String categoryName;
+    private final String categoryName;
+    private final String question;
+    private final String correctAnswer;
+    private final List<String> answerChoices;
 
-    public Question(String question, String collectAnswer, List<String> answerChoices, String categoryName) {
+
+    public Question(String question, String correctAnswer, List<String> answerChoices, String categoryName) {
         this.question = question;
-        this.collectAnswer = collectAnswer;
+        this.correctAnswer = correctAnswer;
         Collections.shuffle(answerChoices);
         this.answerChoices = answerChoices;
         this.categoryName = categoryName.substring(0, 1).toUpperCase() + categoryName.substring(1).toLowerCase();
     }
 
-    public String getCollectAnswer() {
-        return collectAnswer;
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
     public String getQuestion() {
@@ -36,11 +37,5 @@ public class Question implements Serializable {
         return categoryName;
     }
 
-    public boolean checkAnswer(String userChoice) {
-        if(collectAnswer.equals(userChoice)) {
-            return true;
-        }
-        return false;
-    }
 }
 

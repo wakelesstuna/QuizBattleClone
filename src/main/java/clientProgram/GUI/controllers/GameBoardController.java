@@ -1,18 +1,17 @@
-package clientProgram.GUI.controller;
+package clientProgram.GUI.controllers;
 
 
-import clientProgram.GUI.ControllerUtil;
-import clientProgram.GUI.Main;
+import clientProgram.GUI.FxmlUtil;
+import clientProgram.Main;
 import model.InfoObj;
 
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import serverProgram.STATE;
+import model.STATE;
 
 public class GameBoardController {
-
 
     public static String opponent = "opponent"; // hämta motståndarnamn från servern
     public static int opponentPoints = 2;       // hämta motståndarscore från servern
@@ -80,11 +79,10 @@ public class GameBoardController {
     private Label opponentRound5Score;
 
     public void loadQuestion(){
-        ControllerUtil.getQuestionBoardController().addRound();
+        FxmlUtil.getQuestionBoardController().addRound();
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION, "java"));
         addRoundToGame();
         playButton.setDisable(true);
-        //ControllerUtil.changeScenes(ControllerUtil.getQuestionBoardScene());
     }
 
     private void addRoundToGame(){
@@ -92,7 +90,7 @@ public class GameBoardController {
     }
 
     public void endGame(){
-        ControllerUtil.changeScenes(ControllerUtil.getGameMenuScene());
+        FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
     }
 
     public Label getYouName() {
@@ -105,10 +103,6 @@ public class GameBoardController {
 
     public Label getWithRoundNumberLabel() {
         return whichRoundNumberLabel;
-    }
-
-    public void setWithRoundNumberLabel(Label withRoundNumberLabel) {
-        this.whichRoundNumberLabel = withRoundNumberLabel;
     }
 
     public int getWhichRoundNumber() {

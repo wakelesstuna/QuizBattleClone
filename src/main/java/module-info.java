@@ -6,8 +6,7 @@ module BestQuizBattleEver {
 
     opens clientProgram;
     opens clientProgram.GUI;
-    opens clientProgram.GUI.controller;
+    opens clientProgram.GUI.controllers;
     opens view;
     opens images;
-    opens images.advertising;
 }

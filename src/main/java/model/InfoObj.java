@@ -1,12 +1,10 @@
 package model;
 
-import serverProgram.STATE;
-
 import java.io.Serializable;
 
 public class InfoObj implements Serializable {
 
-    private STATE state;
+    private final STATE state;
     private String msg;
     private String SceneToChangeTo;
     private Player player;

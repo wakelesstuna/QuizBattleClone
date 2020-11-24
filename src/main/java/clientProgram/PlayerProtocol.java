@@ -1,9 +1,8 @@
 package clientProgram;
 
-import clientProgram.GUI.ControllerUtil;
-import clientProgram.GUI.Main;
-import clientProgram.GUI.controller.FinalResultsController;
-import clientProgram.GUI.controller.GameBoardController;
+import clientProgram.GUI.FxmlUtil;
+import clientProgram.GUI.controllers.FinalResultsController;
+import clientProgram.GUI.controllers.GameBoardController;
 import model.InfoObj;
 import model.Question;
 import model.StartPackage;
@@ -36,26 +35,26 @@ public class PlayerProtocol {
             System.out.println("Question here");
             Platform.runLater(() -> {
 
-                ControllerUtil.getQuestionBoardController().getCategoryLabel().setText("Java");
+                FxmlUtil.getQuestionBoardController().getCategoryLabel().setText("Java");
 
-                ControllerUtil.getGameBoardController().playButton.setDisable(false);
-                ControllerUtil.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
+                FxmlUtil.getGameBoardController().playButton.setDisable(false);
+                FxmlUtil.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
 
-                ControllerUtil.getQuestionBoardController().setQuestion(((Question) objFromServer));
-                ControllerUtil.getQuestionBoardController().getCategoryLabel().setText(((Question) objFromServer).getCategoryName());
-                ControllerUtil.getQuestionBoardController().getQuestionField().setText(((Question) objFromServer).getQuestion());
+                FxmlUtil.getQuestionBoardController().setQuestion(((Question) objFromServer));
+                FxmlUtil.getQuestionBoardController().getCategoryLabel().setText(((Question) objFromServer).getCategoryName());
+                FxmlUtil.getQuestionBoardController().getQuestionField().setText(((Question) objFromServer).getQuestion());
 
                 // TODO: 2020-11-21 fixa så frågorna skrivs ut på rätt sätt
 
-                for (int i = 0; i < ControllerUtil.getQuestionBoardController().getAnswerButtonsList().size(); i++) {
-                    ControllerUtil.getQuestionBoardController().getAnswerButtonsList()
+                for (int i = 0; i < FxmlUtil.getQuestionBoardController().getAnswerButtonsList().size(); i++) {
+                    FxmlUtil.getQuestionBoardController().getAnswerButtonsList()
                             .get(i).setText(((Question) objFromServer).getAnswerChoices().get(i));
                 }
 
-                ControllerUtil.getQuestionBoardController().getWaitingInicator().setVisible(false);
-                ControllerUtil.getQuestionBoardController().getWaitingLabel().setVisible(false);
+                FxmlUtil.getQuestionBoardController().getWaitingIndicator().setVisible(false);
+                FxmlUtil.getQuestionBoardController().getWaitingLabel().setVisible(false);
 
-                ControllerUtil.changeScenes(ControllerUtil.getQuestionBoardScene());
+                FxmlUtil.changeScenes(FxmlUtil.getQuestionBoardScene());
             });
 
         }else if(objFromServer instanceof StartPackage){
@@ -70,18 +69,18 @@ public class PlayerProtocol {
         System.out.println("" + objFromServer.getPlayer().getPlayerRoundScore());
 
             Platform.runLater(() -> {
-                ControllerUtil.getGameBoardController().getWithRoundNumberLabel().setText("" + ControllerUtil.getGameBoardController().getWhichRoundNumber());
-                ControllerUtil.getGameBoardController().getOpponentName().setText(objFromServer.getPlayer().getPlayerName());
-                ControllerUtil.getGameBoardController().getOpponentRound1Score().setText("" + (objFromServer.getPlayer().getPlayerRoundScore()));
-                ControllerUtil.changeScenes(ControllerUtil.getGameBoardScene());
+                FxmlUtil.getGameBoardController().getWithRoundNumberLabel().setText("" + FxmlUtil.getGameBoardController().getWhichRoundNumber());
+                FxmlUtil.getGameBoardController().getOpponentName().setText(objFromServer.getPlayer().getPlayerName());
+                FxmlUtil.getGameBoardController().getOpponentRound1Score().setText("" + (objFromServer.getPlayer().getPlayerRoundScore()));
+                FxmlUtil.changeScenes(FxmlUtil.getGameBoardScene());
             });
 
     }
 
     public void finalScore(){
         Platform.runLater(()-> {
-            FinalResultsController FRC = ControllerUtil.getFinalResultsController();
-            GameBoardController GBC = ControllerUtil.getGameBoardController();
+            FinalResultsController FRC = FxmlUtil.getFinalResultsController();
+            GameBoardController GBC = FxmlUtil.getGameBoardController();
 
             if (Integer.parseInt(GBC.getYourTotalScore().getText()) > GBC.opponentPoints){
                 FRC.getYouFinalScore().setText(String.valueOf(Integer.parseInt(GBC.getYourTotalScore().getText())));
@@ -97,7 +96,7 @@ public class PlayerProtocol {
                 FRC.getWinnerMsgLabel().setText("BETTER LUCK NEXT\nTIME!");
             }
 
-            ControllerUtil.changeScenes(ControllerUtil.getFinalResultsScene());
+            FxmlUtil.changeScenes(FxmlUtil.getFinalResultsScene());
         });
     }
 

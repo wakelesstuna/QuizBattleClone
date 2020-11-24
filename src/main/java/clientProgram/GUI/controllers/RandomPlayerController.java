@@ -1,11 +1,11 @@
-package clientProgram.GUI.controller;
+package clientProgram.GUI.controllers;
 
-import clientProgram.GUI.ControllerUtil;
-import clientProgram.GUI.Main;
+import clientProgram.GUI.FxmlUtil;
+import clientProgram.Main;
 import model.InfoObj;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import serverProgram.STATE;
+import model.STATE;
 
 public class RandomPlayerController{
 
@@ -14,13 +14,13 @@ public class RandomPlayerController{
 
     // to go back to mainGameScreen
     public void loadMainGame() {
-        ControllerUtil.changeScenes(ControllerUtil.getGameMenuScene());
+        FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
     }
 
     // Creates a connection to the server, sends userName to server, sends that this player is ready to play a game
     public void loadRandomPlayer() {
-        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_PLAYERNAME, ControllerUtil.getGameMenuController().getUserNameLabel().getText()));
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_PLAYERNAME, FxmlUtil.getGameMenuController().getUserNameLabel().getText()));
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.READY_TO_PLAY));
-        ControllerUtil.changeScenes(ControllerUtil.getSearchingForPlayerScene());
+        FxmlUtil.changeScenes(FxmlUtil.getSearchingForPlayerScene());
     }
 }

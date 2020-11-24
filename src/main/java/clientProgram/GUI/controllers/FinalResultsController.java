@@ -1,7 +1,7 @@
-package clientProgram.GUI.controller;
+package clientProgram.GUI.controllers;
 
-import clientProgram.GUI.ControllerUtil;
-import clientProgram.GUI.Main;
+import clientProgram.GUI.FxmlUtil;
+import clientProgram.Main;
 import model.IFxmlPaths;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -36,7 +36,7 @@ public class FinalResultsController implements IFxmlPaths {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ControllerUtil.changeScenes(ControllerUtil.getGameMenuScene());
+        FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
     }
 
 

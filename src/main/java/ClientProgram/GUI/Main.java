@@ -13,26 +13,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
-import java.util.List;
-
 public class Main extends Application{
 
     public static PlayerConnection playerConnection;
     public static String playerName = "playerName";
     public static String categoryName = "";
-    public static int currentRound = 1;
-    public static int currentQuestion = 1;
     public static int choseQuestionTurn;
     public static Question question;
-    public static List<Question> questionsList;
-
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(FxmlPaths.LOGIN_MENU.toString()));
         System.out.println("Starting Client App");
         primaryStage.setTitle("BestQuizBattleEver");
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
@@ -51,16 +45,4 @@ public class Main extends Application{
     }
 }
 
-/*
- * Få användarnamenet att komma till mainGame
- * Bygga searchingForPlayer scene
- * Bygga gameBoard scene
- * Bygga categoriChoieBoard scene
- * Bygga questionBoard scene
- *
- *
- *
- *
- *
- */
 

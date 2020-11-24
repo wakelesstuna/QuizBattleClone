@@ -1,6 +1,8 @@
 package Model;
 
-public class StartPackage {
+import java.io.Serializable;
+
+public class StartPackage implements Serializable {
 
     // Send game settings to Client
     private int gameRounds;

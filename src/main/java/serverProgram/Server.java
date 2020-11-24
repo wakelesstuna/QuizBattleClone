@@ -1,6 +1,6 @@
 package serverProgram;
 
-import assets.IPort;
+import Model.IPort;
 
 import java.net.ServerSocket;
 
@@ -13,16 +13,15 @@ public class Server implements IPort {
     public Server() {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             this.serverSocket = serverSocket;
-            this.serverProtocol = new ServerProtocol();
             System.out.println("BestQuizEverServer is Running on Port " + PORT + "....");
 
             while (!serverSocket.isClosed()) {
                 game = new Game();
                 serverProtocol = new ServerProtocol();
                 for (int i = 1; i < 3; i++) {
-                   ServerListner serverListner = new ServerListner(serverSocket.accept(), serverProtocol, game, i);
-                   System.out.println("Player " + i);
-                   serverListner.start();
+                   ServerListener serverListener = new ServerListener(serverSocket.accept(), serverProtocol, game, i);
+                   System.out.println("Player " + i + " connected");
+                   serverListener.start();
                 }
             }
 

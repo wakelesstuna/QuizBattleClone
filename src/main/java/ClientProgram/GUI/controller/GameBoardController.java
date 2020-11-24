@@ -15,10 +15,10 @@ public class GameBoardController {
 
 
     public static String opponent = "opponent"; // hämta motståndarnamn från servern
-    public static int opponentPoints = 1;       // hämta motståndarscore från servern
+    public static int opponentPoints = 2;       // hämta motståndarscore från servern
 
-    public static int numberOfRounds = 2; // sätt dessa med proptiesfil
-    public static int numberOfQuestions = 2; // sätt dessa med proptiesfil
+    public static int numberOfRounds; // sätt dessa med proptiesfil
+    public static int numberOfQuestions; // sätt dessa med proptiesfil
 
     public static int currentRound = 1;
     public int gameRoundScore = 0;

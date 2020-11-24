@@ -158,11 +158,11 @@ public class ControllerUtil {
         return questionBoardController;
     }
 
-    /*//--------------------------------------- TO LOAD FINAL RESULTS---------------------------------------------------\\
+    //--------------------------------------- TO LOAD FINAL RESULTS---------------------------------------------------\\
 
     private static FXMLLoader finalResultsloader = new FXMLLoader(ControllerUtil.class.getClassLoader().getResource("view/finalResults.fxml"));
     private static Parent finalResultsParent;
-    static { try { finalResultsParent = questionBoardloader.load();  System.out.println("Loaded Final Results Scene");} catch (IOException e) { e.printStackTrace(); }}
+    static { try { finalResultsParent = finalResultsloader.load();  System.out.println("Loaded Final Results Scene");} catch (IOException e) { e.printStackTrace(); }}
     private static Scene finalResultsScene = new Scene(finalResultsParent);
     private static FinalResultsController finalResultsController = finalResultsloader.getController();
 
@@ -172,7 +172,7 @@ public class ControllerUtil {
 
     public static FinalResultsController getFinalResultsController (){
         return finalResultsController;
-    }*/
+    }
 
     //------------------------------------- UTILS TO CHANGE SCENE AND SET -------------------------------------------------\\
 

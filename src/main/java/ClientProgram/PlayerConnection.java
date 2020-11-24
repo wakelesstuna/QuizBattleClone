@@ -1,6 +1,6 @@
 package ClientProgram;
 
-import assets.IPort;
+import Model.IPort;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,8 +9,8 @@ import java.net.Socket;
 
 public class PlayerConnection implements Runnable, IPort {
 
-    Socket socket;
-    ObjectOutputStream out;
+    private Socket socket;
+    private ObjectOutputStream out;
 
     public PlayerConnection(String hostName, int portNr){
         System.out.println("ClientConnection created");
@@ -52,6 +52,10 @@ public class PlayerConnection implements Runnable, IPort {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 
     public static void main(String[] args) {

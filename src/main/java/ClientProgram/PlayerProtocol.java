@@ -2,8 +2,11 @@ package ClientProgram;
 
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
+import ClientProgram.GUI.controller.FinalResultsController;
+import ClientProgram.GUI.controller.GameBoardController;
 import Model.InfoObj;
 import Model.Question;
+import Model.StartPackage;
 import javafx.application.Platform;
 
 import java.util.List;
@@ -34,6 +37,9 @@ public class PlayerProtocol {
         }else if (objFromServer instanceof Question){
             System.out.println("Question here");
             Platform.runLater(() -> {
+
+                ControllerUtil.getQuestionBoardController().getCategoryLabel().setText("Java");
+
                 ControllerUtil.getGameBoardController().playButton.setDisable(false);
                 ControllerUtil.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
 
@@ -54,37 +60,9 @@ public class PlayerProtocol {
                 ControllerUtil.changeScenes(ControllerUtil.getQuestionBoardScene());
             });
 
-        }else if(objFromServer instanceof List){
-            Platform.runLater(()->{
-
-                ControllerUtil.getGameBoardController().playButton.setDisable(false);
-                ControllerUtil.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
-
-                System.out.println("QuestionList here");
-                System.out.println(((List<Question>)objFromServer).get(0).getQuestion());
-
-                // sets the list of questions for the round
-                ControllerUtil.getQuestionBoardController().setQuestionList((List<Question>) objFromServer);
-
-                // sets the first question
-                ControllerUtil.getQuestionBoardController().setQuestion(((List<Question>) objFromServer).get(0));
-
-                // sets the categoryLabel
-                ControllerUtil.getQuestionBoardController().getCategoryLabel().setText("JAVA");
-
-                // sets the text of the first question
-                ControllerUtil.getQuestionBoardController().getQuestionField().setText(((List<Question>) objFromServer).get(0).getQuestion());
-
-                // sets the answers to buttons for the first question
-                for (int i = 0; i < ControllerUtil.getQuestionBoardController().getAnswerButtonsList().size(); i++) {
-                    ControllerUtil.getQuestionBoardController().getAnswerButtonsList()
-                            .get(i).setText(((List<Question>) objFromServer).get(0).getAnswerChoices().get(i)); }
-
-                // loads the QuestionScene after all variables and GUI are set
-                ControllerUtil.changeScenes(ControllerUtil.getQuestionBoardScene());
-            });
-
-
+        }else if(objFromServer instanceof StartPackage){
+            GameBoardController.numberOfRounds = ((StartPackage) objFromServer).getGameRounds();
+            GameBoardController.numberOfQuestions = ((StartPackage) objFromServer).getQuestionPerRounds();
         }
     }
 
@@ -104,7 +82,24 @@ public class PlayerProtocol {
 
     public void finalScore(){
         Platform.runLater(()-> {
-            ControllerUtil.changeScenes(ControllerUtil.getGameMenuScene());
+            FinalResultsController FRC = ControllerUtil.getFinalResultsController();
+            GameBoardController GBC = ControllerUtil.getGameBoardController();
+
+            if (Integer.parseInt(GBC.getYourTotalScore().getText()) > GBC.opponentPoints){
+                FRC.getYouFinalScore().setText(String.valueOf(Integer.parseInt(GBC.getYourTotalScore().getText())));
+                FRC.getWhoWinLabel().setText("YOU WIN!");
+                FRC.getWinnerMsgLabel().setText("CONGRATULATIONS!");
+            }else if (Integer.parseInt(GBC.getYourTotalScore().getText()) == GameBoardController.opponentPoints){
+                FRC.getYouFinalScore().setText(String.valueOf(Integer.parseInt(GBC.getYourTotalScore().getText())));
+                FRC.getWhoWinLabel().setText("IT'S A TIE");
+                FRC.getWinnerMsgLabel().setText("BETTER LUCK\nNEXT TIME!");
+            }else {
+                FRC.getYouFinalScore().setText(String.valueOf(Integer.parseInt(GBC.getYourTotalScore().getText())));
+                FRC.getWhoWinLabel().setText("YOU LOSE!");
+                FRC.getWinnerMsgLabel().setText("BETTER LUCK NEXT\nTIME!");
+            }
+
+            ControllerUtil.changeScenes(ControllerUtil.getFinalResultsScene());
         });
     }
 

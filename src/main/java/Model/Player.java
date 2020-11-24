@@ -31,6 +31,10 @@ public class Player implements Serializable {
         this.playerRoundScore = playerRoundScore + 1;
     }
 
+    public void addTotalPoint(){
+        this.playerTotalScore = playerTotalScore + 1;
+    }
+
     public int getPlayerRoundScore() {
         return playerRoundScore;
     }

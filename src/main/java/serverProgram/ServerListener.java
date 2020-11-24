@@ -9,16 +9,16 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
-public class ServerListner extends Thread{
+public class ServerListener extends Thread{
 
-    private Player player = new Player();
+    private final Player player = new Player();
     private final Socket socket;
-    private ObjectOutputStream objout;
-    private ServerProtocol serverProtocol;
-    private Game game;
+    private final ServerProtocol serverProtocol;
+    private final Game game;
+    private ObjectOutputStream objOut;
 
 
-    public ServerListner(Socket socket, ServerProtocol serverProtocol, Game game, int i){
+    public ServerListener(Socket socket, ServerProtocol serverProtocol, Game game, int i){
         this.socket = socket;
         this.serverProtocol = serverProtocol;
         this.game = game;
@@ -30,8 +30,7 @@ public class ServerListner extends Thread{
             game.setPlayer2(player);
             game.setNotCurrentPlayer(player);
         }
-
-            this.objout = new ObjectOutputStream(socket.getOutputStream());
+            this.objOut = new ObjectOutputStream(socket.getOutputStream());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -40,25 +39,18 @@ public class ServerListner extends Thread{
 
     @Override
     public void run() {
-        try (ObjectInputStream objin = new ObjectInputStream(socket.getInputStream())){
-            Object obj;
-           // while (true){
+        try (ObjectInputStream objIn = new ObjectInputStream(socket.getInputStream())){
+            Object object;
                 try {
-
-                    while ((obj = objin.readObject()) != null) {
-
-
-                        System.out.println("Object recevied from " + this.player.getPlayerName() + obj);
-
-                        serverProtocol.handleObject(this, (InfoObj) obj);
-
+                    while ((object = objIn.readObject()) != null) {
+                        System.out.println("Object received from " + this.player.getPlayerName() + object);
+                        serverProtocol.handleObject(this, (InfoObj) object);
                     }
 
                 }catch (EOFException e){
                     e.printStackTrace();
                 }
-           // }
-        }catch (SocketException e){
+        }catch (SocketException | EOFException e){
             System.out.println("Player disconnected");
         }catch (Exception e){
             e.printStackTrace();
@@ -67,11 +59,11 @@ public class ServerListner extends Thread{
 
     public void sendObj(Object obj){
         try {
-            System.out.println("sending obj to cleint " + this.player.getPlayerName());
-            objout.writeObject(obj);
-            objout.flush();
+            System.out.println("sending obj to client " + this.player.getPlayerName());
+            objOut.writeObject(obj);
+            objOut.flush();
         }catch (Exception e){
-            System.out.println("Coulden't send object");
+            System.out.println("Couldn't send object");
             e.printStackTrace();
         }
     }

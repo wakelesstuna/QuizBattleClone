@@ -13,8 +13,7 @@ import java.util.ResourceBundle;
 
 public class FinalResultsController implements Initializable, IFxmlPaths {
 
-    ControllerUtil c = new ControllerUtil();
-    Class<?> currentClass = getClass();
+
 
     @FXML
     private AnchorPane finalScore;
@@ -35,7 +34,7 @@ public class FinalResultsController implements Initializable, IFxmlPaths {
         GameBoardController.currentRound = 1;
         GameBoardController.numberOfRounds = 2; // reset the round count with
 
-        c.changeScene(GAME_MENU, whoWinLabel);
+       // c.changeScene(GAME_MENU, whoWinLabel);
         //AnchorPane pane = c.loadFMXLFiles(currentClass, "gameMenu");
         //finalScore.getChildren().setAll(pane);
     }

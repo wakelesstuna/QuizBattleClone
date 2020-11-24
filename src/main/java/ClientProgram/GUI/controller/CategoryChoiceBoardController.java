@@ -2,8 +2,10 @@ package ClientProgram.GUI.controller;
 
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
+import Model.Category;
 import Model.InfoObj;
 import assets.IFxmlPaths;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,8 +18,6 @@ import java.util.ResourceBundle;
 public class CategoryChoiceBoardController implements Initializable, IFxmlPaths {
 
     ControllerUtil c = new ControllerUtil();
-    Class<?> currentClass = getClass();
-    int test = 0;
 
     @FXML
     private AnchorPane categoryChoiceBoard;
@@ -41,40 +41,45 @@ public class CategoryChoiceBoardController implements Initializable, IFxmlPaths 
     public void geography(){
         // håmta fråga om georafi från server och visa på fråge texten
         Main.categoryName = " GeoGraphy";
-        c.changeScene(QUESTION_BOARD, geography);
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_CATEGORY, "geografi"));
+        c.changeScene(FxmlPaths.QUESTION_BOARD.toString(), geography);
     }
 
     public void java(){
         // håmta fråga om java från server och visa på fråge texten
         Main.categoryName = " Java";
-        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION, "send Question"));
-        c.changeScene(QUESTION_BOARD, java);
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_CATEGORY, "java"));
+        c.changeScene(FxmlPaths.QUESTION_BOARD.toString(), java);
+
 
     }
 
     public void literature(){
         // håmta fråga om literatur från server och visa på fråge texten
         Main.categoryName = " Literature";
-        c.changeScene(QUESTION_BOARD, literature);
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_CATEGORY, new Category("litteratur")));
+        c.changeScene(FxmlPaths.QUESTION_BOARD.toString(), literature);
     }
 
     public void music(){
         // håmta fråga om musik från server och visa på fråge texten
         Main.categoryName = " Music";
-        c.changeScene(QUESTION_BOARD, music);
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_CATEGORY, "musik"));
+        c.changeScene(FxmlPaths.QUESTION_BOARD.toString(), music);
     }
 
     public void sports(){
         // håmta fråga om sport från server och visa på fråge texten
         Main.categoryName = " Sports";
-        c.changeScene(QUESTION_BOARD, sports);
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_CATEGORY, "sport"));
+        c.changeScene(FxmlPaths.QUESTION_BOARD.toString(), sports);
         //AnchorPane pane = c.loadFMXLFiles(currentClass, "questionBoard");
         //categoryChoiceBoard.getChildren().setAll(pane);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (test == 1){
+        if (Main.choseQuestionTurn == 1){
             geography.setDisable(true);
             java.setDisable(true);
             literature.setDisable(true);

@@ -94,12 +94,12 @@
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="youScore" alignment="CENTER" contentDisplay="CENTER" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                              <Label fx:id="yourTotalScore" alignment="CENTER" contentDisplay="CENTER" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="opponentScore" alignment="CENTER" contentDisplay="CENTER" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                              <Label fx:id="opponentTotalScore" alignment="CENTER" contentDisplay="CENTER" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
@@ -133,119 +133,165 @@
                         <Label prefHeight="94.0" prefWidth="400.0" />
                         <Pane prefHeight="407.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/style.css">
                      <children>
-                        <GridPane fx:id="twoRounds" layoutY="65.0" prefHeight="271.0" prefWidth="400.0">
+                        <GridPane fx:id="twoRounds" layoutY="25.0" prefHeight="271.0" prefWidth="400.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="123.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="78.0" minWidth="10.0" prefWidth="53.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="88.0" minWidth="10.0" prefWidth="47.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="136.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="74.0" minWidth="10.0" prefWidth="40.0" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints maxHeight="50.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="210.0" minHeight="10.0" prefHeight="161.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="52.0" minHeight="0.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="52.0" minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="52.0" minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="52.0" minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="52.0" minHeight="10.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="p2R2Q1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                              <Rectangle fx:id="round1Label" arcHeight="5.0" arcWidth="5.0" height="12.0" stroke="BLACK" strokeType="INSIDE" width="28.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              <Rectangle fx:id="round2Label" arcHeight="5.0" arcWidth="5.0" height="12.0" stroke="BLACK" strokeType="INSIDE" width="28.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                              <Rectangle fx:id="round3Label" arcHeight="5.0" arcWidth="5.0" height="12.0" stroke="BLACK" strokeType="INSIDE" width="28.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                              <Label fx:id="round1Label" text="Round 1">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    <Insets left="10.0" />
                                  </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p2R2Q2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="round2Label" text="Round 2" GridPane.rowIndex="1">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    <Insets left="10.0" />
                                  </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p1R2Q2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="round3Label" text="Round 3" GridPane.rowIndex="2">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    <Insets left="10.0" />
                                  </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p1R2Q1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="round4Label" text="Round 4" GridPane.rowIndex="3">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    <Insets left="10.0" />
                                  </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p2R1Q1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="4">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="round5Label" text="Round 5" GridPane.rowIndex="4">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    <Insets left="10.0" />
                                  </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p2R1Q2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="5">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="round1Label" text="Round 1" GridPane.columnIndex="3">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    <Insets left="10.0" />
                                  </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p1R1Q2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="round2Label" text="Round 2" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    <Insets left="10.0" />
                                  </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p1R1Q1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="round3Label" text="Round 3" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    <Insets left="10.0" />
                                  </GridPane.margin>
-                              </Button>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" stroke="BLACK" strokeType="INSIDE" width="28.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" stroke="BLACK" strokeType="INSIDE" width="28.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                              <Button fx:id="p1R1Q3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="round4Label" text="Round 4" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    <Insets left="10.0" />
                                  </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p1R2Q3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="round5Label" text="Round 5" GridPane.columnIndex="3" GridPane.rowIndex="4">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                    <Insets left="10.0" />
                                  </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p2R2Q3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="6" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p2R1Q3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="6">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p2R3Q1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p2R3Q2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p1R3Q3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p1R3Q2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p1R3Q1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Button>
-                              <Button fx:id="p2R3Q3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="6" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Button>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" height="12.0" stroke="BLACK" strokeType="INSIDE" width="28.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="youRound1Score" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="youRound2Score" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="youRound3Score" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="youRound4Score" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="youRound5Score" text="0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="opponentRound1Score" text="0" GridPane.columnIndex="4">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="opponentRound2Score" text="0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="opponentRound3Score" text="0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="opponentRound4Score" text="0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="opponentRound5Score" text="0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Rectangle fx:id="round5Label" arcHeight="5.0" arcWidth="5.0" height="12.0" stroke="BLACK" strokeType="INSIDE" width="28.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                              <Rectangle fx:id="round4Label" arcHeight="5.0" arcWidth="5.0" height="12.0" stroke="BLACK" strokeType="INSIDE" width="28.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                            </children>
                         </GridPane>
-                        <Label fx:id="rounds" layoutX="145.0" layoutY="14.0" text="Round ">
+                        <Label fx:id="rounds" layoutX="134.0" layoutY="-6.0" text="Round ">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="whichRoundNumberLabel" layoutX="229.0" layoutY="-6.0" text="0">
                            <font>
                               <Font name="System Bold" size="28.0" />
                            </font>

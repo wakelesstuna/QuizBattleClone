@@ -16,20 +16,14 @@ public class Server implements IPort {
             this.serverProtocol = new ServerProtocol();
             System.out.println("BestQuizEverServer is Running on Port " + PORT + "....");
 
-
             while (!serverSocket.isClosed()) {
                 game = new Game();
                 serverProtocol = new ServerProtocol();
                 for (int i = 1; i < 3; i++) {
-                   new Player(serverSocket.accept(), serverProtocol, game, i);
+                   ServerListner serverListner = new ServerListner(serverSocket.accept(), serverProtocol, game, i);
                    System.out.println("Player " + i);
-
+                   serverListner.start();
                 }
-
-                /*System.out.println(serverProtocol.getPlayersList().size());
-                for (Player p : serverProtocol.getPlayersList()) {
-                    System.out.println(p.getObjout());
-                }*/
             }
 
         }catch (Exception e) {

@@ -45,7 +45,7 @@ public class Client implements IPort {
                 System.out.println("tagit emot objekt");
                 if(fromServer instanceof InfoObj){
                     switch (((InfoObj) fromServer).getState()){
-                        case GAME_OVER -> System.out.println(((InfoObj) fromServer).getName());
+                        case GAME_OVER -> System.out.println(((InfoObj) fromServer).getMsg());
                     }
 
                 } /*else if (fromServer instanceof Question){

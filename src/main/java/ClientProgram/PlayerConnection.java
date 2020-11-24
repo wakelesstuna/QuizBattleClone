@@ -20,7 +20,6 @@ public class PlayerConnection implements Runnable, IPort {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         new Thread(this).start();
 
     }
@@ -28,10 +27,6 @@ public class PlayerConnection implements Runnable, IPort {
     @Override
     public void run() {
         System.out.println("Running...");
-        receiveObjectFromServer();
-    }
-
-    private void receiveObjectFromServer() {
         PlayerProtocol playerProtocol = new PlayerProtocol();
         Thread thread = new Thread(() -> {
             try {
@@ -39,7 +34,6 @@ public class PlayerConnection implements Runnable, IPort {
                 Object objectFromServer;
                 while ((objectFromServer = in.readObject()) != null){
                     System.out.println("Object received for sorting");
-                    System.out.println(objectFromServer.toString());
                     playerProtocol.checkObjectFromServer(objectFromServer);
                 }
             } catch (IOException | ClassNotFoundException e) {
@@ -48,6 +42,7 @@ public class PlayerConnection implements Runnable, IPort {
         });
         thread.start();
     }
+
 
     public void sendObjectToServer(Object objectToServer){
         try {

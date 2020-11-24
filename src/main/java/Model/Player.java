@@ -9,7 +9,7 @@ public class Player implements Serializable {
     private int playerRoundScore;
     private int playerTotalScore;
     private boolean isReadyToPlay;
-    private boolean hasAnswered;
+
 
     public String getPlayerName() {
         return playerName;
@@ -54,14 +54,5 @@ public class Player implements Serializable {
     public void setReadyToPlay(boolean readyToPlay) {
         isReadyToPlay = readyToPlay;
     }
-
-    public boolean isHasAnswered() {
-        return hasAnswered;
-    }
-
-    public void setHasAnswered(boolean hasAnswered) {
-        this.hasAnswered = hasAnswered;
-    }
-
 
 }

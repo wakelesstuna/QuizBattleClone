@@ -48,6 +48,9 @@ public class PlayerProtocol {
                             .get(i).setText(((Question) objFromServer).getAnswerChoices().get(i));
                 }
 
+                ControllerUtil.getQuestionBoardController().getWaitingInicator().setVisible(false);
+                ControllerUtil.getQuestionBoardController().getWaitingLabel().setVisible(false);
+
                 ControllerUtil.changeScenes(ControllerUtil.getQuestionBoardScene());
             });
 
@@ -87,13 +90,13 @@ public class PlayerProtocol {
 
     private void loginMenu(InfoObj objFromServer) {
         System.out.println("dags att byta scene");
-        System.out.println(objFromServer.getPlayer().getPlayerRoundScore());
         System.out.println(objFromServer.getPlayer().getPlayerName());
+        System.out.println("" + objFromServer.getPlayer().getPlayerRoundScore());
 
             Platform.runLater(() -> {
                 ControllerUtil.getGameBoardController().getWithRoundNumberLabel().setText("" + ControllerUtil.getGameBoardController().getWhichRoundNumber());
                 ControllerUtil.getGameBoardController().getOpponentName().setText(objFromServer.getPlayer().getPlayerName());
-                ControllerUtil.getGameBoardController().getOpponentRound1Score().setText(String.valueOf(objFromServer.getPlayer().getOpponent().getPlayerRoundScore()));
+                ControllerUtil.getGameBoardController().getOpponentRound1Score().setText("" + (objFromServer.getPlayer().getPlayerRoundScore()));
                 ControllerUtil.changeScenes(ControllerUtil.getGameBoardScene());
             });
 

@@ -1,14 +1,14 @@
 package ClientProgram.GUI;
 
-import ClientProgram.Client;
+
 import ClientProgram.GUI.controller.FxmlPaths;
 import ClientProgram.PlayerConnection;
 import Model.Question;
-import assets.IFxmlPaths;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

@@ -41,7 +41,13 @@ public class GameBoardController {
     private Label youName;
 
     @FXML
+    private Label yourTotalScore;
+
+    @FXML
     private Label opponentName;
+
+    @FXML
+    private Label opponentTotalScore;
 
     @FXML
     private Label youRound1Score;
@@ -74,6 +80,7 @@ public class GameBoardController {
     private Label opponentRound5Score;
 
     public void loadQuestion(){
+        ControllerUtil.getQuestionBoardController().addRound();
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION, "java"));
         addRoundToGame();
         playButton.setDisable(true);
@@ -106,6 +113,22 @@ public class GameBoardController {
 
     public int getWhichRoundNumber() {
         return whichRoundNumber;
+    }
+
+    public Label getYourTotalScore() {
+        return yourTotalScore;
+    }
+
+    public void setYourTotalScore(Label yourTotalScore) {
+        this.yourTotalScore = yourTotalScore;
+    }
+
+    public Label getOpponentTotalScore() {
+        return opponentTotalScore;
+    }
+
+    public void setOpponentTotalScore(Label opponentTotalScore) {
+        this.opponentTotalScore = opponentTotalScore;
     }
 
     public void setWhichRoundNumber(int whichRoundNumber) {

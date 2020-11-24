@@ -242,7 +242,7 @@ public class ServerProtocol {
 
 
         }else {
-            System.out.println("Waiting for " + serverListner.getPlayer().getOpponent() + " to be ready");
+            System.out.println("Waiting for " + serverListner.getPlayer().getOpponent().getPlayerName() + " to be ready");
         }
 
     }
@@ -252,7 +252,6 @@ public class ServerProtocol {
         System.out.println(question.getCollectAnswer());
         System.out.println(infoObj.getMsg());
         player.setReadyToPlay(true);
-        System.out.println(player.getPlayerName() + player.isHasAnswered());
 
         if (infoObj.getMsg().equalsIgnoreCase(question.getCollectAnswer())) {
             player.setPlayerRoundScore(player.getPlayerRoundScore() + 1);
@@ -280,10 +279,12 @@ public class ServerProtocol {
                 for (ServerListner l : playersList) {
                     // to send the opponents name to the player
                     Player opponent = l.getPlayer().getOpponent();
-                    System.out.println(l.getPlayer().getPlayerName());
-                    System.out.println(opponent.getPlayerRoundScore());
+                    System.out.println(l.getPlayer().getPlayerName() + " " + l.getPlayer().getPlayerRoundScore() + "total: " + l.getPlayer().getPlayerTotalScore());
+                    System.out.println(opponent.getPlayerName()+" " + opponent.getPlayerRoundScore());
                     l.sendObj(new InfoObj(STATE.CHANGE_SCENE, "gameBoard", opponent));
+                    l.getPlayer().setPlayerRoundScore(0);
                 }
+
             }
 
         } else {

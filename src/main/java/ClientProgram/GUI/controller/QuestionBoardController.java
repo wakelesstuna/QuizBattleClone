@@ -1,6 +1,6 @@
 package ClientProgram.GUI.controller;
 
-import ClientProgram.Client;
+
 import ClientProgram.GUI.ControllerUtil;
 import ClientProgram.GUI.Main;
 import Model.InfoObj;
@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import serverProgram.STATE;
@@ -53,6 +54,14 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
     @FXML
     private Button answer4;
 
+    @FXML
+    private ProgressIndicator waitingInicator;
+
+    @FXML
+    private Label waitingLabel;
+
+    private int rounds = 0;
+
 
     //för att skicka den knapp man har tryckt på till server
     public void answerButton(ActionEvent ae){
@@ -65,38 +74,34 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
 
         if (pressed.getText().equals(question.getCollectAnswer())){
             pressed.setStyle("-fx-background-color: greenyellow");
-            ControllerUtil.getGameBoardController().setGameRoundScore(ControllerUtil.getGameBoardController().gameRoundScore + 1);
-
+            ControllerUtil.getGameBoardController().getYourTotalScore().setText(String.valueOf(Integer.parseInt(ControllerUtil.getGameBoardController().getYourTotalScore().getText()) + 1));
+            setRoundScore();
         }else {
             pressed.setStyle("-fx-background-color: firebrick");
 
         }
+        waitingInicator.setVisible(true);
+        waitingLabel.setVisible(true);
+
 
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.HANDLE_ANSWER, pressed.getText()));
 
     }
 
-    public void nextQuestion(){
-        if (currentRound < roundsPerGame){
-            currentQuestion++;
-            question = questionList.get(currentQuestion);
-            questionField.setText(question.getQuestion());
-
-            for (int i = 0; i < answerButtonsList.size(); i++) {
-                answerButtonsList.get(i).setDisable(false);
-                answerButtonsList.get(i).setStyle("-fx-background-color: #D1FDFF");
-                answerButtonsList.get(i).setText(questionList.get(currentQuestion).getAnswerChoices().get(i));
-                currentRound++;
-            }
-            ControllerUtil.changeScenes(ControllerUtil.getQuestionBoardScene());
+    public void setRoundScore(){
+        if (rounds == 1){
+            ControllerUtil.getGameBoardController().getYouRound1Score().setText(String.valueOf(Integer.parseInt(ControllerUtil.getGameBoardController().getYouRound1Score().getText()) + 1));
+        }else if (rounds == 2){
+            ControllerUtil.getGameBoardController().getYouRound2Score().setText(String.valueOf(Integer.parseInt(ControllerUtil.getGameBoardController().getYouRound2Score().getText()) + 1));
+        }else if (rounds == 3){
+            ControllerUtil.getGameBoardController().getYouRound3Score().setText(String.valueOf(Integer.parseInt(ControllerUtil.getGameBoardController().getYouRound3Score().getText()) + 1));
+        }else if (rounds == 4){
+            ControllerUtil.getGameBoardController().getYouRound4Score().setText(String.valueOf(Integer.parseInt(ControllerUtil.getGameBoardController().getYouRound4Score().getText()) + 1));
         }else{
-            Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTIONLIST, "geografi"));
-            ControllerUtil.getGameBoardController().getYouRound1Score().setText(String.valueOf(ControllerUtil.getGameBoardController().gameRoundScore));
-            ControllerUtil.changeScenes(ControllerUtil.getGameBoardScene());
+            ControllerUtil.getGameBoardController().getYouRound5Score().setText(String.valueOf(Integer.parseInt(ControllerUtil.getGameBoardController().getYouRound5Score().getText()) + 1));
         }
 
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -108,6 +113,22 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
         for (Button b : answerButtonsList) {
             b.setDisable(false);
         }
+    }
+
+    public void addRound(){
+        this.rounds++;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public ProgressIndicator getWaitingInicator() {
+        return waitingInicator;
+    }
+
+    public Label getWaitingLabel() {
+        return waitingLabel;
     }
 
     public void setQuestion(Question question) {

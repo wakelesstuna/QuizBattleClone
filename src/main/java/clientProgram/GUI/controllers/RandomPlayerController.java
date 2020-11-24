@@ -2,12 +2,13 @@ package clientProgram.GUI.controllers;
 
 import clientProgram.GUI.FxmlUtil;
 import clientProgram.Main;
+import model.IFxmlPaths;
 import model.InfoObj;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import model.STATE;
 
-public class RandomPlayerController{
+public class RandomPlayerController implements IFxmlPaths {
 
     @FXML
     public Button randomPlayer;

@@ -2,16 +2,13 @@ package clientProgram.GUI.controllers;
 
 import clientProgram.GUI.FxmlUtil;
 import clientProgram.Main;
+import javafx.scene.control.*;
 import model.InfoObj;
 import model.Question;
 import model.IFxmlPaths;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
 import model.STATE;
 
 import java.net.URL;
@@ -28,7 +25,7 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
     private Label categoryLabel;
 
     @FXML
-    private TextField questionField;
+    private TextArea questionField;
 
     @FXML
     private Button answer1;
@@ -126,7 +123,7 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
         return categoryLabel;
     }
 
-    public TextField getQuestionField() {
+    public TextArea getQuestionField() {
         return questionField;
     }
 

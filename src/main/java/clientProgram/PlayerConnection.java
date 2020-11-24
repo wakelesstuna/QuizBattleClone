@@ -1,6 +1,6 @@
-package ClientProgram;
+package clientProgram;
 
-import Model.IPort;
+import model.IPort;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

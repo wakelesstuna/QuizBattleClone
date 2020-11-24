@@ -5,7 +5,7 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import Model.Question;
+import model.Question;
 
 
 public class DatabaseHandler {

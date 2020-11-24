@@ -1,6 +1,6 @@
-package ClientProgram.GUI;
+package clientProgram.GUI;
 
-import ClientProgram.GUI.controller.*;
+import clientProgram.GUI.controller.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;

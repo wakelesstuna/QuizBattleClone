@@ -1,15 +1,13 @@
-package ClientProgram;
+package clientProgram;
 
-import ClientProgram.GUI.ControllerUtil;
-import ClientProgram.GUI.Main;
-import ClientProgram.GUI.controller.FinalResultsController;
-import ClientProgram.GUI.controller.GameBoardController;
-import Model.InfoObj;
-import Model.Question;
-import Model.StartPackage;
+import clientProgram.GUI.ControllerUtil;
+import clientProgram.GUI.Main;
+import clientProgram.GUI.controller.FinalResultsController;
+import clientProgram.GUI.controller.GameBoardController;
+import model.InfoObj;
+import model.Question;
+import model.StartPackage;
 import javafx.application.Platform;
-
-import java.util.List;
 
 public class PlayerProtocol {
     /**

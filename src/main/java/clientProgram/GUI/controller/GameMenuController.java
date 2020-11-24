@@ -1,14 +1,14 @@
-package ClientProgram.GUI.controller;
+package clientProgram.GUI.controller;
 
-import ClientProgram.GUI.ControllerUtil;
-import ClientProgram.GUI.Main;
-import ClientProgram.PlayerConnection;
-import Model.IpConfig;
+import clientProgram.GUI.ControllerUtil;
+import clientProgram.GUI.Main;
+import clientProgram.PlayerConnection;
+import model.IPort;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class GameMenuController {
+public class GameMenuController implements IPort{
 
     // GameMenu
 
@@ -17,7 +17,7 @@ public class GameMenuController {
 
     // loading the randomPlayerScene
     public void loadSelectPlayer(){
-        Main.playerConnection = new PlayerConnection(IpConfig.IPADDRESS.toString(), Integer.parseInt(IpConfig.PORT.toString()));
+        Main.playerConnection = new PlayerConnection(IPADRRESS, PORT);
         ControllerUtil.changeScenes(ControllerUtil.getRandomPlayerScene());
     }
 

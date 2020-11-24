@@ -1,9 +1,9 @@
-package ClientProgram.GUI.controller;
+package clientProgram.GUI.controller;
 
 
-import ClientProgram.GUI.ControllerUtil;
-import ClientProgram.GUI.Main;
-import Model.InfoObj;
+import clientProgram.GUI.ControllerUtil;
+import clientProgram.GUI.Main;
+import model.InfoObj;
 
 import javafx.fxml.FXML;
 

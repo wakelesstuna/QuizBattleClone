@@ -1,11 +1,10 @@
-package ClientProgram.GUI.controller;
+package clientProgram.GUI.controller;
 
-import ClientProgram.GUI.ControllerUtil;
-import ClientProgram.GUI.Main;
-import Model.Category;
-import Model.InfoObj;
-import assets.IFxmlPaths;
-import javafx.application.Platform;
+import clientProgram.GUI.ControllerUtil;
+import clientProgram.GUI.Main;
+import model.Category;
+import model.InfoObj;
+import model.IFxmlPaths;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

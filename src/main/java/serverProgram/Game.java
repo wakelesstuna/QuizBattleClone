@@ -1,8 +1,8 @@
 package serverProgram;
 
-import Model.Category;
-import Model.Player;
-import Model.Question;
+import model.Category;
+import model.Player;
+import model.Question;
 
 import java.util.ArrayList;
 

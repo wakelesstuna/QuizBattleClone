@@ -1,4 +1,4 @@
-package assets;
+package model;
 
 public interface IFxmlPaths {
     // Holds all the paths for the .fxml files in resources

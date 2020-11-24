@@ -1,6 +1,6 @@
 package serverProgram;
 
-import Model.IPort;
+import model.IPort;
 
 import java.net.ServerSocket;
 

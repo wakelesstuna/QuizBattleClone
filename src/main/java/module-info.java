@@ -4,9 +4,9 @@ module BestQuizBattleEver {
     requires javafx.graphics;
     requires javafx.fxml;
 
-    opens ClientProgram;
-    opens ClientProgram.GUI;
-    opens ClientProgram.GUI.controller;
+    opens clientProgram;
+    opens clientProgram.GUI;
+    opens clientProgram.GUI.controller;
     opens view;
     opens images;
     opens images.advertising;

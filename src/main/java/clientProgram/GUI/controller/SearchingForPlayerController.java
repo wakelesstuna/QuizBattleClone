@@ -1,6 +1,6 @@
-package ClientProgram.GUI.controller;
+package clientProgram.GUI.controller;
 
-import ClientProgram.GUI.ControllerUtil;
+import clientProgram.GUI.ControllerUtil;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

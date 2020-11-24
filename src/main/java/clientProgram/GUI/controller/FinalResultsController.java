@@ -1,18 +1,13 @@
-package ClientProgram.GUI.controller;
+package clientProgram.GUI.controller;
 
-import ClientProgram.GUI.ControllerUtil;
-import ClientProgram.GUI.Main;
-import ClientProgram.PlayerConnection;
-import assets.IFxmlPaths;
-import javafx.beans.WeakInvalidationListener;
+import clientProgram.GUI.ControllerUtil;
+import clientProgram.GUI.Main;
+import model.IFxmlPaths;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class FinalResultsController implements IFxmlPaths {
 

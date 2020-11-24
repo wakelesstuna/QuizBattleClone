@@ -1,9 +1,9 @@
-package ClientProgram.GUI;
+package clientProgram.GUI;
 
 
-import ClientProgram.GUI.controller.FxmlPaths;
-import ClientProgram.PlayerConnection;
-import Model.Question;
+import clientProgram.GUI.controller.FxmlPaths;
+import clientProgram.PlayerConnection;
+import model.Question;
 
 import javafx.application.Application;
 import javafx.application.Platform;

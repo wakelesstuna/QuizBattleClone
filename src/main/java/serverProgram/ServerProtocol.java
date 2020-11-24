@@ -1,6 +1,6 @@
 package serverProgram;
 
-import Model.*;
+import model.*;
 import serverProgram.databas.Database;
 
 import java.io.FileInputStream;

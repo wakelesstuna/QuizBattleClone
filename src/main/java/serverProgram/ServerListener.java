@@ -1,7 +1,7 @@
 package serverProgram;
 
-import Model.InfoObj;
-import Model.Player;
+import model.InfoObj;
+import model.Player;
 
 import java.io.EOFException;
 import java.io.ObjectInputStream;

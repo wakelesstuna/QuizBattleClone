@@ -1,6 +1,5 @@
-package Model;
+package model;
 
-import javafx.scene.PointLight;
 import serverProgram.STATE;
 
 import java.io.Serializable;

@@ -24,7 +24,7 @@ public class Database {
                 String categoryName = removeFileExtention(file);
 
                 //Läser in frågor från text filen
-                List<Question> questions = DatabaseHandler.readDataFromFile(file);
+                List<Question> questions = DatabaseHandler.readDataFromFile(file, categoryName);
 
                 //Skapa Category objekt
                 Category category = new Category(categoryName, questions);
@@ -60,7 +60,7 @@ public class Database {
         return tempQuestionList;
     }
 
-    //Hämta ut slumpa kategorier namn
+    //Hämta ut kategorier namn lisr
     public List<Category> getCategories() {
         return categories;
     }
@@ -69,7 +69,7 @@ public class Database {
         Database data = new Database();
         List<Question> questions = data.getQuestionList("java");
         for (Question q : questions){
-            System.out.println(q.getQuestion());
+            System.out.println(q.getCategoryName());
         }
 
     }

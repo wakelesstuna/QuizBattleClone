@@ -42,7 +42,7 @@ public class PlayerProtocol {
                 ControllerUtil.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
 
                 ControllerUtil.getQuestionBoardController().setQuestion(((Question) objFromServer));
-                ControllerUtil.getQuestionBoardController().getCategoryLabel().setText("JAVA");
+                ControllerUtil.getQuestionBoardController().getCategoryLabel().setText(((Question) objFromServer).getCategoryName());
                 ControllerUtil.getQuestionBoardController().getQuestionField().setText(((Question) objFromServer).getQuestion());
 
                 // TODO: 2020-11-21 fixa så frågorna skrivs ut på rätt sätt

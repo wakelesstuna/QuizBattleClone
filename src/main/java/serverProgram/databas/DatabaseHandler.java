@@ -11,7 +11,7 @@ import model.Question;
 public class DatabaseHandler {
 
     //Läser in alla frågor och skapar Question objekt
-    public static List<Question> readDataFromFile(Path filePath) {
+    public static List<Question> readDataFromFile(Path filePath, String categoryName) {
         String question, correctAnswer;
         List<Question> questionList = new ArrayList<>();
 
@@ -25,7 +25,7 @@ public class DatabaseHandler {
                 answerChoices.add(in.nextLine());
                 answerChoices.add(in.nextLine());
 
-                Question q = new Question(question, correctAnswer, answerChoices);
+                Question q = new Question(question, correctAnswer, answerChoices, categoryName);
                 questionList.add(q);
             }
         } catch (IOException e) {

@@ -1,6 +1,6 @@
 package model;
 
-public interface IFxmlPaths {
+public interface FxmlPathsImp {
     // Holds all the paths for the .fxml files in resources
 
     String LOGIN_MENU = "view/loginMenu.fxml";

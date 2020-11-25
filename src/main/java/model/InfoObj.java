@@ -31,10 +31,9 @@ public class InfoObj implements Serializable {
         this.player = player;
     }
 
-    public InfoObj(STATE state, String SceneToChangeTo, int roundScore) {
+    public InfoObj(STATE state, Player opponent) {
         this.state = state;
-        this.SceneToChangeTo = SceneToChangeTo;
-        this.roundScore = roundScore;
+        this.opponent = opponent;
     }
 
 

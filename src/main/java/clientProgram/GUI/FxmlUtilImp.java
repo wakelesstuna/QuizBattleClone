@@ -5,17 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.IFxmlPaths;
+import model.FxmlPathsImp;
 
 import java.io.IOException;
 
-public class FxmlUtil implements IFxmlPaths {
+public class FxmlUtilImp implements FxmlPathsImp {
 
     private static Stage currentStage;
 
     //--------------------------------------- TO LOAD LOGIN MENU ---------------------------------------------------\\
 
-    private static final FXMLLoader loginMenuLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(LOGIN_MENU));
+    private static final FXMLLoader loginMenuLoader = new FXMLLoader(FxmlUtilImp.class.getClassLoader().getResource(LOGIN_MENU));
     private static Parent loginMenuParent;
     static { try { loginMenuParent = loginMenuLoader.load(); System.out.println("Loaded Login Menu");} catch (IOException e) { e.printStackTrace(); }}
     private static final Scene loginMenuScene = new Scene(loginMenuParent);
@@ -26,7 +26,7 @@ public class FxmlUtil implements IFxmlPaths {
 
     //--------------------------------------- TO LOAD GAME MENU ---------------------------------------------------\\
 
-    private static final FXMLLoader gameMenuLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(GAME_MENU));
+    private static final FXMLLoader gameMenuLoader = new FXMLLoader(FxmlUtilImp.class.getClassLoader().getResource(GAME_MENU));
     private static Parent gameMenuParent;
     static { try { gameMenuParent = gameMenuLoader.load(); System.out.println("Loaded Game Menu"); } catch (IOException e) { e.printStackTrace(); }}
     private static final Scene gameMenuScene = new Scene(gameMenuParent);
@@ -42,7 +42,7 @@ public class FxmlUtil implements IFxmlPaths {
 
     //--------------------------------------- TO LOAD RANDOM PLAYER ---------------------------------------------------\\
 
-    private static final FXMLLoader randomPlayerLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(RANDOM_PLAYER));
+    private static final FXMLLoader randomPlayerLoader = new FXMLLoader(FxmlUtilImp.class.getClassLoader().getResource(RANDOM_PLAYER));
     private static Parent randomPlayerParent;
     static { try { randomPlayerParent = randomPlayerLoader.load(); System.out.println("Loaded Random Player Menu");} catch (IOException e) { e.printStackTrace(); }}
     private static final Scene randomPlayerScene = new Scene(randomPlayerParent);
@@ -58,7 +58,7 @@ public class FxmlUtil implements IFxmlPaths {
 
     //--------------------------------------- TO LOAD SEARCHING FOR PLAYER ---------------------------------------------------\\
 
-    private static final FXMLLoader searchingForPlayerLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(SEARCHING_FOR_PLAYER));
+    private static final FXMLLoader searchingForPlayerLoader = new FXMLLoader(FxmlUtilImp.class.getClassLoader().getResource(SEARCHING_FOR_PLAYER));
     private static Parent searchingForPlayerParent;
     static { try { searchingForPlayerParent = searchingForPlayerLoader.load(); System.out.println("Loaded Searching For Player Scene");} catch (IOException e) { e.printStackTrace(); }}
     private static final Scene searchingForPlayerScene = new Scene(searchingForPlayerParent);
@@ -69,7 +69,7 @@ public class FxmlUtil implements IFxmlPaths {
 
     //--------------------------------------- TO LOAD GAME BOARD ---------------------------------------------------\\
 
-    private static final FXMLLoader gameBoardLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(GAME_BOARD));
+    private static final FXMLLoader gameBoardLoader = new FXMLLoader(FxmlUtilImp.class.getClassLoader().getResource(GAME_BOARD));
     private static Parent gameBoardParent;
     static { try { gameBoardParent = gameBoardLoader.load(); System.out.println("Loaded Game Bord Scene");} catch (IOException e) { e.printStackTrace(); }}
     private static final Scene gameBoardScene = new Scene(gameBoardParent);
@@ -85,7 +85,7 @@ public class FxmlUtil implements IFxmlPaths {
 
     //--------------------------------------- TO LOAD CATEGORY BOARD---------------------------------------------------\\
 
-    private static final FXMLLoader categoryChoiceBoardLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(CATEGORY_BOARD));
+    private static final FXMLLoader categoryChoiceBoardLoader = new FXMLLoader(FxmlUtilImp.class.getClassLoader().getResource(CATEGORY_BOARD));
     private static Parent categoryChoiceBoardParent;
     static { try { categoryChoiceBoardParent = categoryChoiceBoardLoader.load(); System.out.println("Loaded CateGory Board Scene");} catch (IOException e) { e.printStackTrace(); }}
     private static final Scene categoryChoiceBoardScene = new Scene(categoryChoiceBoardParent);
@@ -99,7 +99,7 @@ public class FxmlUtil implements IFxmlPaths {
 
     //--------------------------------------- TO LOAD QUESTION BOARD---------------------------------------------------\\
 
-    private static final FXMLLoader questionBoardLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(QUESTION_BOARD));
+    private static final FXMLLoader questionBoardLoader = new FXMLLoader(FxmlUtilImp.class.getClassLoader().getResource(QUESTION_BOARD));
     private static Parent questionBoardParent;
     static { try { questionBoardParent = questionBoardLoader.load(); System.out.println("Loaded Question Board Scene");} catch (IOException e) { e.printStackTrace(); }}
     private static final Scene questionBoardScene = new Scene(questionBoardParent);
@@ -115,7 +115,7 @@ public class FxmlUtil implements IFxmlPaths {
 
     //--------------------------------------- TO LOAD FINAL RESULTS---------------------------------------------------\\
 
-    private static final FXMLLoader finalResultsLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(FINAL_RESULTS));
+    private static final FXMLLoader finalResultsLoader = new FXMLLoader(FxmlUtilImp.class.getClassLoader().getResource(FINAL_RESULTS));
     private static Parent finalResultsParent;
     static { try { finalResultsParent = finalResultsLoader.load(); System.out.println("Loaded Final Results Scene");} catch (IOException e) { e.printStackTrace(); }}
     private static final Scene finalResultsScene = new Scene(finalResultsParent);

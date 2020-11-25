@@ -1,6 +1,6 @@
 package model;
 
-public interface IIpConfig {
+public interface IpConfigImp {
     // holds the IpConfigs for the client and server
 
     int PORT = 45455;

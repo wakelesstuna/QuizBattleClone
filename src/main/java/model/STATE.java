@@ -3,6 +3,7 @@ package model;
 public enum STATE {
     SET_PLAYERNAME,
     READY_TO_PLAY,
+    GO_TO_GAMEBOARD,
     ASK_CATEGORY,
     SET_CATEGORY,
     SEND_QUESTION,

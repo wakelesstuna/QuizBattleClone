@@ -6,8 +6,8 @@ public class Player implements Serializable {
 
     private String playerName;
     private Player opponent;
-    private int playerRoundScore;
-    private int playerTotalScore;
+    private int playerRoundScore = 0;
+    private int playerTotalScore = 0;
     private boolean isReadyToPlay;
 
     public void setPlayerTotalScore(int playerTotalScore) {

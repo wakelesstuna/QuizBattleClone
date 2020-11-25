@@ -1,7 +1,7 @@
 package clientProgram.GUI.controllers;
 
 
-import clientProgram.GUI.FxmlUtil;
+import clientProgram.GUI.FxmlUtilImp;
 import clientProgram.Main;
 import model.InfoObj;
 
@@ -79,7 +79,7 @@ public class GameBoardController {
     private Label opponentRound5Score;
 
     public void loadQuestion(){
-        FxmlUtil.getQuestionBoardController().addRound();
+        FxmlUtilImp.getQuestionBoardController().addRound();
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION, "java"));
         addRoundToGame();
         playButton.setDisable(true);
@@ -90,7 +90,7 @@ public class GameBoardController {
     }
 
     public void endGame(){
-        FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
+        FxmlUtilImp.changeScenes(FxmlUtilImp.getGameMenuScene());
     }
 
     public Label getYouName() {

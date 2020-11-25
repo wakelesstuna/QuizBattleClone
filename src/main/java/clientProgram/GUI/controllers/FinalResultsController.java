@@ -1,15 +1,15 @@
 package clientProgram.GUI.controllers;
 
-import clientProgram.GUI.FxmlUtil;
+import clientProgram.GUI.FxmlUtilImp;
 import clientProgram.Main;
-import model.IFxmlPaths;
+import model.FxmlPathsImp;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class FinalResultsController implements IFxmlPaths {
+public class FinalResultsController implements FxmlPathsImp {
 
 
     @FXML
@@ -20,6 +20,9 @@ public class FinalResultsController implements IFxmlPaths {
 
     @FXML
     private Label youFinalScore;
+
+    @FXML
+    private Label opponentName;
 
     @FXML
     private Label opponentFinalScore;
@@ -36,9 +39,12 @@ public class FinalResultsController implements IFxmlPaths {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
+        FxmlUtilImp.changeScenes(FxmlUtilImp.getGameMenuScene());
     }
 
+    public Label getOpponentName() {
+        return opponentName;
+    }
 
     public AnchorPane getFinalScore() {
         return finalScore;

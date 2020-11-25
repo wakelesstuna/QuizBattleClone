@@ -1,13 +1,13 @@
 package clientProgram.GUI.controllers;
 
-import clientProgram.GUI.FxmlUtil;
+import clientProgram.GUI.FxmlUtilImp;
 import clientProgram.Main;
 import clientProgram.PlayerConnection;
-import model.IIpConfig;
+import model.IpConfigImp;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class GameMenuController implements IIpConfig {
+public class GameMenuController implements IpConfigImp {
 
 
     @FXML
@@ -15,11 +15,11 @@ public class GameMenuController implements IIpConfig {
 
     public void loadSelectPlayer(){
         Main.playerConnection = new PlayerConnection(IPADDRESS, PORT);
-        FxmlUtil.changeScenes(FxmlUtil.getRandomPlayerScene());
+        FxmlUtilImp.changeScenes(FxmlUtilImp.getRandomPlayerScene());
     }
 
     public void logout() {
-        FxmlUtil.changeScenes(FxmlUtil.getLoginMenuScene());
+        FxmlUtilImp.changeScenes(FxmlUtilImp.getLoginMenuScene());
     }
 
     public Label getUserNameLabel() {

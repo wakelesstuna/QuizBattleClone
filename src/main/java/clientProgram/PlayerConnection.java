@@ -1,13 +1,13 @@
 package clientProgram;
 
-import model.IIpConfig;
+import model.IpConfigImp;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class PlayerConnection implements Runnable, IIpConfig {
+public class PlayerConnection implements Runnable, IpConfigImp {
 
     private Socket socket;
     private ObjectOutputStream out;

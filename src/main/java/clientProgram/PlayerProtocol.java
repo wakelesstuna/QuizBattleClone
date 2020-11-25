@@ -1,9 +1,10 @@
 package clientProgram;
 
-import clientProgram.GUI.FxmlUtil;
+import clientProgram.GUI.FxmlUtilImp;
 import clientProgram.GUI.controllers.FinalResultsController;
 import clientProgram.GUI.controllers.GameBoardController;
 import clientProgram.GUI.controllers.QuestionBoardController;
+import javafx.scene.control.Label;
 import model.InfoObj;
 import model.Question;
 import model.StartPackage;
@@ -20,38 +21,40 @@ public class PlayerProtocol {
      * med hjälp av implementet initialize
      */
 
+
+
     public void checkObjectFromServer(Object objFromServer){
 
         if (objFromServer instanceof InfoObj){
 
             switch (((InfoObj) objFromServer).getState()){
-                case CHANGE_SCENE -> changeScene((InfoObj)objFromServer);
+                case GO_TO_GAMEBOARD -> loadGameBoard((InfoObj)objFromServer);
                 case READY_TO_PLAY -> System.out.println(((InfoObj) objFromServer).getMsg());
                 case ASK_CATEGORY -> askForcategory((InfoObj) objFromServer);
                 case SEND_QUESTION -> Main.question = (Question) objFromServer;
-                case GAME_OVER -> finalScore();
+                case GAME_OVER -> finalScore((InfoObj)objFromServer);
             }
 
         }else if (objFromServer instanceof Question){
             System.out.println("Question here");
             Platform.runLater(() -> {
 
-                FxmlUtil.getGameBoardController().playButton.setDisable(false);
-                FxmlUtil.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
+                FxmlUtilImp.getGameBoardController().playButton.setDisable(false);
+                FxmlUtilImp.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
 
-                FxmlUtil.getQuestionBoardController().setQuestion(((Question) objFromServer));
-                FxmlUtil.getQuestionBoardController().getCategoryLabel().setText(((Question) objFromServer).getCategoryName());
-                FxmlUtil.getQuestionBoardController().getQuestionField().setText(((Question) objFromServer).getQuestion());
+                FxmlUtilImp.getQuestionBoardController().setQuestion(((Question) objFromServer));
+                FxmlUtilImp.getQuestionBoardController().getCategoryLabel().setText(((Question) objFromServer).getCategoryName());
+                FxmlUtilImp.getQuestionBoardController().getQuestionField().setText(((Question) objFromServer).getQuestion());
 
-                for (int i = 0; i < FxmlUtil.getQuestionBoardController().getAnswerButtonsList().size(); i++) {
-                    FxmlUtil.getQuestionBoardController().getAnswerButtonsList()
+                for (int i = 0; i < FxmlUtilImp.getQuestionBoardController().getAnswerButtonsList().size(); i++) {
+                    FxmlUtilImp.getQuestionBoardController().getAnswerButtonsList()
                             .get(i).setText(((Question) objFromServer).getAnswerChoices().get(i));
                 }
 
-                FxmlUtil.getQuestionBoardController().getWaitingIndicator().setVisible(false);
-                FxmlUtil.getQuestionBoardController().getWaitingLabel().setVisible(false);
+                FxmlUtilImp.getQuestionBoardController().getWaitingIndicator().setVisible(false);
+                FxmlUtilImp.getQuestionBoardController().getWaitingLabel().setVisible(false);
 
-                FxmlUtil.changeScenes(FxmlUtil.getQuestionBoardScene());
+                FxmlUtilImp.changeScenes(FxmlUtilImp.getQuestionBoardScene());
             });
 
         }else if(objFromServer instanceof StartPackage){
@@ -60,63 +63,60 @@ public class PlayerProtocol {
         }
     }
 
-    private void changeScene(InfoObj objFromServer) {
-        GameBoardController GBC = FxmlUtil.getGameBoardController();
-        QuestionBoardController QBC = FxmlUtil.getQuestionBoardController();
-        System.out.println("dags att byta scene");
-        System.out.println(objFromServer.getPlayer().getPlayerRoundScore());
-        System.out.println(objFromServer.getOpponent());
+    private void loadGameBoard(InfoObj objFromServer) {
+        GameBoardController GBC = FxmlUtilImp.getGameBoardController();
+        QuestionBoardController QBC = FxmlUtilImp.getQuestionBoardController();
 
-        int tempRoundScore = objFromServer.getPlayer().getPlayerRoundScore();
-        //System.out.println(objFromServer.getPlayer().getPlayerName());
-        //System.out.println("" + objFromServer.getPlayer().getPlayerRoundScore());
+        Label opponentTotalScoreLabel = GBC.getOpponentTotalScore();
+        int currentOpponentTotalScore = Integer.parseInt(GBC.getOpponentTotalScore().getText());
+        int tempRoundScore = objFromServer.getOpponent().getPlayerRoundScore();
 
             Platform.runLater(() -> {
-                FxmlUtil.getGameBoardController().getWithRoundNumberLabel().setText("" + FxmlUtil.getGameBoardController().getWhichRoundNumber());
-                FxmlUtil.getGameBoardController().getOpponentName().setText(objFromServer.getPlayer().getPlayerName());
-                FxmlUtil.getGameBoardController().getOpponentRound1Score().setText("" + (objFromServer.getPlayer().getPlayerRoundScore()));
+                GBC.getWithRoundNumberLabel().setText("" + FxmlUtilImp.getGameBoardController().getWhichRoundNumber());
+                GBC.getOpponentName().setText(objFromServer.getOpponent().getPlayerName());
+                GBC.getOpponentRound1Score().setText("" + (objFromServer.getOpponent().getPlayerRoundScore()));
 
                 if (QBC.getRounds() == 1){
-                    GBC.getOpponentRound1Score().setText("" + tempRoundScore);
-                    GBC.getOpponentTotalScore().setText("" + tempRoundScore);
+                    GBC.getOpponentRound1Score().setText(String.valueOf(tempRoundScore));
                 }else if (QBC.getRounds() == 2){
-                    GBC.getOpponentTotalScore().setText(String.valueOf(Integer.parseInt(GBC.getOpponentTotalScore().getText()) + objFromServer.getPlayer().getPlayerRoundScore()));
-                    GBC.getOpponentRound2Score().setText(String.valueOf(objFromServer.getRoundScore()));
+                    GBC.getOpponentRound2Score().setText(String.valueOf(tempRoundScore));
                 }else if (QBC.getRounds() == 3){
-                    GBC.getOpponentTotalScore().setText(String.valueOf(Integer.parseInt(GBC.getOpponentTotalScore().getText()) + objFromServer.getPlayer().getPlayerRoundScore()));
-                    GBC.getOpponentRound3Score().setText("" + objFromServer.getRoundScore());
+                    GBC.getOpponentRound3Score().setText(String.valueOf(tempRoundScore));
                 }else if (QBC.getRounds() == 4){
-                    GBC.getOpponentTotalScore().setText(String.valueOf(Integer.parseInt(GBC.getOpponentTotalScore().getText()) + objFromServer.getPlayer().getPlayerRoundScore()));
-                    GBC.getOpponentRound4Score().setText("" + objFromServer.getRoundScore());
+                    GBC.getOpponentRound4Score().setText(String.valueOf(tempRoundScore));
                 }else{
-                    GBC.getOpponentTotalScore().setText(String.valueOf(Integer.parseInt(GBC.getOpponentTotalScore().getText()) + objFromServer.getPlayer().getPlayerRoundScore()));
-                    GBC.getOpponentRound5Score().setText("" + objFromServer.getRoundScore());
+                    GBC.getOpponentRound5Score().setText(String.valueOf(tempRoundScore));
                 }
-                FxmlUtil.changeScenes(FxmlUtil.getGameBoardScene());
+                opponentTotalScoreLabel.setText(String.valueOf(currentOpponentTotalScore + tempRoundScore));
+                FxmlUtilImp.changeScenes(FxmlUtilImp.getGameBoardScene());
             });
 
     }
 
-    public void finalScore(){
+    public void finalScore(InfoObj objFromServer){
         Platform.runLater(()-> {
-            FinalResultsController FRC = FxmlUtil.getFinalResultsController();
-            GameBoardController GBC = FxmlUtil.getGameBoardController();
+            FinalResultsController FRC = FxmlUtilImp.getFinalResultsController();
+            GameBoardController GBC = FxmlUtilImp.getGameBoardController();
+            int yourTotalScore = Integer.parseInt(GBC.getYourTotalScore().getText());
+            int opponentTotalScore = objFromServer.getOpponent().getPlayerTotalScore();
 
-            if (Integer.parseInt(GBC.getYourTotalScore().getText()) > GBC.opponentPoints){
-                FRC.getYouFinalScore().setText(String.valueOf(Integer.parseInt(GBC.getYourTotalScore().getText())));
+            if (yourTotalScore > opponentTotalScore){
+                FRC.getYouFinalScore().setText(String.valueOf(yourTotalScore));
                 FRC.getWhoWinLabel().setText("YOU WIN!");
                 FRC.getWinnerMsgLabel().setText("CONGRATULATIONS!");
-            }else if (Integer.parseInt(GBC.getYourTotalScore().getText()) == GameBoardController.opponentPoints){
-                FRC.getYouFinalScore().setText(String.valueOf(Integer.parseInt(GBC.getYourTotalScore().getText())));
+            }else if (yourTotalScore == opponentTotalScore){
+                FRC.getYouFinalScore().setText(String.valueOf(yourTotalScore));
                 FRC.getWhoWinLabel().setText("IT'S A TIE");
                 FRC.getWinnerMsgLabel().setText("BETTER LUCK\nNEXT TIME!");
             }else {
-                FRC.getYouFinalScore().setText(String.valueOf(Integer.parseInt(GBC.getYourTotalScore().getText())));
+                FRC.getYouFinalScore().setText(String.valueOf(yourTotalScore));
                 FRC.getWhoWinLabel().setText("YOU LOSE!");
                 FRC.getWinnerMsgLabel().setText("BETTER LUCK NEXT\nTIME!");
             }
+            FRC.getOpponentFinalScore().setText(String.valueOf(opponentTotalScore));
+            FRC.getOpponentName().setText(objFromServer.getOpponent().getPlayerName());
 
-            FxmlUtil.changeScenes(FxmlUtil.getFinalResultsScene());
+            FxmlUtilImp.changeScenes(FxmlUtilImp.getFinalResultsScene());
         });
     }
 

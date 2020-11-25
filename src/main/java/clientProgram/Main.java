@@ -1,7 +1,7 @@
 package clientProgram;
 
-import clientProgram.GUI.FxmlUtil;
-import model.IFxmlPaths;
+import clientProgram.GUI.FxmlUtilImp;
+import model.FxmlPathsImp;
 import model.Question;
 
 import javafx.application.Application;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class Main extends Application implements IFxmlPaths {
+public class Main extends Application implements FxmlPathsImp {
 
     public static PlayerConnection playerConnection;
     public static String playerName = "playerName";
@@ -36,7 +36,7 @@ public class Main extends Application implements IFxmlPaths {
             System.exit(0);
         });
 
-        FxmlUtil.setCurrentStage(primaryStage);
+        FxmlUtilImp.setCurrentStage(primaryStage);
     }
 
     public static void main(String[] args) {

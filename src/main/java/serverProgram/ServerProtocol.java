@@ -111,7 +111,7 @@ public class ServerProtocol {
             game.getPlayer1().setOpponent(game.getPlayer2());
             game.getPlayer2().setOpponent(game.getPlayer1());
             System.out.println("both ready to play");
-            setReadyToPlayFalseForBothPlayers(serverListener);
+            setReadyToPlayFalseForBothPlayers();
 
             try {
                 Thread.sleep(1000);
@@ -123,8 +123,10 @@ public class ServerProtocol {
                 // to send the opponents name to the player
                 Player opponent = l.getPlayer().getOpponent();
                 l.sendObj(new StartPackage(roundsPerGame, questionsPerRound));
-                l.sendObj(new InfoObj(STATE.CHANGE_SCENE, "gameBoard", opponent));
+
+                //l.sendObj(new InfoObj(STATE.GO_TO_GAMEBOARD, opponent));
             }
+            sendOpponentToAllPlayers(STATE.GO_TO_GAMEBOARD);
         } else {
             System.out.println("väntar på spelare att bli redo");
         }
@@ -169,7 +171,7 @@ public class ServerProtocol {
                         case 4 -> question = questionList.get(4);
                     }
                     currentQuestion++;
-                    setReadyToPlayFalseForBothPlayers(serverListener);
+                    setReadyToPlayFalseForBothPlayers();
                     sendToAllPlayers(question);
                 }
             } else {
@@ -187,14 +189,12 @@ public class ServerProtocol {
     }
 
     private void checkAnswer(Player player, ServerListener serverListener, InfoObj infoObj) {
-        game = serverListener.getGame();
+        //game = serverListener.getGame();
         player.setReadyToPlay(true);
 
         if (infoObj.getMsg().equalsIgnoreCase(question.getCorrectAnswer())) {
             player.addRoundPoint();
-            System.out.println("inne och sätter score " + player.getPlayerName());
             player.addTotalPoint();
-            System.out.println(player.getPlayerName() + player.getPlayerRoundScore());
         }
 
         if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
@@ -212,28 +212,17 @@ public class ServerProtocol {
                 currentQuestion = 0;
                 currentCategory++;
                 currentRound++;
-                setReadyToPlayFalseForBothPlayers(serverListener);
+                setReadyToPlayFalseForBothPlayers();
+
                 if (currentRound < roundsPerGame) {
-                    for (ServerListener l : playersList) {
-                        // to send the opponents name to the player
-                        System.out.println(l.getPlayer());
-                        System.out.println(l.getPlayer() + " " + l.getPlayer().getPlayerRoundScore() + "total: " + l.getPlayer().getPlayerTotalScore());
-                        System.out.println(l.getPlayer().getOpponent() + " " + l.getPlayer().getOpponent().getPlayerRoundScore());
-                        Player opponent = l.getPlayer().getOpponent();
 
-                        Player temp = new Player();
-                        temp.setPlayerName(l.getPlayer().getOpponent().getPlayerName());
-                        temp.setPlayerRoundScore(l.getPlayer().getOpponent().getPlayerRoundScore());
-                        temp.setPlayerTotalScore(l.getPlayer().getOpponent().getPlayerTotalScore());
+                    sendOpponentToAllPlayers(STATE.GO_TO_GAMEBOARD);
 
-                        l.sendObj(new InfoObj(STATE.CHANGE_SCENE, "gameBoard", temp));
-                       // l.getPlayer().setPlayerRoundScore(0);
-                    }
                     game.getPlayer1().setPlayerRoundScore(0);
                     game.getPlayer2().setPlayerRoundScore(0);
 
                 } else {
-                    sendToAllPlayers(new InfoObj(STATE.GAME_OVER));
+                    sendOpponentToAllPlayers(STATE.GAME_OVER);
                 }
             }
         } else {
@@ -247,9 +236,19 @@ public class ServerProtocol {
         }
     }
 
-    public void setReadyToPlayFalseForBothPlayers(ServerListener serverListener) {
-        serverListener.getGame().getPlayer1().setReadyToPlay(false);
-        serverListener.getGame().getPlayer2().setReadyToPlay(false);
+    public void sendOpponentToAllPlayers(STATE state){
+        for (ServerListener l : playersList) {
+            Player temp = new Player();
+            temp.setPlayerName(l.getPlayer().getOpponent().getPlayerName());
+            temp.setPlayerRoundScore(l.getPlayer().getOpponent().getPlayerRoundScore());
+            temp.setPlayerTotalScore(l.getPlayer().getOpponent().getPlayerTotalScore());
+            l.sendObj(new InfoObj(state,  temp));
+        }
+    }
+
+    public void setReadyToPlayFalseForBothPlayers() {
+        game.getPlayer1().setReadyToPlay(false);
+        game.getPlayer2().setReadyToPlay(false);
     }
 
 }

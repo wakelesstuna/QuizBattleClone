@@ -1,10 +1,10 @@
 package serverProgram;
 
-import model.IIpConfig;
+import model.IpConfigImp;
 
 import java.net.ServerSocket;
 
-public class Server implements IIpConfig {
+public class Server implements IpConfigImp {
 
     ServerSocket serverSocket;
     Game game;

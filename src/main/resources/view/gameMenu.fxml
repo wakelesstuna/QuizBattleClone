@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gameMenu" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="clientProgram.GUI.controllers.GameMenuController">
+<AnchorPane fx:id="gameMenu" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clientProgram.GUI.controllers.GameMenuController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
@@ -145,7 +145,7 @@
                            <children>
                               <ImageView fitHeight="51.0" fitWidth="50.0" layoutX="29.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/580b57fcd9996e24bc43c4bd.png" />
+                                    <Image url="@../images/Avatar.png" />
                                  </image>
                               </ImageView>
                            </children>

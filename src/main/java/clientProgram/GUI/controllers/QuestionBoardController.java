@@ -1,6 +1,6 @@
 package clientProgram.GUI.controllers;
 
-import clientProgram.GUI.FxmlUtilImp;
+import clientProgram.GUI.FxmlUtil;
 import clientProgram.Main;
 import javafx.scene.control.*;
 import model.InfoObj;
@@ -58,7 +58,7 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
 
         if (pressed.getText().equals(question.getCorrectAnswer())){
             pressed.setStyle("-fx-background-color: greenyellow");
-            FxmlUtilImp.getGameBoardController().getYourTotalScore().setText(String.valueOf(Integer.parseInt(FxmlUtilImp.getGameBoardController().getYourTotalScore().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYourTotalScore().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYourTotalScore().getText()) + 1));
             setRoundScore();
         }else {
             pressed.setStyle("-fx-background-color: firebrick");
@@ -74,15 +74,15 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
 
     public void setRoundScore(){
         if (rounds == 1){
-            FxmlUtilImp.getGameBoardController().getYouRound1Score().setText(String.valueOf(Integer.parseInt(FxmlUtilImp.getGameBoardController().getYouRound1Score().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYouRound1Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound1Score().getText()) + 1));
         }else if (rounds == 2){
-            FxmlUtilImp.getGameBoardController().getYouRound2Score().setText(String.valueOf(Integer.parseInt(FxmlUtilImp.getGameBoardController().getYouRound2Score().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYouRound2Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound2Score().getText()) + 1));
         }else if (rounds == 3){
-            FxmlUtilImp.getGameBoardController().getYouRound3Score().setText(String.valueOf(Integer.parseInt(FxmlUtilImp.getGameBoardController().getYouRound3Score().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYouRound3Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound3Score().getText()) + 1));
         }else if (rounds == 4){
-            FxmlUtilImp.getGameBoardController().getYouRound4Score().setText(String.valueOf(Integer.parseInt(FxmlUtilImp.getGameBoardController().getYouRound4Score().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYouRound4Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound4Score().getText()) + 1));
         }else{
-            FxmlUtilImp.getGameBoardController().getYouRound5Score().setText(String.valueOf(Integer.parseInt(FxmlUtilImp.getGameBoardController().getYouRound5Score().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYouRound5Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound5Score().getText()) + 1));
         }
 
     }

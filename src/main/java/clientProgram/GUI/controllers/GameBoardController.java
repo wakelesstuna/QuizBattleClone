@@ -1,8 +1,10 @@
 package clientProgram.GUI.controllers;
 
 
-import clientProgram.GUI.FxmlUtilImp;
+import clientProgram.GUI.FxmlUtil;
 import clientProgram.Main;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import model.InfoObj;
 
 import javafx.fxml.FXML;
@@ -16,8 +18,8 @@ public class GameBoardController {
     public static String opponent = "opponent"; // hämta motståndarnamn från servern
     public static int opponentPoints = 2;       // hämta motståndarscore från servern
 
-    public static int numberOfRounds; // sätt dessa med proptiesfil
-    public static int numberOfQuestions; // sätt dessa med proptiesfil
+    private int numberOfRounds; // sätt dessa med proptiesfil
+    private int numberOfQuestions; // sätt dessa med proptiesfil
 
     public static int currentRound = 1;
     public int gameRoundScore = 0;
@@ -78,11 +80,44 @@ public class GameBoardController {
     @FXML
     private Label opponentRound5Score;
 
+    @FXML
+    private Pane twoRoundPane;
+
+    @FXML
+    private Pane threeRoundPane;
+
+    @FXML
+    private Pane fourRoundPane;
+
     public void loadQuestion(){
-        FxmlUtilImp.getQuestionBoardController().addRound();
+        FxmlUtil.getQuestionBoardController().addRound();
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION, "java"));
         addRoundToGame();
         playButton.setDisable(true);
+    }
+
+    public static int getOpponentPoints() {
+        return opponentPoints;
+    }
+
+    public static void setOpponentPoints(int opponentPoints) {
+        GameBoardController.opponentPoints = opponentPoints;
+    }
+
+    public int getNumberOfRounds() {
+        return numberOfRounds;
+    }
+
+    public void setNumberOfRounds(int numberOfRounds) {
+        this.numberOfRounds = numberOfRounds;
+    }
+
+    public int getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public void setNumberOfQuestions(int numberOfQuestions) {
+        this.numberOfQuestions = numberOfQuestions;
     }
 
     private void addRoundToGame(){
@@ -90,7 +125,23 @@ public class GameBoardController {
     }
 
     public void endGame(){
-        FxmlUtilImp.changeScenes(FxmlUtilImp.getGameMenuScene());
+        FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
+    }
+
+    public static int getCurrentRound() {
+        return currentRound;
+    }
+
+    public Pane getTwoRoundPane() {
+        return twoRoundPane;
+    }
+
+    public Pane getThreeRoundPane() {
+        return threeRoundPane;
+    }
+
+    public Pane getFourRoundPane() {
+        return fourRoundPane;
     }
 
     public Label getYouName() {

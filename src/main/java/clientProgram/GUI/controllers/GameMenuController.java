@@ -1,6 +1,6 @@
 package clientProgram.GUI.controllers;
 
-import clientProgram.GUI.FxmlUtilImp;
+import clientProgram.GUI.FxmlUtil;
 import clientProgram.Main;
 import clientProgram.PlayerConnection;
 import model.IpConfigImp;
@@ -15,11 +15,11 @@ public class GameMenuController implements IpConfigImp {
 
     public void loadSelectPlayer(){
         Main.playerConnection = new PlayerConnection(IPADDRESS, PORT);
-        FxmlUtilImp.changeScenes(FxmlUtilImp.getRandomPlayerScene());
+        FxmlUtil.changeScenes(FxmlUtil.getRandomPlayerScene());
     }
 
     public void logout() {
-        FxmlUtilImp.changeScenes(FxmlUtilImp.getLoginMenuScene());
+        FxmlUtil.changeScenes(FxmlUtil.getLoginMenuScene());
     }
 
     public Label getUserNameLabel() {

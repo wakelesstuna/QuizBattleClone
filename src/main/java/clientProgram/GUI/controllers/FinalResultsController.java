@@ -1,6 +1,6 @@
 package clientProgram.GUI.controllers;
 
-import clientProgram.GUI.FxmlUtilImp;
+import clientProgram.GUI.FxmlUtil;
 import clientProgram.Main;
 import model.FxmlPathsImp;
 import javafx.fxml.FXML;
@@ -31,15 +31,13 @@ public class FinalResultsController implements FxmlPathsImp {
     private Label winnerMsgLabel;
 
     public void loadGameMenu() {
-        GameBoardController.currentRound = 1;
-        GameBoardController.numberOfRounds = 2; // reset the round count with
 
         try {
             Main.playerConnection.getSocket().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        FxmlUtilImp.changeScenes(FxmlUtilImp.getGameMenuScene());
+        FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
     }
 
     public Label getOpponentName() {

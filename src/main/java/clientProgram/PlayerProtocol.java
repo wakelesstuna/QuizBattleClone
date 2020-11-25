@@ -1,6 +1,6 @@
 package clientProgram;
 
-import clientProgram.GUI.FxmlUtilImp;
+import clientProgram.GUI.FxmlUtil;
 import clientProgram.GUI.controllers.FinalResultsController;
 import clientProgram.GUI.controllers.GameBoardController;
 import clientProgram.GUI.controllers.QuestionBoardController;
@@ -38,40 +38,51 @@ public class PlayerProtocol {
             System.out.println("Question here");
             Platform.runLater(() -> {
 
-                FxmlUtilImp.getGameBoardController().playButton.setDisable(false);
-                FxmlUtilImp.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
+                FxmlUtil.getGameBoardController().playButton.setDisable(false);
+                FxmlUtil.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
 
-                FxmlUtilImp.getQuestionBoardController().setQuestion(((Question) objFromServer));
-                FxmlUtilImp.getQuestionBoardController().getCategoryLabel().setText(((Question) objFromServer).getCategoryName());
-                FxmlUtilImp.getQuestionBoardController().getQuestionField().setText(((Question) objFromServer).getQuestion());
+                FxmlUtil.getQuestionBoardController().setQuestion(((Question) objFromServer));
+                FxmlUtil.getQuestionBoardController().getCategoryLabel().setText(((Question) objFromServer).getCategoryName());
+                FxmlUtil.getQuestionBoardController().getQuestionField().setText(((Question) objFromServer).getQuestion());
 
-                for (int i = 0; i < FxmlUtilImp.getQuestionBoardController().getAnswerButtonsList().size(); i++) {
-                    FxmlUtilImp.getQuestionBoardController().getAnswerButtonsList()
+                for (int i = 0; i < FxmlUtil.getQuestionBoardController().getAnswerButtonsList().size(); i++) {
+                    FxmlUtil.getQuestionBoardController().getAnswerButtonsList()
                             .get(i).setText(((Question) objFromServer).getAnswerChoices().get(i));
                 }
 
-                FxmlUtilImp.getQuestionBoardController().getWaitingIndicator().setVisible(false);
-                FxmlUtilImp.getQuestionBoardController().getWaitingLabel().setVisible(false);
+                FxmlUtil.getQuestionBoardController().getWaitingIndicator().setVisible(false);
+                FxmlUtil.getQuestionBoardController().getWaitingLabel().setVisible(false);
 
-                FxmlUtilImp.changeScenes(FxmlUtilImp.getQuestionBoardScene());
+                FxmlUtil.changeScenes(FxmlUtil.getQuestionBoardScene());
             });
 
         }else if(objFromServer instanceof StartPackage){
-            GameBoardController.numberOfRounds = ((StartPackage) objFromServer).getGameRounds();
-            GameBoardController.numberOfQuestions = ((StartPackage) objFromServer).getQuestionPerRounds();
+            // TODO: 2020-11-25 Fixa så man gömmer roundscore beroende på hur många rundor de är.
+            GameBoardController GBC = FxmlUtil.getGameBoardController();
+            GBC.setNumberOfRounds(((StartPackage) objFromServer).getGameRounds());
+            GBC.setNumberOfQuestions(((StartPackage) objFromServer).getQuestionPerRounds());
+
+            if (GBC.getNumberOfRounds() == 2){
+                GBC.getTwoRoundPane().setVisible(true);
+            }else if (GBC.getNumberOfRounds() == 3){
+                GBC.getThreeRoundPane().setVisible(true);
+            }else{
+                GBC.getFourRoundPane().setVisible(true);
+            }
+
         }
     }
 
     private void loadGameBoard(InfoObj objFromServer) {
-        GameBoardController GBC = FxmlUtilImp.getGameBoardController();
-        QuestionBoardController QBC = FxmlUtilImp.getQuestionBoardController();
+        GameBoardController GBC = FxmlUtil.getGameBoardController();
+        QuestionBoardController QBC = FxmlUtil.getQuestionBoardController();
 
         Label opponentTotalScoreLabel = GBC.getOpponentTotalScore();
         int currentOpponentTotalScore = Integer.parseInt(GBC.getOpponentTotalScore().getText());
         int tempRoundScore = objFromServer.getOpponent().getPlayerRoundScore();
 
             Platform.runLater(() -> {
-                GBC.getWithRoundNumberLabel().setText("" + FxmlUtilImp.getGameBoardController().getWhichRoundNumber());
+                GBC.getWithRoundNumberLabel().setText("" + FxmlUtil.getGameBoardController().getWhichRoundNumber());
                 GBC.getOpponentName().setText(objFromServer.getOpponent().getPlayerName());
                 GBC.getOpponentRound1Score().setText("" + (objFromServer.getOpponent().getPlayerRoundScore()));
 
@@ -87,15 +98,15 @@ public class PlayerProtocol {
                     GBC.getOpponentRound5Score().setText(String.valueOf(tempRoundScore));
                 }
                 opponentTotalScoreLabel.setText(String.valueOf(currentOpponentTotalScore + tempRoundScore));
-                FxmlUtilImp.changeScenes(FxmlUtilImp.getGameBoardScene());
+                FxmlUtil.changeScenes(FxmlUtil.getGameBoardScene());
             });
 
     }
 
     public void finalScore(InfoObj objFromServer){
         Platform.runLater(()-> {
-            FinalResultsController FRC = FxmlUtilImp.getFinalResultsController();
-            GameBoardController GBC = FxmlUtilImp.getGameBoardController();
+            FinalResultsController FRC = FxmlUtil.getFinalResultsController();
+            GameBoardController GBC = FxmlUtil.getGameBoardController();
             int yourTotalScore = Integer.parseInt(GBC.getYourTotalScore().getText());
             int opponentTotalScore = objFromServer.getOpponent().getPlayerTotalScore();
 
@@ -115,7 +126,7 @@ public class PlayerProtocol {
             FRC.getOpponentFinalScore().setText(String.valueOf(opponentTotalScore));
             FRC.getOpponentName().setText(objFromServer.getOpponent().getPlayerName());
 
-            FxmlUtilImp.changeScenes(FxmlUtilImp.getFinalResultsScene());
+            FxmlUtil.changeScenes(FxmlUtil.getFinalResultsScene());
         });
     }
 

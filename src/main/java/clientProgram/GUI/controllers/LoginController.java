@@ -1,6 +1,6 @@
 package clientProgram.GUI.controllers;
 
-import clientProgram.GUI.FxmlUtilImp;
+import clientProgram.GUI.FxmlUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,9 +30,9 @@ public class LoginController implements Initializable {
             userName.setPromptText("You need to enter a name");
         }else {
             // Need to set all variables before loading the scene
-            FxmlUtilImp.getGameBoardController().getYouName().setText(userName.getText());
-            FxmlUtilImp.getGameMenuController().getUserNameLabel().setText(userName.getText());
-            FxmlUtilImp.changeScenes(FxmlUtilImp.getGameMenuScene());
+            FxmlUtil.getGameBoardController().getYouName().setText(userName.getText());
+            FxmlUtil.getGameMenuController().getUserNameLabel().setText(userName.getText());
+            FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
 
         }
     }

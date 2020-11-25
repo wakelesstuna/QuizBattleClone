@@ -1,6 +1,6 @@
 package clientProgram;
 
-import clientProgram.GUI.FxmlUtilImp;
+import clientProgram.GUI.FxmlUtil;
 import model.FxmlPathsImp;
 import model.Question;
 
@@ -36,7 +36,7 @@ public class Main extends Application implements FxmlPathsImp {
             System.exit(0);
         });
 
-        FxmlUtilImp.setCurrentStage(primaryStage);
+        FxmlUtil.setCurrentStage(primaryStage);
     }
 
     public static void main(String[] args) {

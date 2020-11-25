@@ -1,6 +1,6 @@
 package clientProgram.GUI.controllers;
 
-import clientProgram.GUI.FxmlUtilImp;
+import clientProgram.GUI.FxmlUtil;
 import clientProgram.Main;
 import model.FxmlPathsImp;
 import model.InfoObj;
@@ -15,13 +15,13 @@ public class RandomPlayerController implements FxmlPathsImp {
 
     // to go back to mainGameScreen
     public void loadMainGame() {
-        FxmlUtilImp.changeScenes(FxmlUtilImp.getGameMenuScene());
+        FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
     }
 
     // Creates a connection to the server, sends userName to server, sends that this player is ready to play a game
     public void loadRandomPlayer() {
-        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_PLAYERNAME, FxmlUtilImp.getGameMenuController().getUserNameLabel().getText()));
+        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SET_PLAYERNAME, FxmlUtil.getGameMenuController().getUserNameLabel().getText()));
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.READY_TO_PLAY));
-        FxmlUtilImp.changeScenes(FxmlUtilImp.getSearchingForPlayerScene());
+        FxmlUtil.changeScenes(FxmlUtil.getSearchingForPlayerScene());
     }
 }

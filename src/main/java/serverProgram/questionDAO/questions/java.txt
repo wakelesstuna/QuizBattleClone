@@ -8,3 +8,18 @@ Hur många primitiva datatyper finns det i Java?
 6
 10
 4
+Vad hette Java från början innan man bytte namn?
+Oak
+Soak
+Woke
+CoffeCode
+Vilken datatyp lagrar texter i java?
+String
+Integer
+Boolean
+Long
+Vilket nyckelord används för att returnera ett värde i en metod?
+return
+void
+get
+break

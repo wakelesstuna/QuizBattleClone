@@ -106,6 +106,7 @@ public class ServerProtocol {
         System.out.println(playersList.size());
         System.out.println(serverListener.getPlayer().getPlayerName());
 
+
         if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
             game.getPlayer1().setOpponent(game.getPlayer2());
             game.getPlayer2().setOpponent(game.getPlayer1());
@@ -163,9 +164,9 @@ public class ServerProtocol {
                     switch (currentQuestion) {
                         case 0 -> question = questionList.get(0);
                         case 1 -> question = questionList.get(1);
-                        // case 2 -> question = questionList.get(2);
-                        // case 3 -> question = questionList.get(3);
-                        // case 4 -> question = questionList.get(4);
+                        case 2 -> question = questionList.get(2);
+                        case 3 -> question = questionList.get(3);
+                        case 4 -> question = questionList.get(4);
                     }
                     currentQuestion++;
                     setReadyToPlayFalseForBothPlayers(serverListener);
@@ -218,9 +219,19 @@ public class ServerProtocol {
                         System.out.println(l.getPlayer());
                         System.out.println(l.getPlayer() + " " + l.getPlayer().getPlayerRoundScore() + "total: " + l.getPlayer().getPlayerTotalScore());
                         System.out.println(l.getPlayer().getOpponent() + " " + l.getPlayer().getOpponent().getPlayerRoundScore());
-                        l.sendObj(new InfoObj(STATE.CHANGE_SCENE, "gameBoard", 2));
-                        l.getPlayer().setPlayerRoundScore(0);
+                        Player opponent = l.getPlayer().getOpponent();
+
+                        Player temp = new Player();
+                        temp.setPlayerName(l.getPlayer().getOpponent().getPlayerName());
+                        temp.setPlayerRoundScore(l.getPlayer().getOpponent().getPlayerRoundScore());
+                        temp.setPlayerTotalScore(l.getPlayer().getOpponent().getPlayerTotalScore());
+
+                        l.sendObj(new InfoObj(STATE.CHANGE_SCENE, "gameBoard", temp));
+                       // l.getPlayer().setPlayerRoundScore(0);
                     }
+                    game.getPlayer1().setPlayerRoundScore(0);
+                    game.getPlayer2().setPlayerRoundScore(0);
+
                 } else {
                     sendToAllPlayers(new InfoObj(STATE.GAME_OVER));
                 }

@@ -13,7 +13,6 @@ public class FxmlUtil implements IFxmlPaths {
 
     private static Stage currentStage;
 
-
     //--------------------------------------- TO LOAD LOGIN MENU ---------------------------------------------------\\
 
     private static final FXMLLoader loginMenuLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(LOGIN_MENU));

@@ -10,6 +10,9 @@ public class Player implements Serializable {
     private int playerTotalScore;
     private boolean isReadyToPlay;
 
+    public void setPlayerTotalScore(int playerTotalScore) {
+        this.playerTotalScore = playerTotalScore;
+    }
 
     public String getPlayerName() {
         return playerName;

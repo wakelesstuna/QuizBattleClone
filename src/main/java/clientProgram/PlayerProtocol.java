@@ -31,7 +31,6 @@ public class PlayerProtocol {
                 case GO_TO_GAMEBOARD -> loadGameBoard((InfoObj)objFromServer);
                 case READY_TO_PLAY -> System.out.println(((InfoObj) objFromServer).getMsg());
                 case ASK_CATEGORY -> askForcategory((InfoObj) objFromServer);
-                case SEND_QUESTION -> Main.question = (Question) objFromServer;
                 case GAME_OVER -> finalScore((InfoObj)objFromServer);
             }
 

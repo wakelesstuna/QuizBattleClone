@@ -8,6 +8,5 @@ public enum STATE {
     SET_CATEGORY,
     SEND_QUESTION,
     HANDLE_ANSWER,
-    CHANGE_SCENE,
     GAME_OVER
 }

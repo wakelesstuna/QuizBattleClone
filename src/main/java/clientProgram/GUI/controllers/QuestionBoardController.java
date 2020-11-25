@@ -99,6 +99,10 @@ public class QuestionBoardController implements Initializable, IFxmlPaths {
         }
     }
 
+    public int getRounds() {
+        return rounds;
+    }
+
     public void addRound(){
         this.rounds++;
     }

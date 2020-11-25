@@ -215,10 +215,10 @@ public class ServerProtocol {
                 if (currentRound < roundsPerGame) {
                     for (ServerListener l : playersList) {
                         // to send the opponents name to the player
-                        Player opponent = l.getPlayer().getOpponent();
-                        System.out.println(l.getPlayer().getPlayerName() + " " + l.getPlayer().getPlayerRoundScore() + "total: " + l.getPlayer().getPlayerTotalScore());
+                        System.out.println(l.getPlayer());
+                        System.out.println(l.getPlayer() + " " + l.getPlayer().getPlayerRoundScore() + "total: " + l.getPlayer().getPlayerTotalScore());
                         System.out.println(l.getPlayer().getOpponent() + " " + l.getPlayer().getOpponent().getPlayerRoundScore());
-                        l.sendObj(new InfoObj(STATE.CHANGE_SCENE, "gameBoard", opponent));
+                        l.sendObj(new InfoObj(STATE.CHANGE_SCENE, "gameBoard", 2));
                         l.getPlayer().setPlayerRoundScore(0);
                     }
                 } else {

@@ -12,6 +12,7 @@ public class InfoObj implements Serializable {
     private String answer;
     private Category category;
     private int roundsPerGame;
+    private int roundScore;
     private Question question;
 
     public InfoObj(STATE state) {
@@ -30,17 +31,10 @@ public class InfoObj implements Serializable {
         this.player = player;
     }
 
-    public InfoObj(STATE state, String SceneToChangeTo, Player player, Player opponent) {
+    public InfoObj(STATE state, String SceneToChangeTo, int roundScore) {
         this.state = state;
         this.SceneToChangeTo = SceneToChangeTo;
-        this.player = player;
-        this.opponent = opponent;
-    }
-
-    public InfoObj(STATE state, String SceneToChangeTo, int roundsPerGame) {
-        this.state = state;
-        this.SceneToChangeTo = SceneToChangeTo;
-        this.roundsPerGame = roundsPerGame;
+        this.roundScore = roundScore;
     }
 
 
@@ -67,6 +61,10 @@ public class InfoObj implements Serializable {
         this.state = state;
         this.question = question;
         this.answer = answer;
+    }
+
+    public int getRoundScore() {
+        return roundScore;
     }
 
     public STATE getState() {

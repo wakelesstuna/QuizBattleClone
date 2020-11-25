@@ -3,6 +3,7 @@ package clientProgram;
 import clientProgram.GUI.FxmlUtil;
 import clientProgram.GUI.controllers.FinalResultsController;
 import clientProgram.GUI.controllers.GameBoardController;
+import clientProgram.GUI.controllers.QuestionBoardController;
 import model.InfoObj;
 import model.Question;
 import model.StartPackage;
@@ -24,7 +25,7 @@ public class PlayerProtocol {
         if (objFromServer instanceof InfoObj){
 
             switch (((InfoObj) objFromServer).getState()){
-                case CHANGE_SCENE -> loginMenu((InfoObj)objFromServer);
+                case CHANGE_SCENE -> changeScene((InfoObj)objFromServer);
                 case READY_TO_PLAY -> System.out.println(((InfoObj) objFromServer).getMsg());
                 case ASK_CATEGORY -> askForcategory((InfoObj) objFromServer);
                 case SEND_QUESTION -> Main.question = (Question) objFromServer;
@@ -44,8 +45,6 @@ public class PlayerProtocol {
                 FxmlUtil.getQuestionBoardController().getCategoryLabel().setText(((Question) objFromServer).getCategoryName());
                 FxmlUtil.getQuestionBoardController().getQuestionField().setText(((Question) objFromServer).getQuestion());
 
-                // TODO: 2020-11-21 fixa så frågorna skrivs ut på rätt sätt
-
                 for (int i = 0; i < FxmlUtil.getQuestionBoardController().getAnswerButtonsList().size(); i++) {
                     FxmlUtil.getQuestionBoardController().getAnswerButtonsList()
                             .get(i).setText(((Question) objFromServer).getAnswerChoices().get(i));
@@ -63,15 +62,36 @@ public class PlayerProtocol {
         }
     }
 
-    private void loginMenu(InfoObj objFromServer) {
+    private void changeScene(InfoObj objFromServer) {
+        GameBoardController GBC = FxmlUtil.getGameBoardController();
+        QuestionBoardController QBC = FxmlUtil.getQuestionBoardController();
         System.out.println("dags att byta scene");
-        System.out.println(objFromServer.getPlayer().getPlayerName());
-        System.out.println("" + objFromServer.getPlayer().getPlayerRoundScore());
+        System.out.println(objFromServer.getPlayer());
+        System.out.println(objFromServer.getOpponent());
+        //System.out.println(objFromServer.getPlayer().getPlayerName());
+        //System.out.println("" + objFromServer.getPlayer().getPlayerRoundScore());
 
             Platform.runLater(() -> {
                 FxmlUtil.getGameBoardController().getWithRoundNumberLabel().setText("" + FxmlUtil.getGameBoardController().getWhichRoundNumber());
-                FxmlUtil.getGameBoardController().getOpponentName().setText(objFromServer.getPlayer().getPlayerName());
-                FxmlUtil.getGameBoardController().getOpponentRound1Score().setText("" + (objFromServer.getPlayer().getPlayerRoundScore()));
+               // FxmlUtil.getGameBoardController().getOpponentName().setText(objFromServer.getPlayer().getPlayerName());
+                FxmlUtil.getGameBoardController().getOpponentRound1Score().setText("" + (objFromServer.getRoundScore()));
+
+                if (QBC.getRounds() == 1){
+                    GBC.getOpponentRound1Score().setText("" + objFromServer.getRoundScore());
+                    GBC.getOpponentTotalScore().setText("" + objFromServer.getRoundScore());
+                }else if (QBC.getRounds() == 2){
+                    GBC.getOpponentTotalScore().setText(String.valueOf(Integer.parseInt(GBC.getOpponentTotalScore().getText()) + objFromServer.getRoundScore()));
+                    GBC.getOpponentRound2Score().setText(String.valueOf(objFromServer.getRoundScore()));
+                }else if (QBC.getRounds() == 3){
+                    GBC.getOpponentTotalScore().setText(String.valueOf(Integer.parseInt(GBC.getOpponentTotalScore().getText()) + objFromServer.getRoundScore()));
+                    GBC.getOpponentRound3Score().setText("" + objFromServer.getRoundScore());
+                }else if (QBC.getRounds() == 4){
+                    GBC.getOpponentTotalScore().setText(String.valueOf(Integer.parseInt(GBC.getOpponentTotalScore().getText()) + objFromServer.getRoundScore()));
+                    GBC.getOpponentRound4Score().setText("" + objFromServer.getRoundScore());
+                }else{
+                    GBC.getOpponentTotalScore().setText(String.valueOf(Integer.parseInt(GBC.getOpponentTotalScore().getText()) + objFromServer.getRoundScore()));
+                    GBC.getOpponentRound5Score().setText("" + objFromServer.getRoundScore());
+                }
                 FxmlUtil.changeScenes(FxmlUtil.getGameBoardScene());
             });
 

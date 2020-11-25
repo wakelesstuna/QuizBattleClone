@@ -30,6 +30,7 @@ public class ServerListener extends Thread{
             game.setPlayer2(player);
             game.setNotCurrentPlayer(player);
         }
+            System.out.println(player);
             this.objOut = new ObjectOutputStream(socket.getOutputStream());
         }catch (Exception e){
             e.printStackTrace();

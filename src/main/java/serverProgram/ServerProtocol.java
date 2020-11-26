@@ -2,6 +2,7 @@ package serverProgram;
 
 import model.*;
 import serverProgram.questionDAO.Database;
+import serverProgram.questionDAO.TriviaDB;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class ServerProtocol {
 
     private final ArrayList<ServerListener> playersList;
     private final Database database;
+    private final TriviaDB triviaDB;
     private Game game;
     Player player;
     private List<Question> questionList = new ArrayList<>();
@@ -50,6 +52,7 @@ public class ServerProtocol {
             this.questionsPerRound = 2;
             e.printStackTrace();
         }
+        triviaDB = new TriviaDB();
         database = new Database();
         playersList = new ArrayList<>();
 
@@ -147,7 +150,8 @@ public class ServerProtocol {
 
         if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
 
-            questionList = database.getCategories().get(currentCategory).getQuestions();
+            //questionList = database.getCategories().get(currentCategory).getQuestions();
+            questionList = triviaDB.getQuestionList(currentCategory);
 
             if (currentRound < roundsPerGame) {
                 if (currentQuestion < questionsPerRound) {

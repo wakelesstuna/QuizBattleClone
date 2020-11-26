@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
 
 public class TriviaDB {
 
+    // getting 20 questions from https://opentdb.com/api_config.php for each category
+
     private final String sportsUrlPath = "https://opentdb.com/api.php?amount=20&category=21&difficulty=medium&type=multiple";
     private final String scienceAndNatureUrlPath = "https://opentdb.com/api.php?amount=20&category=17&difficulty=medium&type=multiple";
     private final String animalsUrlPath = "https://opentdb.com/api.php?amount=20&category=27&difficulty=medium&type=multiple";
@@ -54,7 +56,7 @@ public class TriviaDB {
                     if (counter == 2) {
                         category = matcher.group(1).replaceAll("&quot;", "\"");
                     } else if (counter == 8) {
-                        question = matcher.group(1).replaceAll("&quot;", "\"");
+                        question = matcher.group(1).replaceAll("&quot;", "\"").replaceAll("&#039;", "'");
                     } else if (counter == 10) {
                         correctAnswer = matcher.group(1).replaceAll("&quot;", "\"");
                     } else if (counter == 12) {
@@ -84,7 +86,7 @@ public class TriviaDB {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        Collections.shuffle(questions);
         return questions;
 
     }
@@ -100,26 +102,39 @@ public class TriviaDB {
         }
     }
 
-    public List<Question> getSports(){
-        return sports;
+    public List<Question> getQuestionList(String categoryName) {
+        if (categoryName.equalsIgnoreCase("sports")){
+            return sports;
+        }else if (categoryName.equalsIgnoreCase("scienceAndNature")){
+            return scienceAndNature;
+        }else if (categoryName.equalsIgnoreCase("animals")){
+            return animals;
+        }else if (categoryName.equalsIgnoreCase("geography")){
+            return geography;
+        }else if (categoryName.equalsIgnoreCase("history")){
+            return history;
+        }else {
+            return null;
+        }
+    }
+
+    public List<Question> getQuestionList(int listNumber) {
+        if (listNumber == 0){
+            return sports;
+        }else if (listNumber == 1){
+            return scienceAndNature;
+        }else if (listNumber == 2){
+            return animals;
+        }else if (listNumber == 3){
+            return geography;
+        }else if (listNumber == 4){
+            return history;
+        }else {
+            return null;
+        }
     }
 
 
-    public List<Question> getScienceAndNature() {
-        return scienceAndNature;
-    }
-
-    public List<Question> getAnimals() {
-        return animals;
-    }
-
-    public List<Question> getGeography() {
-        return geography;
-    }
-
-    public List<Question> getHistory() {
-        return history;
-    }
 
     public static void main(String[] args) {
         new TriviaDB();

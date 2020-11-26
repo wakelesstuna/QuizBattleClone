@@ -1,10 +1,6 @@
 package serverProgram;
 
-import model.Category;
 import model.Player;
-import model.Question;
-
-import java.util.ArrayList;
 
 public class Game {
 

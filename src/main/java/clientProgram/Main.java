@@ -20,7 +20,6 @@ public class Main extends Application implements FxmlPathsImp {
     public static String playerName = "playerName";
     public static String categoryName = "";
     public static int choseQuestionTurn;
-    public static Question question;
 
     @Override
     public void start(Stage primaryStage) throws Exception{

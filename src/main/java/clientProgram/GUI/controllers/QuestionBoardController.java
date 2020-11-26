@@ -20,6 +20,7 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
 
     private final List<Button> answerButtonsList = new ArrayList<>();
     private Question question;
+    private int rounds = 0;
 
     @FXML
     private Label categoryLabel;
@@ -45,9 +46,6 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
     @FXML
     private Label waitingLabel;
 
-    private int rounds = 0;
-
-    //för att skicka den knapp man har tryckt på till server
     public void answerButton(ActionEvent ae){
 
         for (Button b : answerButtonsList){
@@ -67,22 +65,21 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
         waitingIndicator.setVisible(true);
         waitingLabel.setVisible(true);
 
-
         Main.playerConnection.sendObjectToServer(new InfoObj(STATE.HANDLE_ANSWER, pressed.getText()));
-
     }
 
     public void setRoundScore(){
+        GameBoardController GBC = FxmlUtil.getGameBoardController();
         if (rounds == 1){
-            FxmlUtil.getGameBoardController().getYouRound1Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound1Score().getText()) + 1));
+            GBC.getYouRound1Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound1Score().getText()) + 1));
         }else if (rounds == 2){
-            FxmlUtil.getGameBoardController().getYouRound2Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound2Score().getText()) + 1));
+            GBC.getYouRound2Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound2Score().getText()) + 1));
         }else if (rounds == 3){
-            FxmlUtil.getGameBoardController().getYouRound3Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound3Score().getText()) + 1));
+            GBC.getYouRound3Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound3Score().getText()) + 1));
         }else if (rounds == 4){
-            FxmlUtil.getGameBoardController().getYouRound4Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound4Score().getText()) + 1));
+            GBC.getYouRound4Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound4Score().getText()) + 1));
         }else{
-            FxmlUtil.getGameBoardController().getYouRound5Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound5Score().getText()) + 1));
+            GBC.getYouRound5Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound5Score().getText()) + 1));
         }
 
     }
@@ -98,7 +95,6 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
             b.setDisable(false);
         }
     }
-
     public int getRounds() {
         return rounds;
     }

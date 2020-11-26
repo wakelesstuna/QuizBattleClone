@@ -15,17 +15,10 @@ import model.STATE;
 
 public class GameBoardController {
 
-    public static String opponent = "opponent"; // hämta motståndarnamn från servern
-    public static int opponentPoints = 2;       // hämta motståndarscore från servern
+    private int numberOfRounds;
+    private int numberOfQuestions;
 
-    private int numberOfRounds; // sätt dessa med proptiesfil
-    private int numberOfQuestions; // sätt dessa med proptiesfil
-
-    public static int currentRound = 1;
-    public int gameRoundScore = 0;
-    public static int gameTotalScore = 0;
-
-    //public static Question currentQuestion; // här sätter vi frågan frpom servern
+    private int whichRoundNumber = 1;
 
     @FXML
     public Button playButton;
@@ -35,8 +28,6 @@ public class GameBoardController {
 
     @FXML
     private Label whichRoundNumberLabel;
-
-    private int whichRoundNumber = 1;
 
     @FXML
     private Label youName;
@@ -96,12 +87,12 @@ public class GameBoardController {
         playButton.setDisable(true);
     }
 
-    public static int getOpponentPoints() {
-        return opponentPoints;
+    private void addRoundToGame(){
+        this.whichRoundNumber += 1;
     }
 
-    public static void setOpponentPoints(int opponentPoints) {
-        GameBoardController.opponentPoints = opponentPoints;
+    public void endGame(){
+        FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
     }
 
     public int getNumberOfRounds() {
@@ -112,24 +103,8 @@ public class GameBoardController {
         this.numberOfRounds = numberOfRounds;
     }
 
-    public int getNumberOfQuestions() {
-        return numberOfQuestions;
-    }
-
     public void setNumberOfQuestions(int numberOfQuestions) {
         this.numberOfQuestions = numberOfQuestions;
-    }
-
-    private void addRoundToGame(){
-        this.whichRoundNumber += 1;
-    }
-
-    public void endGame(){
-        FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
-    }
-
-    public static int getCurrentRound() {
-        return currentRound;
     }
 
     public Pane getTwoRoundPane() {
@@ -164,44 +139,8 @@ public class GameBoardController {
         return yourTotalScore;
     }
 
-    public void setYourTotalScore(Label yourTotalScore) {
-        this.yourTotalScore = yourTotalScore;
-    }
-
     public Label getOpponentTotalScore() {
         return opponentTotalScore;
-    }
-
-    public void setOpponentTotalScore(Label opponentTotalScore) {
-        this.opponentTotalScore = opponentTotalScore;
-    }
-
-    public void setWhichRoundNumber(int whichRoundNumber) {
-        this.whichRoundNumber = whichRoundNumber;
-    }
-
-    public static String getOpponent() {
-        return opponent;
-    }
-
-    public static void setOpponent(String opponent) {
-        GameBoardController.opponent = opponent;
-    }
-
-    public int getGameRoundScore() {
-        return gameRoundScore;
-    }
-
-    public void setGameRoundScore(int gameRoundScore) {
-        this.gameRoundScore = gameRoundScore;
-    }
-
-    public static int getGameTotalScore() {
-        return gameTotalScore;
-    }
-
-    public static void setGameTotalScore(int gameTotalScore) {
-        GameBoardController.gameTotalScore = gameTotalScore;
     }
 
     public Label getYouRound1Score() {

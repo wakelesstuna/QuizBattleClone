@@ -21,43 +21,41 @@ public class PlayerProtocol {
      * med hjälp av implementet initialize
      */
 
-
-
     public void checkObjectFromServer(Object objFromServer){
 
         if (objFromServer instanceof InfoObj){
 
             switch (((InfoObj) objFromServer).getState()){
-                case GO_TO_GAMEBOARD -> loadGameBoard((InfoObj)objFromServer);
                 case READY_TO_PLAY -> System.out.println(((InfoObj) objFromServer).getMsg());
-                case ASK_CATEGORY -> askForcategory((InfoObj) objFromServer);
+                case GO_TO_GAMEBOARD -> loadGameBoard((InfoObj)objFromServer);
+                case ASK_CATEGORY -> askForCategory((InfoObj) objFromServer);
                 case GAME_OVER -> finalScore((InfoObj)objFromServer);
             }
 
         }else if (objFromServer instanceof Question){
-            System.out.println("Question here");
+            QuestionBoardController QBC = FxmlUtil.getQuestionBoardController();
+
             Platform.runLater(() -> {
 
                 FxmlUtil.getGameBoardController().playButton.setDisable(false);
-                FxmlUtil.getQuestionBoardController().getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
+                QBC.getAnswerButtonsList().forEach(button -> {button.setDisable(false); button.setStyle("-fx-background-color: #D1FDFF");});
 
-                FxmlUtil.getQuestionBoardController().setQuestion(((Question) objFromServer));
-                FxmlUtil.getQuestionBoardController().getCategoryLabel().setText(((Question) objFromServer).getCategoryName());
-                FxmlUtil.getQuestionBoardController().getQuestionField().setText(((Question) objFromServer).getQuestion());
+                QBC.setQuestion(((Question) objFromServer));
+                QBC.getCategoryLabel().setText(((Question) objFromServer).getCategoryName());
+                QBC.getQuestionField().setText(((Question) objFromServer).getQuestion());
 
-                for (int i = 0; i < FxmlUtil.getQuestionBoardController().getAnswerButtonsList().size(); i++) {
-                    FxmlUtil.getQuestionBoardController().getAnswerButtonsList()
-                            .get(i).setText(((Question) objFromServer).getAnswerChoices().get(i));
+                for (int i = 0; i < QBC.getAnswerButtonsList().size(); i++) {
+                    QBC.getAnswerButtonsList().get(i)
+                            .setText(((Question) objFromServer).getAnswerChoices().get(i));
                 }
 
-                FxmlUtil.getQuestionBoardController().getWaitingIndicator().setVisible(false);
-                FxmlUtil.getQuestionBoardController().getWaitingLabel().setVisible(false);
+                QBC.getWaitingIndicator().setVisible(false);
+                QBC.getWaitingLabel().setVisible(false);
 
                 FxmlUtil.changeScenes(FxmlUtil.getQuestionBoardScene());
             });
 
         }else if(objFromServer instanceof StartPackage){
-            // TODO: 2020-11-25 Fixa så man gömmer roundscore beroende på hur många rundor de är.
             GameBoardController GBC = FxmlUtil.getGameBoardController();
             GBC.setNumberOfRounds(((StartPackage) objFromServer).getGameRounds());
             GBC.setNumberOfQuestions(((StartPackage) objFromServer).getQuestionPerRounds());
@@ -69,7 +67,6 @@ public class PlayerProtocol {
             }else{
                 GBC.getFourRoundPane().setVisible(true);
             }
-
         }
     }
 
@@ -103,6 +100,17 @@ public class PlayerProtocol {
 
     }
 
+    private void askForCategory(InfoObj infoObj) {
+        System.out.println("inne i askForCategory");
+        if (infoObj.getMsg().equals(Main.playerName)){
+            System.out.println("Din tur att välja category");
+            Main.choseQuestionTurn = 0;
+        }else {
+            System.out.println("andra spelaren väljer category");
+            Main.choseQuestionTurn = 1;
+        }
+    }
+
     public void finalScore(InfoObj objFromServer){
         Platform.runLater(()-> {
             FinalResultsController FRC = FxmlUtil.getFinalResultsController();
@@ -130,17 +138,4 @@ public class PlayerProtocol {
         });
     }
 
-
-    private void askForcategory(InfoObj infoObj) {
-        System.out.println("inne i askForCategory");
-        if (infoObj.getMsg().equals(Main.playerName)){
-            System.out.println("Din tur att välja category");
-            Main.choseQuestionTurn = 0;
-        }else {
-            System.out.println("andra spelaren väljer category");
-            Main.choseQuestionTurn = 1;
-        }
-
-
-    }
 }

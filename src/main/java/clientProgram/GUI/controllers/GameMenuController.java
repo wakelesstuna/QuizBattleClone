@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 
 public class GameMenuController implements IpConfigImp {
 
-
     @FXML
     private Label userNameLabel;
 

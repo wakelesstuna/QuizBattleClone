@@ -44,43 +44,21 @@ public class FinalResultsController implements FxmlPathsImp {
         return opponentName;
     }
 
-    public AnchorPane getFinalScore() {
-        return finalScore;
-    }
-
-    public void setFinalScore(AnchorPane finalScore) {
-        this.finalScore = finalScore;
-    }
-
     public Label getWhoWinLabel() {
         return whoWinLabel;
     }
 
-    public void setWhoWinLabel(Label whoWinLabel) {
-        this.whoWinLabel = whoWinLabel;
-    }
 
     public Label getYouFinalScore() {
         return youFinalScore;
-    }
-
-    public void setYouFinalScore(Label youFinalScore) {
-        this.youFinalScore = youFinalScore;
     }
 
     public Label getOpponentFinalScore() {
         return opponentFinalScore;
     }
 
-    public void setOpponentFinalScore(Label opponentFinalScore) {
-        this.opponentFinalScore = opponentFinalScore;
-    }
-
     public Label getWinnerMsgLabel() {
         return winnerMsgLabel;
     }
 
-    public void setWinnerMsgLabel(Label winnerMsgLabel) {
-        this.winnerMsgLabel = winnerMsgLabel;
-    }
 }

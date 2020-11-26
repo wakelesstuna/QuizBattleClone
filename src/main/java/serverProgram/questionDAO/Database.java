@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import model.Question;
 import model.Category;
@@ -25,6 +26,9 @@ public class Database {
 
                 //Läser in frågor från text filen
                 List<Question> questions = DatabaseHandler.readDataFromFile(file, categoryName);
+
+                //Shufflar listorna med frågor
+                Collections.shuffle(questions);
 
                 //Skapa Category objekt
                 Category category = new Category(categoryName, questions);

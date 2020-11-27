@@ -20,7 +20,6 @@ public class PlayerProtocol {
 
 
     public void checkObjectFromServer(Object objFromServer) {
-
         if (objFromServer instanceof InfoObj) {
 
             switch (((InfoObj) objFromServer).getState()) {
@@ -30,7 +29,7 @@ public class PlayerProtocol {
             }
 
         } else if (objFromServer instanceof Question) {
-            System.out.println(((Question) objFromServer).getCategoryName());
+
             switch (((Question) objFromServer).getCategoryName()) {
                 case "Sports" -> CCBC.getSports().setVisible(false);
                 case "Science & nature" -> CCBC.getScienceAndNature().setVisible(false);

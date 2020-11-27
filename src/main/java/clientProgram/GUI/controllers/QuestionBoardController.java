@@ -9,7 +9,7 @@ import model.FxmlPathsImp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import model.STATE;
+import static model.STATE.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,7 +20,6 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
 
     private final List<Button> answerButtonsList = new ArrayList<>();
     private Question question;
-    private int rounds = 0;
 
     @FXML
     private Label categoryLabel;
@@ -47,6 +46,7 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
     private Label waitingLabel;
 
     public void answerButton(ActionEvent ae){
+        GameBoardController GBC = FxmlUtil.getGameBoardController();
 
         for (Button b : answerButtonsList){
             b.setDisable(true);
@@ -56,27 +56,42 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
 
         if (pressed.getText().equals(question.getCorrectAnswer())){
             pressed.setStyle("-fx-background-color: greenyellow");
-            FxmlUtil.getGameBoardController().getYourTotalScore().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYourTotalScore().getText()) + 1));
+            GBC.getYourTotalScore().setText(String.valueOf
+                    (Integer.parseInt(GBC.getYourTotalScore().getText()) + 1));
             setRoundScore();
         }else {
             pressed.setStyle("-fx-background-color: firebrick");
-
         }
+
         waitingIndicator.setVisible(true);
         waitingLabel.setVisible(true);
+        setRightButtonToGreen();
 
-        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.HANDLE_ANSWER, pressed.getText()));
+        Main.playerConnection.sendObjectToServer(new InfoObj(HANDLE_ANSWER, pressed.getText()));
+    }
+
+    public void setRightButtonToGreen(){
+        try {
+            Thread.sleep(100);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        for (Button b : answerButtonsList){
+            if (b.getText().equals(question.getCorrectAnswer())){
+                b.setStyle("-fx-background-color: greenyellow");
+            }
+        }
     }
 
     public void setRoundScore(){
         GameBoardController GBC = FxmlUtil.getGameBoardController();
-        if (rounds == 1){
+        if (GBC.getWhichRoundNumber() == 1){
             GBC.getYouRound1Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound1Score().getText()) + 1));
-        }else if (rounds == 2){
+        }else if (GBC.getWhichRoundNumber() == 2){
             GBC.getYouRound2Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound2Score().getText()) + 1));
-        }else if (rounds == 3){
+        }else if (GBC.getWhichRoundNumber() == 3){
             GBC.getYouRound3Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound3Score().getText()) + 1));
-        }else if (rounds == 4){
+        }else if (GBC.getWhichRoundNumber() == 4){
             GBC.getYouRound4Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound4Score().getText()) + 1));
         }else{
             GBC.getYouRound5Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound5Score().getText()) + 1));
@@ -94,13 +109,6 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
         for (Button b : answerButtonsList) {
             b.setDisable(false);
         }
-    }
-    public int getRounds() {
-        return rounds;
-    }
-
-    public void addRound(){
-        this.rounds++;
     }
 
     public Question getQuestion() {

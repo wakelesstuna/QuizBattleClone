@@ -89,7 +89,7 @@ public class ServerProtocol {
         switch (infoObj.getState()) {
             case SET_PLAYERNAME -> setPlayerName(infoObj);
             case READY_TO_PLAY -> readyToPlay(serverListener);
-            case ASK_CATEGORY -> System.out.println(infoObj.getMsg());
+            case ASK_CATEGORY -> sendAskForCategoryToCurrentPlayer(serverListener);
             case SET_CATEGORY -> setCategory(serverListener, infoObj);
             case SEND_QUESTION -> sendQuestion(serverListener);
             case HANDLE_ANSWER -> checkAnswer(player, serverListener, infoObj);
@@ -125,22 +125,24 @@ public class ServerProtocol {
     }
 
 
-    public void sendAskForCategoryToCurrentPlayer() {
-        for (ServerListener s : playersList) {
-            if (s.getGame().getCurrentPlayer() == s.getGame().getPlayer1()) {
-                s.sendObj(new InfoObj(STATE.ASK_CATEGORY, s.getGame().getPlayer1().getPlayerName()));
-            } else if (s.getGame().getCurrentPlayer() == s.getGame().getPlayer2()) {
-                s.sendObj(new InfoObj(STATE.ASK_CATEGORY, s.getGame().getPlayer2().getPlayerName()));
+    public void sendAskForCategoryToCurrentPlayer(ServerListener serverListener) {
+
+        serverListener.getPlayer().setReadyToPlay(true);
+        if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()){
+            for (ServerListener s : playersList){
+                s.sendObj(new InfoObj(ASK_CATEGORY, game.getCurrentPlayer().getPlayerName()));
             }
+
         }
+
+
     }
 
     public void setCategory(ServerListener serverListener, InfoObj infoObj) {
-        // hämtar listan med den kategorin användaren skickar in
-        questionList = database.getQuestionList(infoObj.getMsg());
-
-        // nollställ fråge räknaren så man inte hamnar utanför index i questionlist
-        currentQuestion = 0;
+        questionList = triviaDB.getQuestionList(infoObj.getMsg());
+        setReadyToPlayTrueForBothPlayers();
+        game.switchCurrentPlayers();
+        sendQuestion(serverListener);
 
     }
 
@@ -149,9 +151,6 @@ public class ServerProtocol {
         serverListener.getPlayer().setReadyToPlay(true);
 
         if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
-
-            //questionList = database.getCategories().get(currentCategory).getQuestions();
-            questionList = triviaDB.getQuestionList(currentCategory);
 
             if (currentRound < roundsPerGame) {
                 if (currentQuestion < questionsPerRound) {
@@ -166,14 +165,7 @@ public class ServerProtocol {
                     setReadyToPlayFalseForBothPlayers();
                     sendToAllPlayers(question);
                 }
-            } else {
-
-                //sendToAllPlayers(new InfoObj(GAME_OVER));
             }
-
-
-        } else {
-            System.out.println("Waiting for " + serverListener.getPlayer().getOpponent().getPlayerName() + " to be ready");
         }
 
     }
@@ -233,6 +225,11 @@ public class ServerProtocol {
             temp.setPlayerTotalScore(l.getPlayer().getOpponent().getPlayerTotalScore());
             l.sendObj(new InfoObj(state, temp));
         }
+    }
+
+    public void setReadyToPlayTrueForBothPlayers(){
+        game.getPlayer1().setReadyToPlay(true);
+        game.getPlayer2().setReadyToPlay(true);
     }
 
     public void setReadyToPlayFalseForBothPlayers() {

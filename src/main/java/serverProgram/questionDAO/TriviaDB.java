@@ -79,8 +79,7 @@ public class TriviaDB {
                     }
                     counter++;
                 }
-
-                testOutPut(questions, 5);
+               // testOutPut(questions, 5);
             }
             in.close();
         } catch (IOException e) {

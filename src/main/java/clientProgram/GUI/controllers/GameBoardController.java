@@ -4,21 +4,20 @@ package clientProgram.GUI.controllers;
 import clientProgram.GUI.FxmlUtil;
 import clientProgram.Main;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import model.InfoObj;
 
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import model.STATE;
+import static model.STATE.*;
 
 public class GameBoardController {
 
     private int numberOfRounds;
     private int numberOfQuestions;
 
-    private int whichRoundNumber = 1;
+    private int whichRoundNumber = 0;
 
     @FXML
     public Button playButton;
@@ -81,8 +80,7 @@ public class GameBoardController {
     private Pane fourRoundPane;
 
     public void loadQuestion(){
-        FxmlUtil.getQuestionBoardController().addRound();
-        Main.playerConnection.sendObjectToServer(new InfoObj(STATE.SEND_QUESTION, "java"));
+        Main.playerConnection.sendObjectToServer(new InfoObj(ASK_CATEGORY));
         addRoundToGame();
         playButton.setDisable(true);
     }

@@ -1,6 +1,7 @@
 package clientProgram.GUI.controllers;
 
 import clientProgram.GUI.FxmlUtil;
+import clientProgram.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,6 +31,7 @@ public class LoginController implements Initializable {
         }else {
             FxmlUtil.getGameBoardController().getYouName().setText(userName.getText());
             FxmlUtil.getGameMenuController().getUserNameLabel().setText(userName.getText());
+            Main.playerName = userName.getText();
             FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
 
         }

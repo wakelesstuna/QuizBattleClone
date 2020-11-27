@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="categoryChoiceBoard" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="clientProgram.GUI.controllers.CategoryChoiceBoardController">
+<AnchorPane fx:id="categoryChoiceBoard" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clientProgram.GUI.controllers.CategoryChoiceBoardController">
     <children>
         <BorderPane prefHeight="600.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <bottom>
@@ -23,7 +23,7 @@
                         <DropShadow />
                     </effect>
                <children>
-                  <ProgressIndicator layoutX="174.0" layoutY="14.0" />
+                  <ProgressIndicator fx:id="waitingIndicator" layoutX="174.0" layoutY="14.0" />
                </children>
                 </Pane>
             </bottom>
@@ -39,7 +39,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="Your Turn">
+                        <Label fx:id="whosTurnLabel" alignment="CENTER" contentDisplay="CENTER" text="Your Turn">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -47,7 +47,7 @@
                               <DropShadow color="#0000002f" />
                            </effect>
                         </Label>
-                        <Label text="Chose a category" GridPane.rowIndex="1">
+                        <Label fx:id="choseACategoryLabel" text="Chose a category" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -69,9 +69,9 @@
                         <Label prefHeight="103.0" prefWidth="400.0" />
                         <Pane prefHeight="415.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/style.css">
                      <children>
-                        <VBox layoutX="124.0" layoutY="-1.0" prefHeight="237.0" prefWidth="152.0">
+                        <VBox layoutX="91.0" prefHeight="295.0" prefWidth="219.0">
                            <children>
-                              <Button fx:id="geography" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#geography" prefHeight="31.0" prefWidth="132.0" text="Geography">
+                              <Button fx:id="sports" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sports" prefHeight="31.0" prefWidth="132.0" text="Sports">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
@@ -82,7 +82,7 @@
                                     <DropShadow color="#000000bc" />
                                  </effect>
                               </Button>
-                              <Button fx:id="java" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#java" text="Java">
+                              <Button fx:id="scienceAndNature" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#scienceAndNature" text="Science &amp; Nature">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
@@ -93,7 +93,7 @@
                                     <DropShadow color="#000000bc" />
                                  </effect>
                               </Button>
-                              <Button fx:id="literature" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#literature" text="Literature">
+                              <Button fx:id="animals" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#animals" text="Animals">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
@@ -104,7 +104,7 @@
                                     <DropShadow color="#000000bc" />
                                  </effect>
                               </Button>
-                              <Button fx:id="music" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#music" text="Music">
+                              <Button fx:id="geography" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#geography" text="Geography">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
@@ -115,7 +115,7 @@
                                     <DropShadow color="#000000bc" />
                                  </effect>
                               </Button>
-                              <Button fx:id="sports" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sports" text="Sports">
+                              <Button fx:id="history" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#history" text="History">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>

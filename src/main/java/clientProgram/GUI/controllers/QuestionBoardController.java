@@ -20,6 +20,8 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
 
     private final List<Button> answerButtonsList = new ArrayList<>();
     private Question question;
+    GameBoardController GBC = FxmlUtil.getGameBoardController();
+
 
     @FXML
     private Label categoryLabel;
@@ -46,7 +48,6 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
     private Label waitingLabel;
 
     public void answerButton(ActionEvent ae){
-        GameBoardController GBC = FxmlUtil.getGameBoardController();
 
         for (Button b : answerButtonsList){
             b.setDisable(true);
@@ -66,6 +67,7 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
         waitingIndicator.setVisible(true);
         waitingLabel.setVisible(true);
         setRightButtonToGreen();
+        noMoreQuestionAddRound();
 
         Main.playerConnection.sendObjectToServer(new InfoObj(HANDLE_ANSWER, pressed.getText()));
     }
@@ -84,14 +86,13 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
     }
 
     public void setRoundScore(){
-        GameBoardController GBC = FxmlUtil.getGameBoardController();
-        if (GBC.getWhichRoundNumber() == 1){
+        if (GBC.getWhichRound() == 1){
             GBC.getYouRound1Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound1Score().getText()) + 1));
-        }else if (GBC.getWhichRoundNumber() == 2){
+        }else if (GBC.getWhichRound() == 2){
             GBC.getYouRound2Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound2Score().getText()) + 1));
-        }else if (GBC.getWhichRoundNumber() == 3){
+        }else if (GBC.getWhichRound() == 3){
             GBC.getYouRound3Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound3Score().getText()) + 1));
-        }else if (GBC.getWhichRoundNumber() == 4){
+        }else if (GBC.getWhichRound() == 4){
             GBC.getYouRound4Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound4Score().getText()) + 1));
         }else{
             GBC.getYouRound5Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound5Score().getText()) + 1));
@@ -108,6 +109,14 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
 
         for (Button b : answerButtonsList) {
             b.setDisable(false);
+        }
+    }
+
+    public void noMoreQuestionAddRound(){
+        if (GBC.getWhichQuestion() < GBC.getNumberOfQuestions()){
+            GBC.addQuestionCounter();
+        }else {
+            GBC.addRoundCounter();
         }
     }
 

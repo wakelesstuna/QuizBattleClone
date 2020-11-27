@@ -1,6 +1,7 @@
 package clientProgram;
 
 import clientProgram.GUI.FxmlUtil;
+import javafx.scene.image.Image;
 import model.FxmlPathsImp;
 import model.Question;
 
@@ -27,6 +28,7 @@ public class Main extends Application implements FxmlPathsImp {
         System.out.println("Starting Client App");
         primaryStage.setTitle("BestQuizBattleEver");
         primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image("images/Avatar.png"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 

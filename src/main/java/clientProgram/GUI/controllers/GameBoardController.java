@@ -17,7 +17,8 @@ public class GameBoardController {
     private int numberOfRounds;
     private int numberOfQuestions;
 
-    private int whichRoundNumber = 0;
+    private int whichRound = 1;
+    private int whichQuestion = 0;
 
     @FXML
     public Button playButton;
@@ -81,16 +82,27 @@ public class GameBoardController {
 
     public void loadQuestion(){
         Main.playerConnection.sendObjectToServer(new InfoObj(ASK_CATEGORY));
-        addRoundToGame();
         playButton.setDisable(true);
     }
 
-    private void addRoundToGame(){
-        this.whichRoundNumber += 1;
+    public void addRoundCounter(){
+        this.whichRound += 1;
+    }
+
+    public void addQuestionCounter() {
+        this.whichQuestion += 1;
     }
 
     public void endGame(){
         FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
+    }
+
+    public int getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public int getWhichQuestion() {
+        return whichQuestion;
     }
 
     public int getNumberOfRounds() {
@@ -129,8 +141,8 @@ public class GameBoardController {
         return whichRoundNumberLabel;
     }
 
-    public int getWhichRoundNumber() {
-        return whichRoundNumber;
+    public int getWhichRound() {
+        return whichRound;
     }
 
     public Label getYourTotalScore() {
@@ -180,4 +192,6 @@ public class GameBoardController {
     public Label getOpponentRound5Score() {
         return opponentRound5Score;
     }
+
+
 }

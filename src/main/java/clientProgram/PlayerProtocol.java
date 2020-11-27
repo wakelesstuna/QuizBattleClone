@@ -7,7 +7,6 @@ import clientProgram.GUI.controllers.GameBoardController;
 import clientProgram.GUI.controllers.QuestionBoardController;
 import javafx.scene.control.Label;
 import model.InfoObj;
-import model.Player;
 import model.Question;
 import model.StartPackage;
 import javafx.application.Platform;
@@ -91,17 +90,17 @@ public class PlayerProtocol {
         int tempRoundScore = objFromServer.getOpponent().getPlayerRoundScore();
 
         Platform.runLater(() -> {
-            GBC.getWithRoundNumberLabel().setText("" + FxmlUtil.getGameBoardController().getWhichRoundNumber());
+            GBC.getWithRoundNumberLabel().setText("" + FxmlUtil.getGameBoardController().getWhichRound());
             GBC.getOpponentName().setText(objFromServer.getOpponent().getPlayerName());
             GBC.getOpponentRound1Score().setText("" + (objFromServer.getOpponent().getPlayerRoundScore()));
 
-            if (GBC.getWhichRoundNumber() == 1) {
+            if (GBC.getWhichRound() == 1) {
                 GBC.getOpponentRound1Score().setText(String.valueOf(tempRoundScore));
-            } else if (GBC.getWhichRoundNumber() == 2) {
+            } else if (GBC.getWhichRound() == 2) {
                 GBC.getOpponentRound2Score().setText(String.valueOf(tempRoundScore));
-            } else if (GBC.getWhichRoundNumber() == 3) {
+            } else if (GBC.getWhichRound() == 3) {
                 GBC.getOpponentRound3Score().setText(String.valueOf(tempRoundScore));
-            } else if (GBC.getWhichRoundNumber() == 4) {
+            } else if (GBC.getWhichRound() == 4) {
                 GBC.getOpponentRound4Score().setText(String.valueOf(tempRoundScore));
             } else {
                 GBC.getOpponentRound5Score().setText(String.valueOf(tempRoundScore));

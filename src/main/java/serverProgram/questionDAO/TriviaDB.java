@@ -39,6 +39,7 @@ public class TriviaDB {
             String input;
             while ((input = in.readLine()) != null) {
                 String inputTrim = input.substring(19);
+                System.out.println(input);
 
                 String category = null;
                 String question = null;
@@ -65,7 +66,9 @@ public class TriviaDB {
                         wrongAnswerTwo = matcher.group(1).replaceAll("&quot;", "\"");
                     } else if (counter == 14) {
                         wrongAnswerThree = matcher.group(1).replaceAll("&quot;", "\"");
+
                         List<String> tempList = new ArrayList<>();
+
                         tempList.add(correctAnswer);
                         tempList.add(wrongAnswerOne);
                         tempList.add(wrongAnswerTwo);
@@ -79,7 +82,7 @@ public class TriviaDB {
                     }
                     counter++;
                 }
-               // testOutPut(questions, 5);
+               testOutPut(questions, 5);
             }
             in.close();
         } catch (IOException e) {

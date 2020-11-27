@@ -3,7 +3,6 @@ package clientProgram;
 import clientProgram.GUI.FxmlUtil;
 import javafx.scene.image.Image;
 import model.FxmlPathsImp;
-import model.Question;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -17,10 +16,8 @@ import java.util.Objects;
 
 public class Main extends Application implements FxmlPathsImp {
 
-    public static PlayerConnection playerConnection;
-    public static String playerName = "playerName";
-    public static String categoryName = "";
-    public static int choseQuestionTurn;
+    public static PlayerListener playerListener;
+    public static String playerName = "";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -28,7 +25,7 @@ public class Main extends Application implements FxmlPathsImp {
         System.out.println("Starting Client App");
         primaryStage.setTitle("BestQuizBattleEver");
         primaryStage.setResizable(false);
-        primaryStage.getIcons().add(new Image("images/Avatar.png"));
+        primaryStage.getIcons().add(new Image("images/mainLogo.png"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 

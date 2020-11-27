@@ -9,6 +9,12 @@ public class Game {
     private Player player1 = new Player();
     private Player player2 = new Player();
 
+    public void switchCurrentPlayers(){
+        Player temp = currentPlayer;
+        currentPlayer = notCurrentPlayer;
+        notCurrentPlayer = temp;
+    }
+
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
@@ -17,18 +23,8 @@ public class Game {
         this.currentPlayer = currentPlayer;
     }
 
-    public Player getNotCurrentPlayer() {
-        return notCurrentPlayer;
-    }
-
     public void setNotCurrentPlayer(Player notCurrentPlayer) {
         this.notCurrentPlayer = notCurrentPlayer;
-    }
-
-    public void switchCurrentPlayers(){
-        Player temp = currentPlayer;
-        currentPlayer = notCurrentPlayer;
-        notCurrentPlayer = temp;
     }
 
     public Player getPlayer1() {

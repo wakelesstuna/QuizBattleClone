@@ -2,7 +2,7 @@ package clientProgram.GUI.controllers;
 
 import clientProgram.GUI.FxmlUtil;
 import clientProgram.Main;
-import clientProgram.PlayerConnection;
+import clientProgram.PlayerListener;
 import model.IpConfigImp;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -13,7 +13,7 @@ public class GameMenuController implements IpConfigImp {
     private Label userNameLabel;
 
     public void loadSelectPlayer(){
-        Main.playerConnection = new PlayerConnection(IPADDRESS, PORT);
+        Main.playerListener = new PlayerListener(IPADDRESS, PORT);
         FxmlUtil.changeScenes(FxmlUtil.getRandomPlayerScene());
     }
 

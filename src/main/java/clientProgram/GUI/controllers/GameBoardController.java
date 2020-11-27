@@ -81,7 +81,9 @@ public class GameBoardController {
     private Pane fourRoundPane;
 
     public void loadQuestion(){
-        Main.playerConnection.sendObjectToServer(new InfoObj(ASK_CATEGORY));
+        FxmlUtil.getQuestionBoardController().addRounds();
+        Main.playerListener.sendObjectToServer(new InfoObj(ASK_CATEGORY));
+        addRoundCounter();
         playButton.setDisable(true);
     }
 
@@ -194,4 +196,11 @@ public class GameBoardController {
     }
 
 
+    public void setWhichRound(int whichRound) {
+        this.whichRound = whichRound;
+    }
+
+    public Label getWhichRoundLabel() {
+        return whichRoundNumberLabel;
+    }
 }

@@ -7,13 +7,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class PlayerConnection implements Runnable, IpConfigImp {
+public class PlayerListener implements Runnable, IpConfigImp {
 
     private Socket socket;
     private ObjectOutputStream out;
 
-    public PlayerConnection(String hostName, int portNr) {
-        System.out.println("ClientConnection created");
+    public PlayerListener(String hostName, int portNr) {
         try {
             this.socket = new Socket(hostName, portNr);
             out = new ObjectOutputStream(socket.getOutputStream());
@@ -25,16 +24,16 @@ public class PlayerConnection implements Runnable, IpConfigImp {
 
     @Override
     public void run() {
-        System.out.println("Running...");
         PlayerProtocol playerProtocol = new PlayerProtocol();
         Thread thread = new Thread(() -> {
             try {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+
                 Object objectFromServer;
                 while ((objectFromServer = in.readObject()) != null) {
-                    System.out.println("Object received for sorting");
                     playerProtocol.checkObjectFromServer(objectFromServer);
                 }
+
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -44,7 +43,6 @@ public class PlayerConnection implements Runnable, IpConfigImp {
 
     public void sendObjectToServer(Object objectToServer) {
         try {
-            System.out.println("Sending object to server...");
             out.writeObject(objectToServer);
             out.flush();
         } catch (IOException e) {

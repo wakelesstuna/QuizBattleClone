@@ -39,7 +39,6 @@ public class TriviaDB {
             String input;
             while ((input = in.readLine()) != null) {
                 String inputTrim = input.substring(19);
-                System.out.println(input);
 
                 String category = null;
                 String question = null;
@@ -82,7 +81,6 @@ public class TriviaDB {
                     }
                     counter++;
                 }
-               testOutPut(questions, 5);
             }
             in.close();
         } catch (IOException e) {
@@ -90,57 +88,22 @@ public class TriviaDB {
         }
         Collections.shuffle(questions);
         return questions;
-
-    }
-
-    public void testOutPut(List<Question> questions, int indexOfQuestion){
-        System.out.println();
-        System.out.println("Category: \n" + questions.get(indexOfQuestion).getCategoryName());
-        System.out.println("Question: \n" + questions.get(indexOfQuestion).getQuestion());
-        System.out.println("Correct answer: \n" + questions.get(indexOfQuestion).getCorrectAnswer());
-        System.out.println("AnswerList: ");
-        for (String s : questions.get(indexOfQuestion).getAnswerChoices()) {
-            System.out.println(s);
-        }
     }
 
     public List<Question> getQuestionList(String categoryName) {
-        if (categoryName.equalsIgnoreCase("sports")){
+        if (categoryName.equalsIgnoreCase("sports")) {
             return sports;
-        }else if (categoryName.equalsIgnoreCase("scienceAndNature")){
+        } else if (categoryName.equalsIgnoreCase("scienceAndNature")) {
             return scienceAndNature;
-        }else if (categoryName.equalsIgnoreCase("animals")){
+        } else if (categoryName.equalsIgnoreCase("animals")) {
             return animals;
-        }else if (categoryName.equalsIgnoreCase("geography")){
+        } else if (categoryName.equalsIgnoreCase("geography")) {
             return geography;
-        }else if (categoryName.equalsIgnoreCase("history")){
+        } else if (categoryName.equalsIgnoreCase("history")) {
             return history;
-        }else {
+        } else {
             return null;
         }
     }
-
-    public List<Question> getQuestionList(int listNumber) {
-        if (listNumber == 0){
-            return sports;
-        }else if (listNumber == 1){
-            return scienceAndNature;
-        }else if (listNumber == 2){
-            return animals;
-        }else if (listNumber == 3){
-            return geography;
-        }else if (listNumber == 4){
-            return history;
-        }else {
-            return null;
-        }
-    }
-
-
-
-    public static void main(String[] args) {
-        new TriviaDB();
-    }
-
 
 }

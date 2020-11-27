@@ -20,8 +20,7 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
 
     private final List<Button> answerButtonsList = new ArrayList<>();
     private Question question;
-    GameBoardController GBC = FxmlUtil.getGameBoardController();
-
+    private final GameBoardController GBC = FxmlUtil.getGameBoardController();
 
     @FXML
     private Label categoryLabel;
@@ -47,6 +46,8 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
     @FXML
     private Label waitingLabel;
 
+    private int rounds = 0;
+
     public void answerButton(ActionEvent ae){
 
         for (Button b : answerButtonsList){
@@ -69,7 +70,7 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
         setRightButtonToGreen();
         noMoreQuestionAddRound();
 
-        Main.playerConnection.sendObjectToServer(new InfoObj(HANDLE_ANSWER, pressed.getText()));
+        Main.playerListener.sendObjectToServer(new InfoObj(HANDLE_ANSWER, pressed.getText()));
     }
 
     public void setRightButtonToGreen(){
@@ -86,16 +87,16 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
     }
 
     public void setRoundScore(){
-        if (GBC.getWhichRound() == 1){
-            GBC.getYouRound1Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound1Score().getText()) + 1));
-        }else if (GBC.getWhichRound() == 2){
-            GBC.getYouRound2Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound2Score().getText()) + 1));
-        }else if (GBC.getWhichRound() == 3){
-            GBC.getYouRound3Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound3Score().getText()) + 1));
-        }else if (GBC.getWhichRound() == 4){
-            GBC.getYouRound4Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound4Score().getText()) + 1));
+        if (rounds == 1){
+            FxmlUtil.getGameBoardController().getYouRound1Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound1Score().getText()) + 1));
+        }else if (rounds == 2){
+            FxmlUtil.getGameBoardController().getYouRound2Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound2Score().getText()) + 1));
+        }else if (rounds == 3){
+            FxmlUtil.getGameBoardController().getYouRound3Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound3Score().getText()) + 1));
+        }else if (rounds == 4){
+            FxmlUtil.getGameBoardController().getYouRound4Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound4Score().getText()) + 1));
         }else{
-            GBC.getYouRound5Score().setText(String.valueOf(Integer.parseInt(GBC.getYouRound5Score().getText()) + 1));
+            FxmlUtil.getGameBoardController().getYouRound5Score().setText(String.valueOf(Integer.parseInt(FxmlUtil.getGameBoardController().getYouRound5Score().getText()) + 1));
         }
 
     }
@@ -118,6 +119,14 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
         }else {
             GBC.addRoundCounter();
         }
+    }
+
+    public void addRounds(){
+        this.rounds++;
+    }
+
+    public int getRounds() {
+        return rounds;
     }
 
     public Question getQuestion() {
@@ -148,4 +157,7 @@ public class QuestionBoardController implements Initializable, FxmlPathsImp {
         return answerButtonsList;
     }
 
+    public void setRounds(int i) {
+        this.rounds = i;
+    }
 }

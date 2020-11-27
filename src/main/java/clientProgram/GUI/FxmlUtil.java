@@ -17,7 +17,7 @@ public class FxmlUtil implements FxmlPathsImp {
 
     private static final FXMLLoader loginMenuLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(LOGIN_MENU));
     private static Parent loginMenuParent;
-    static { try { loginMenuParent = loginMenuLoader.load(); System.out.println("Loaded Login Menu");} catch (IOException e) { e.printStackTrace(); }}
+    static { try { loginMenuParent = loginMenuLoader.load(); } catch (IOException e) { e.printStackTrace(); }}
     private static final Scene loginMenuScene = new Scene(loginMenuParent);
 
     public static Scene getLoginMenuScene() {
@@ -28,7 +28,7 @@ public class FxmlUtil implements FxmlPathsImp {
 
     private static final FXMLLoader gameMenuLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(GAME_MENU));
     private static Parent gameMenuParent;
-    static { try { gameMenuParent = gameMenuLoader.load(); System.out.println("Loaded Game Menu"); } catch (IOException e) { e.printStackTrace(); }}
+    static { try { gameMenuParent = gameMenuLoader.load(); } catch (IOException e) { e.printStackTrace(); }}
     private static final Scene gameMenuScene = new Scene(gameMenuParent);
     private static final GameMenuController gameMenuController = gameMenuLoader.getController();
 
@@ -44,7 +44,7 @@ public class FxmlUtil implements FxmlPathsImp {
 
     private static final FXMLLoader randomPlayerLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(RANDOM_PLAYER));
     private static Parent randomPlayerParent;
-    static { try { randomPlayerParent = randomPlayerLoader.load(); System.out.println("Loaded Random Player Menu");} catch (IOException e) { e.printStackTrace(); }}
+    static { try { randomPlayerParent = randomPlayerLoader.load(); } catch (IOException e) { e.printStackTrace(); }}
     private static final Scene randomPlayerScene = new Scene(randomPlayerParent);
     private static final RandomPlayerController randomPlayerController = randomPlayerLoader.getController();
 
@@ -60,7 +60,7 @@ public class FxmlUtil implements FxmlPathsImp {
 
     private static final FXMLLoader searchingForPlayerLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(SEARCHING_FOR_PLAYER));
     private static Parent searchingForPlayerParent;
-    static { try { searchingForPlayerParent = searchingForPlayerLoader.load(); System.out.println("Loaded Searching For Player Scene");} catch (IOException e) { e.printStackTrace(); }}
+    static { try { searchingForPlayerParent = searchingForPlayerLoader.load(); } catch (IOException e) { e.printStackTrace(); }}
     private static final Scene searchingForPlayerScene = new Scene(searchingForPlayerParent);
 
     public static Scene getSearchingForPlayerScene() {
@@ -71,7 +71,7 @@ public class FxmlUtil implements FxmlPathsImp {
 
     private static final FXMLLoader gameBoardLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(GAME_BOARD));
     private static Parent gameBoardParent;
-    static { try { gameBoardParent = gameBoardLoader.load(); System.out.println("Loaded Game Bord Scene");} catch (IOException e) { e.printStackTrace(); }}
+    static { try { gameBoardParent = gameBoardLoader.load(); } catch (IOException e) { e.printStackTrace(); }}
     private static final Scene gameBoardScene = new Scene(gameBoardParent);
     private static final GameBoardController gameBoardController = gameBoardLoader.getController();
 
@@ -87,7 +87,7 @@ public class FxmlUtil implements FxmlPathsImp {
 
     private static final FXMLLoader categoryChoiceBoardLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(CATEGORY_BOARD));
     private static Parent categoryChoiceBoardParent;
-    static { try { categoryChoiceBoardParent = categoryChoiceBoardLoader.load(); System.out.println("Loaded CateGory Board Scene");} catch (IOException e) { e.printStackTrace(); }}
+    static { try { categoryChoiceBoardParent = categoryChoiceBoardLoader.load(); } catch (IOException e) { e.printStackTrace(); }}
     private static final Scene categoryChoiceBoardScene = new Scene(categoryChoiceBoardParent);
     private static final CategoryChoiceBoardController categoryChoiceBoardController = categoryChoiceBoardLoader.getController();
 
@@ -101,7 +101,7 @@ public class FxmlUtil implements FxmlPathsImp {
 
     private static final FXMLLoader questionBoardLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(QUESTION_BOARD));
     private static Parent questionBoardParent;
-    static { try { questionBoardParent = questionBoardLoader.load(); System.out.println("Loaded Question Board Scene");} catch (IOException e) { e.printStackTrace(); }}
+    static { try { questionBoardParent = questionBoardLoader.load(); } catch (IOException e) { e.printStackTrace(); }}
     private static final Scene questionBoardScene = new Scene(questionBoardParent);
     private static final QuestionBoardController questionBoardController = questionBoardLoader.getController();
 
@@ -117,7 +117,7 @@ public class FxmlUtil implements FxmlPathsImp {
 
     private static final FXMLLoader finalResultsLoader = new FXMLLoader(FxmlUtil.class.getClassLoader().getResource(FINAL_RESULTS));
     private static Parent finalResultsParent;
-    static { try { finalResultsParent = finalResultsLoader.load(); System.out.println("Loaded Final Results Scene");} catch (IOException e) { e.printStackTrace(); }}
+    static { try { finalResultsParent = finalResultsLoader.load(); } catch (IOException e) { e.printStackTrace(); }}
     private static final Scene finalResultsScene = new Scene(finalResultsParent);
     private static final FinalResultsController finalResultsController = finalResultsLoader.getController();
 

@@ -1,7 +1,6 @@
 package serverProgram;
 
 import model.*;
-import serverProgram.questionDAO.Database;
 import serverProgram.questionDAO.TriviaDB;
 
 import java.io.FileInputStream;
@@ -17,16 +16,15 @@ public class ServerProtocol {
     private int questionsPerRound;
 
     private int currentRound = 0;
-    private int currentCategory = 0;
     private int currentQuestion = 0;
 
     private Question question = null;
 
     private final ArrayList<ServerListener> playersList;
-    private final Database database;
     private final TriviaDB triviaDB;
     private Game game;
-    Player player;
+    private Player player;
+    private ServerListener serverListener;
     private List<Question> questionList = new ArrayList<>();
 
 
@@ -53,46 +51,29 @@ public class ServerProtocol {
             e.printStackTrace();
         }
         triviaDB = new TriviaDB();
-        database = new Database();
         playersList = new ArrayList<>();
 
-    }
-
-    public int getRoundsPerGame() {
-        return roundsPerGame;
-    }
-
-    public int getQuestionsPerRound() {
-        return questionsPerRound;
     }
 
     public ArrayList<ServerListener> getPlayersList() {
         return playersList;
     }
 
-    // test the reading from config.properties
-    public static void main(String[] args) {
-        ServerProtocol s = new ServerProtocol();
-        System.out.println(s.getRoundsPerGame());
-        System.out.println(s.getQuestionsPerRound());
-
-    }
 
     //-------------------------------------- To Handle Object From Player ------------------------------------------\\
 
 
     public void handleObject(ServerListener serverListener, InfoObj infoObj) {
-
         player = serverListener.getPlayer();
+        this.serverListener = serverListener;
 
-        // different states of the game
         switch (infoObj.getState()) {
             case SET_PLAYERNAME -> setPlayerName(infoObj);
-            case READY_TO_PLAY -> readyToPlay(serverListener);
-            case ASK_CATEGORY -> sendAskForCategoryToCurrentPlayer(serverListener);
-            case SET_CATEGORY -> setCategory(serverListener, infoObj);
-            case SEND_QUESTION -> sendQuestion(serverListener);
-            case HANDLE_ANSWER -> checkAnswer(player, serverListener, infoObj);
+            case READY_TO_PLAY -> readyToPlay();
+            case ASK_CATEGORY -> sendAskForCategoryToCurrentPlayer();
+            case SET_CATEGORY -> setCategory(infoObj);
+            case SEND_QUESTION -> sendQuestion();
+            case HANDLE_ANSWER -> checkAnswer(infoObj);
         }
     }
 
@@ -100,77 +81,65 @@ public class ServerProtocol {
         player.setPlayerName(infoObj.getMsg());
     }
 
-    public void readyToPlay(ServerListener serverListener) {
+    public void readyToPlay() {
         game = serverListener.getGame();
         serverListener.getPlayer().setReadyToPlay(true);
 
         if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
-            game.getPlayer1().setOpponent(game.getPlayer2());
-            game.getPlayer2().setOpponent(game.getPlayer1());
-            System.out.println("both ready to play");
+
+            setPlayersOpponents();
+
             setReadyToPlayFalseForBothPlayers();
 
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            threadSleep(1000);
 
-            for (ServerListener l : playersList) {
-
-                l.sendObj(new StartPackage(roundsPerGame, questionsPerRound));
+            for (ServerListener p : playersList) {
+                p.sendObj(new StartPackage(roundsPerGame, questionsPerRound));
             }
             sendOpponentToAllPlayers(GO_TO_GAMEBOARD);
         }
     }
 
 
-    public void sendAskForCategoryToCurrentPlayer(ServerListener serverListener) {
-
+    public void sendAskForCategoryToCurrentPlayer() {
         serverListener.getPlayer().setReadyToPlay(true);
-        if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()){
-            for (ServerListener s : playersList){
+
+        if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
+            for (ServerListener s : playersList) {
                 s.sendObj(new InfoObj(ASK_CATEGORY, game.getCurrentPlayer().getPlayerName()));
             }
-
         }
-
-
     }
 
-    public void setCategory(ServerListener serverListener, InfoObj infoObj) {
+    public void setCategory(InfoObj infoObj) {
         questionList = triviaDB.getQuestionList(infoObj.getMsg());
         setReadyToPlayTrueForBothPlayers();
         game.switchCurrentPlayers();
-        sendQuestion(serverListener);
+        sendQuestion();
 
     }
 
-    public void sendQuestion(ServerListener serverListener) {
-
+    public void sendQuestion() {
         serverListener.getPlayer().setReadyToPlay(true);
 
         if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
 
-            if (currentRound < roundsPerGame) {
-                if (currentQuestion < questionsPerRound) {
-                    switch (currentQuestion) {
-                        case 0 -> question = questionList.get(0);
-                        case 1 -> question = questionList.get(1);
-                        case 2 -> question = questionList.get(2);
-                        case 3 -> question = questionList.get(3);
-                        case 4 -> question = questionList.get(4);
-                    }
-                    currentQuestion++;
-                    setReadyToPlayFalseForBothPlayers();
-                    sendToAllPlayers(question);
-                }
+            switch (currentQuestion) {
+                case 0 -> question = questionList.get(0);
+                case 1 -> question = questionList.get(1);
+                case 2 -> question = questionList.get(2);
+                case 3 -> question = questionList.get(3);
+                case 4 -> question = questionList.get(4);
             }
+            currentQuestion++;
+            setReadyToPlayFalseForBothPlayers();
+            sendToAllPlayers(question);
         }
 
     }
 
-    private void checkAnswer(Player player, ServerListener serverListener, InfoObj infoObj) {
+    private void checkAnswer(InfoObj infoObj) {
+
         player.setReadyToPlay(true);
 
         if (infoObj.getMsg().equalsIgnoreCase(question.getCorrectAnswer())) {
@@ -179,19 +148,13 @@ public class ServerProtocol {
         }
 
         if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
-            System.out.println("currentQuestion: " + currentQuestion);
-            System.out.println("questionsPerRound: " + questionsPerRound);
+            threadSleep(1500);
+
             if (currentQuestion < questionsPerRound) {
-                sendQuestion(serverListener);
+                sendQuestion();
             } else {
                 currentQuestion = 0;
-                currentCategory++;
                 currentRound++;
                 setReadyToPlayFalseForBothPlayers();
 
@@ -206,8 +169,6 @@ public class ServerProtocol {
                     sendOpponentToAllPlayers(GAME_OVER);
                 }
             }
-        } else {
-            System.out.println("Väntar på att den andra spelaren ska svara");
         }
     }
 
@@ -227,7 +188,7 @@ public class ServerProtocol {
         }
     }
 
-    public void setReadyToPlayTrueForBothPlayers(){
+    public void setReadyToPlayTrueForBothPlayers() {
         game.getPlayer1().setReadyToPlay(true);
         game.getPlayer2().setReadyToPlay(true);
     }
@@ -235,6 +196,19 @@ public class ServerProtocol {
     public void setReadyToPlayFalseForBothPlayers() {
         game.getPlayer1().setReadyToPlay(false);
         game.getPlayer2().setReadyToPlay(false);
+    }
+
+    public void setPlayersOpponents(){
+        game.getPlayer1().setOpponent(game.getPlayer2());
+        game.getPlayer2().setOpponent(game.getPlayer1());
+    }
+
+    public void threadSleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

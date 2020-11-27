@@ -12,41 +12,35 @@ import model.StartPackage;
 import javafx.application.Platform;
 
 public class PlayerProtocol {
-    /**
-     * I Main sparar vi alla vaiabler, som statiska variabler, vi behöver i spelet
-     * som vi behöver komma åt från protokollet och kontrollerna
-     * Man bygger upp de med att när man ska byta scene, så skickar man en fråga till
-     * servern från kontrollern och frågar efter den infon man behöver använda i nästa scene
-     * och sätter den infon till variablerna i main, sen byter man scene. Efter de laddar man
-     * in alla variabler och data(från de statiska main variablerna) man behöver i den nästkommande scene
-     * med hjälp av implementet initialize
-     */
+
+    GameBoardController GBC = FxmlUtil.getGameBoardController();
+    CategoryChoiceBoardController CCBC = FxmlUtil.getCategoryChoiceBoardController();
+    QuestionBoardController QBC = FxmlUtil.getQuestionBoardController();
+    FinalResultsController FRC = FxmlUtil.getFinalResultsController();
+
 
     public void checkObjectFromServer(Object objFromServer) {
 
         if (objFromServer instanceof InfoObj) {
 
             switch (((InfoObj) objFromServer).getState()) {
-                case READY_TO_PLAY -> System.out.println(((InfoObj) objFromServer).getMsg());
                 case GO_TO_GAMEBOARD -> loadGameBoard((InfoObj) objFromServer);
                 case ASK_CATEGORY -> askForCategory((InfoObj) objFromServer);
                 case GAME_OVER -> finalScore((InfoObj) objFromServer);
             }
 
         } else if (objFromServer instanceof Question) {
-            QuestionBoardController QBC = FxmlUtil.getQuestionBoardController();
-            CategoryChoiceBoardController CCBC = FxmlUtil.getCategoryChoiceBoardController();
+            System.out.println(((Question) objFromServer).getCategoryName());
             switch (((Question) objFromServer).getCategoryName()) {
-                case "sports" -> CCBC.getSports().setDisable(true);
-                case "scienceAndNature" -> CCBC.getScienceAndNature().setDisable(true);
-                case "animals" -> CCBC.getAnimals().setDisable(true);
-                case "geography" -> CCBC.getGeography().setDisable(true);
-                case "history" -> CCBC.getHistory().setDisable(true);
+                case "Sports" -> CCBC.getSports().setVisible(false);
+                case "Science & nature" -> CCBC.getScienceAndNature().setVisible(false);
+                case "Animals" -> CCBC.getAnimals().setVisible(false);
+                case "Geography" -> CCBC.getGeography().setVisible(false);
+                case "History" -> CCBC.getHistory().setVisible(false);
             }
 
             Platform.runLater(() -> {
-
-                FxmlUtil.getGameBoardController().playButton.setDisable(false);
+                GBC.playButton.setDisable(false);
                 QBC.getAnswerButtonsList().forEach(button -> {
                     button.setDisable(false);
                     button.setStyle("-fx-background-color: #D1FDFF");
@@ -68,7 +62,6 @@ public class PlayerProtocol {
             });
 
         } else if (objFromServer instanceof StartPackage) {
-            GameBoardController GBC = FxmlUtil.getGameBoardController();
             GBC.setNumberOfRounds(((StartPackage) objFromServer).getGameRounds());
             GBC.setNumberOfQuestions(((StartPackage) objFromServer).getQuestionPerRounds());
 
@@ -83,24 +76,22 @@ public class PlayerProtocol {
     }
 
     private void loadGameBoard(InfoObj objFromServer) {
-        GameBoardController GBC = FxmlUtil.getGameBoardController();
-
         Label opponentTotalScoreLabel = GBC.getOpponentTotalScore();
         int currentOpponentTotalScore = Integer.parseInt(GBC.getOpponentTotalScore().getText());
         int tempRoundScore = objFromServer.getOpponent().getPlayerRoundScore();
 
         Platform.runLater(() -> {
-            GBC.getWithRoundNumberLabel().setText("" + FxmlUtil.getGameBoardController().getWhichRound());
+            GBC.getWithRoundNumberLabel().setText(String.valueOf(GBC.getWhichRound()));
             GBC.getOpponentName().setText(objFromServer.getOpponent().getPlayerName());
             GBC.getOpponentRound1Score().setText("" + (objFromServer.getOpponent().getPlayerRoundScore()));
 
-            if (GBC.getWhichRound() == 1) {
+            if (QBC.getRounds() == 1) {
                 GBC.getOpponentRound1Score().setText(String.valueOf(tempRoundScore));
-            } else if (GBC.getWhichRound() == 2) {
+            } else if (QBC.getRounds() == 2) {
                 GBC.getOpponentRound2Score().setText(String.valueOf(tempRoundScore));
-            } else if (GBC.getWhichRound() == 3) {
+            } else if (QBC.getRounds() == 3) {
                 GBC.getOpponentRound3Score().setText(String.valueOf(tempRoundScore));
-            } else if (GBC.getWhichRound() == 4) {
+            } else if (QBC.getRounds() == 4) {
                 GBC.getOpponentRound4Score().setText(String.valueOf(tempRoundScore));
             } else {
                 GBC.getOpponentRound5Score().setText(String.valueOf(tempRoundScore));
@@ -113,10 +104,6 @@ public class PlayerProtocol {
 
     private void askForCategory(InfoObj infoObj) {
         Platform.runLater(() -> {
-            CategoryChoiceBoardController CCBC = FxmlUtil.getCategoryChoiceBoardController();
-            System.out.println("inne i askForCategory");
-            System.out.println(infoObj.getMsg());
-            System.out.println(Main.playerName);
             if (infoObj.getMsg().equals(Main.playerName)) {
                 CCBC.getWhosTurnLabel().setText("Your turn");
                 CCBC.getChoseACategoryLabel().setText("Choose a category");
@@ -135,8 +122,6 @@ public class PlayerProtocol {
                 CCBC.getScienceAndNature().setDisable(true);
                 CCBC.getSports().setDisable(true);
                 CCBC.getWaitingIndicator().setVisible(true);
-
-                // TODO: 2020-11-26 fixa score så de blir rätt runda 1 och ta bort choise när man valt categori 
             }
             FxmlUtil.changeScenes(FxmlUtil.getCategoryChoiceBoardScene());
         });
@@ -144,8 +129,6 @@ public class PlayerProtocol {
 
     public void finalScore(InfoObj objFromServer) {
         Platform.runLater(() -> {
-            FinalResultsController FRC = FxmlUtil.getFinalResultsController();
-            GameBoardController GBC = FxmlUtil.getGameBoardController();
             int yourTotalScore = Integer.parseInt(GBC.getYourTotalScore().getText());
             int opponentTotalScore = objFromServer.getOpponent().getPlayerTotalScore();
 

@@ -35,23 +35,23 @@ public class CategoryChoiceBoardController{
     private Button history;
 
     public void sports(){
-        Main.playerConnection.sendObjectToServer(new InfoObj(SET_CATEGORY, "sports"));
+        Main.playerListener.sendObjectToServer(new InfoObj(SET_CATEGORY, "sports"));
     }
 
     public void scienceAndNature(){
-        Main.playerConnection.sendObjectToServer(new InfoObj(SET_CATEGORY, "scienceAndNature"));
+        Main.playerListener.sendObjectToServer(new InfoObj(SET_CATEGORY, "scienceAndNature"));
     }
 
     public void animals(){
-        Main.playerConnection.sendObjectToServer(new InfoObj(SET_CATEGORY, "animals"));
+        Main.playerListener.sendObjectToServer(new InfoObj(SET_CATEGORY, "animals"));
     }
 
     public void geography(){
-        Main.playerConnection.sendObjectToServer(new InfoObj(SET_CATEGORY, "geography"));
+        Main.playerListener.sendObjectToServer(new InfoObj(SET_CATEGORY, "geography"));
     }
 
     public void history(){
-        Main.playerConnection.sendObjectToServer(new InfoObj(SET_CATEGORY, "history"));
+        Main.playerListener.sendObjectToServer(new InfoObj(SET_CATEGORY, "history"));
     }
 
     public ProgressIndicator getWaitingIndicator() {

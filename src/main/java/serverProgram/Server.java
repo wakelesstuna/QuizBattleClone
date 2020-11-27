@@ -13,26 +13,23 @@ public class Server implements IpConfigImp {
     public Server() {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             this.serverSocket = serverSocket;
-            System.out.println("BestQuizEverServer is Running on Port " + PORT + "....");
 
             while (!serverSocket.isClosed()) {
                 game = new Game();
                 serverProtocol = new ServerProtocol();
                 for (int i = 1; i < 3; i++) {
-                   ServerListener serverListener = new ServerListener(serverSocket.accept(), serverProtocol, game, i);
-                   System.out.println("Player " + i + " connected");
-                   serverListener.start();
+                    ServerListener serverListener = new ServerListener(serverSocket.accept(), serverProtocol, game, i);
+                    serverListener.start();
                 }
             }
 
-        }catch (Exception e) {
-            System.out.println("Player disconnected");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
         new Server();
     }
-
 
 }

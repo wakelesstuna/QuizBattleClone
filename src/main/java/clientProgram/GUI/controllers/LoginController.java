@@ -29,9 +29,10 @@ public class LoginController implements Initializable {
         if (userName.getText().isEmpty()){
             userName.setPromptText("You need to enter a name");
         }else {
-            FxmlUtil.getGameBoardController().getYouName().setText(userName.getText());
-            FxmlUtil.getGameMenuController().getUserNameLabel().setText(userName.getText());
             Main.playerName = userName.getText();
+            FxmlUtil.getGameBoardController().getYouName().setText(Main.playerName);
+            FxmlUtil.getGameMenuController().getUserNameLabel().setText(Main.playerName);
+
             FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
 
         }

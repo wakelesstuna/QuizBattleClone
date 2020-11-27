@@ -7,6 +7,8 @@ import model.InfoObj;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+import java.io.IOException;
+
 import static model.STATE.*;
 
 public class RandomPlayerController implements FxmlPathsImp {
@@ -14,15 +16,19 @@ public class RandomPlayerController implements FxmlPathsImp {
     @FXML
     public Button randomPlayer;
 
-    // to go back to mainGameScreen
     public void loadMainGame() {
+        try {
+            Main.playerListener.getSocket().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
     }
 
-    // Creates a connection to the server, sends userName to server, sends that this player is ready to play a game
+
     public void loadRandomPlayer() {
-        Main.playerConnection.sendObjectToServer(new InfoObj(SET_PLAYERNAME, FxmlUtil.getGameMenuController().getUserNameLabel().getText()));
-        Main.playerConnection.sendObjectToServer(new InfoObj(READY_TO_PLAY));
+        Main.playerListener.sendObjectToServer(new InfoObj(SET_PLAYERNAME, Main.playerName));
+        Main.playerListener.sendObjectToServer(new InfoObj(READY_TO_PLAY));
         FxmlUtil.changeScenes(FxmlUtil.getSearchingForPlayerScene());
     }
 }

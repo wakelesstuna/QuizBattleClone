@@ -84,30 +84,19 @@ public class ServerProtocol {
     public void readyToPlay() {
         game = serverListener.getGame();
         serverListener.getPlayer().setReadyToPlay(true);
-
         if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
-
             setPlayersOpponents();
-
-            setReadyToPlayFalseForBothPlayers();
-
+            setReadyToPlayFalseForPlayers();
             threadSleep(1000);
-
-            for (ServerListener p : playersList) {
-                p.sendObj(new StartPackage(roundsPerGame, questionsPerRound));
-            }
+            sendToAllPlayers(new StartPackage(roundsPerGame, questionsPerRound));
             sendOpponentToAllPlayers(GO_TO_GAMEBOARD);
         }
     }
 
-
     public void sendAskForCategoryToCurrentPlayer() {
         serverListener.getPlayer().setReadyToPlay(true);
-
         if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
-            for (ServerListener s : playersList) {
-                s.sendObj(new InfoObj(ASK_CATEGORY, game.getCurrentPlayer().getPlayerName()));
-            }
+            sendToAllPlayers(new InfoObj(ASK_CATEGORY, game.getCurrentPlayer().getPlayerName()));
         }
     }
 
@@ -121,50 +110,33 @@ public class ServerProtocol {
 
     public void sendQuestion() {
         serverListener.getPlayer().setReadyToPlay(true);
-
         if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
-
-            switch (currentQuestion) {
-                case 0 -> question = questionList.get(0);
-                case 1 -> question = questionList.get(1);
-                case 2 -> question = questionList.get(2);
-                case 3 -> question = questionList.get(3);
-                case 4 -> question = questionList.get(4);
-            }
+            question = getQuestion();
             currentQuestion++;
-            setReadyToPlayFalseForBothPlayers();
+            setReadyToPlayFalseForPlayers();
             sendToAllPlayers(question);
         }
 
     }
 
     private void checkAnswer(InfoObj infoObj) {
-
         player.setReadyToPlay(true);
-
         if (infoObj.getMsg().equalsIgnoreCase(question.getCorrectAnswer())) {
             player.addRoundPoint();
             player.addTotalPoint();
         }
 
         if (game.getPlayer1().isReadyToPlay() && game.getPlayer2().isReadyToPlay()) {
-
             threadSleep(1500);
-
             if (currentQuestion < questionsPerRound) {
                 sendQuestion();
             } else {
                 currentQuestion = 0;
                 currentRound++;
-                setReadyToPlayFalseForBothPlayers();
-
+                setReadyToPlayFalseForPlayers();
                 if (currentRound < roundsPerGame) {
-
                     sendOpponentToAllPlayers(GO_TO_GAMEBOARD);
-
-                    game.getPlayer1().setPlayerRoundScore(0);
-                    game.getPlayer2().setPlayerRoundScore(0);
-
+                    resetPlayersRoundScores();
                 } else {
                     sendOpponentToAllPlayers(GAME_OVER);
                 }
@@ -172,13 +144,15 @@ public class ServerProtocol {
         }
     }
 
-    public void sendToAllPlayers(Object obj) {
+    //------------------------------------ Methods for ServerListener -------------------------------------------\\
+
+    private void sendToAllPlayers(Object obj) {
         for (ServerListener l : playersList) {
             l.sendObj(obj);
         }
     }
 
-    public void sendOpponentToAllPlayers(STATE state) {
+    private void sendOpponentToAllPlayers(STATE state) {
         for (ServerListener l : playersList) {
             Player temp = new Player();
             temp.setPlayerName(l.getPlayer().getOpponent().getPlayerName());
@@ -188,22 +162,39 @@ public class ServerProtocol {
         }
     }
 
-    public void setReadyToPlayTrueForBothPlayers() {
+    private Question getQuestion(){
+        Question tempQuestion = null;
+        switch (currentQuestion) {
+            case 0 -> tempQuestion = questionList.get(0);
+            case 1 -> tempQuestion = questionList.get(1);
+            case 2 -> tempQuestion = questionList.get(2);
+            case 3 -> tempQuestion = questionList.get(3);
+            case 4 -> tempQuestion = questionList.get(4);
+        }
+        return tempQuestion;
+    }
+
+    private void setReadyToPlayTrueForBothPlayers() {
         game.getPlayer1().setReadyToPlay(true);
         game.getPlayer2().setReadyToPlay(true);
     }
 
-    public void setReadyToPlayFalseForBothPlayers() {
+    private void setReadyToPlayFalseForPlayers() {
         game.getPlayer1().setReadyToPlay(false);
         game.getPlayer2().setReadyToPlay(false);
     }
 
-    public void setPlayersOpponents(){
+    private void setPlayersOpponents(){
         game.getPlayer1().setOpponent(game.getPlayer2());
         game.getPlayer2().setOpponent(game.getPlayer1());
     }
 
-    public void threadSleep(int millis) {
+    private void resetPlayersRoundScores(){
+        game.getPlayer1().setPlayerRoundScore(0);
+        game.getPlayer2().setPlayerRoundScore(0);
+    }
+
+    private void threadSleep(int millis) {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class PlayerListener implements Runnable, IpConfigImp {
 
@@ -34,8 +35,8 @@ public class PlayerListener implements Runnable, IpConfigImp {
                     playerProtocol.checkObjectFromServer(objectFromServer);
                 }
 
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (IOException | ClassNotFoundException e){
+                System.out.println("Server disconnected");
             }
         });
         thread.start();

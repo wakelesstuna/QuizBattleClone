@@ -46,7 +46,7 @@ public class ServerListener extends Thread {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(player.getPlayerName() + " disconnected from the game");
         }
     }
 

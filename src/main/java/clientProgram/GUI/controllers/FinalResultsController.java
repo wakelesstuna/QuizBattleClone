@@ -7,8 +7,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
+import java.security.Signature;
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class FinalResultsController implements FxmlPathsImp {
+
+
+    GameBoardController GBC = FxmlUtil.getGameBoardController();
+    CategoryChoiceBoardController CCBC = FxmlUtil.getCategoryChoiceBoardController();
+    QuestionBoardController QBC = FxmlUtil.getQuestionBoardController();
 
     @FXML
     private Label whoWinLabel;
@@ -33,26 +43,34 @@ public class FinalResultsController implements FxmlPathsImp {
             e.printStackTrace();
         }
         FxmlUtil.changeScenes(FxmlUtil.getGameMenuScene());
+
     }
 
     public void resetGUIScores() {
-        FxmlUtil.getGameBoardController().getOpponentRound1Score().setText("0");
-        FxmlUtil.getGameBoardController().getOpponentRound2Score().setText("0");
-        FxmlUtil.getGameBoardController().getOpponentRound3Score().setText("0");
-        FxmlUtil.getGameBoardController().getOpponentRound4Score().setText("0");
-        FxmlUtil.getGameBoardController().getOpponentRound5Score().setText("0");
-        FxmlUtil.getGameBoardController().getOpponentTotalScore().setText("0");
+        GBC.getOpponentRound1Score().setText("0");
+        GBC.getOpponentRound2Score().setText("0");
+        GBC.getOpponentRound3Score().setText("0");
+        GBC.getOpponentRound4Score().setText("0");
+        GBC.getOpponentRound5Score().setText("0");
+        GBC.getOpponentTotalScore().setText("0");
 
-        FxmlUtil.getGameBoardController().getYouRound1Score().setText("0");
-        FxmlUtil.getGameBoardController().getYouRound2Score().setText("0");
-        FxmlUtil.getGameBoardController().getYouRound3Score().setText("0");
-        FxmlUtil.getGameBoardController().getYouRound4Score().setText("0");
-        FxmlUtil.getGameBoardController().getYouRound5Score().setText("0");
-        FxmlUtil.getGameBoardController().getYourTotalScore().setText("0");
+        GBC.getYouRound1Score().setText("0");
+        GBC.getYouRound2Score().setText("0");
+        GBC.getYouRound3Score().setText("0");
+        GBC.getYouRound4Score().setText("0");
+        GBC.getYouRound5Score().setText("0");
+        GBC.getYourTotalScore().setText("0");
 
-        FxmlUtil.getGameBoardController().getWhichRoundLabel().setText("0");
-        FxmlUtil.getGameBoardController().setWhichRound(1);
-        FxmlUtil.getQuestionBoardController().setRounds(0);
+        GBC.getWhichRoundLabel().setText("0");
+        GBC.setWhichRound(1);
+
+        CCBC.getHistory().setVisible(true);
+        CCBC.getScienceAndNature().setVisible(true);
+        CCBC.getSports().setVisible(true);
+        CCBC.getAnimals().setVisible(true);
+        CCBC.getGeography().setVisible(true);
+
+        QBC.setRounds(0);
     }
 
     public Label getOpponentName() {
@@ -62,7 +80,6 @@ public class FinalResultsController implements FxmlPathsImp {
     public Label getWhoWinLabel() {
         return whoWinLabel;
     }
-
 
     public Label getYouFinalScore() {
         return youFinalScore;

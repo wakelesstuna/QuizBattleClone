@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,7 +76,7 @@ public class TriviaDB {
 
                         Collections.shuffle(tempList);
 
-                        Question q = new Question(question, correctAnswer, tempList, category);
+                        Question q = new Question(question, correctAnswer, tempList, Objects.requireNonNull(category));
                         questions.add(q);
                         counter = 0;
                     }

@@ -1,14 +1,19 @@
 package clientProgram.GUI.controllers;
 
 import clientProgram.Main;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import model.InfoObj;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import static model.STATE.*;
 
-public class CategoryChoiceBoardController{
+public class CategoryChoiceBoardController implements Initializable {
 
     @FXML
     private ProgressIndicator waitingIndicator;
@@ -84,5 +89,14 @@ public class CategoryChoiceBoardController{
 
     public Button getHistory() {
         return history;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        sports.setStyle("-fx-background-color: #D1FDFF");
+        scienceAndNature.setStyle("-fx-background-color: #D1FDFF");
+        animals.setStyle("-fx-background-color: #D1FDFF");
+        geography.setStyle("-fx-background-color: #D1FDFF");
+        history.setStyle("-fx-background-color: #D1FDFF");
     }
 }
